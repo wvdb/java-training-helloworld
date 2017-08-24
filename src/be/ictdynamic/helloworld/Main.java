@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args) {
 
         Scanner reader = new Scanner(System.in);
-        System.out.println("Enter a number: ");
+        System.out.println("Geef identifier van de oefening: ");
         int number = reader.nextInt();
 
         switch (number) {
