@@ -6,6 +6,6 @@ package be.ictdynamic.helloworld.oefening_interfaces;
 public class DummyInterfaceImpl implements DummyInterface{
     @Override
     public String getCompleteName(String firstName, String lastName) {
-        return null;
+        return firstName + " " + lastName;
     }
 }
