@@ -1,5 +1,7 @@
 package be.ictdynamic.helloworld.oefening_inheritance_0;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 
 /**
@@ -14,5 +16,11 @@ public class DateHelper {
 
     public String getCurrentDateAsString() {
         return currentDate.toString();
+    }
+
+    public Date addNumberOfDays(Date date, int numberOfDays) {
+        LocalDateTime localDateTime = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        localDateTime = localDateTime.plusDays(numberOfDays);
+        return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
     }
 }

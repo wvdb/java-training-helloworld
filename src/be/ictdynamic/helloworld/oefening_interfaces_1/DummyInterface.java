@@ -15,4 +15,8 @@ public interface DummyInterface extends DummyInterface1, DummyInterface2, DummyI
             System.out.println(dummyArg == null ? "onbekend" : dummyArg.toUpperCase());
         }
     }
+
+    default void move(){
+        System.out.println("I am moving");
+    }
 }
