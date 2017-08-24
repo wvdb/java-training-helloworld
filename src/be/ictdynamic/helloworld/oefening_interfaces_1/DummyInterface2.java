@@ -1,4 +1,4 @@
-package be.ictdynamic.helloworld.oefening_interfaces;
+package be.ictdynamic.helloworld.oefening_interfaces_1;
 
 /**
  * Created by wvdbrand on 24/08/2017.
