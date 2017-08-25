@@ -47,6 +47,7 @@ public class Main {
         oefeningInheritanceHelper(dateHelper1, europeanDateHelper, dateHelper2, dateHelper4);
     }
 
+    // IntelliJ geeft aan dat 4de argument niet wordt gebruikt
     private static void oefeningInheritanceHelper(IDateHelper dateHelper1, IDateHelper dateHelper2, IDateHelper dateHelper3, IDateHelper dateHelper4) {
         System.out.println("datum = " + dateHelper1.getCurrentDateAsString());
         System.out.println("datum = " + dateHelper2.getCurrentDateAsString());
