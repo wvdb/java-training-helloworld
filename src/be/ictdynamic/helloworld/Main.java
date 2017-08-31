@@ -1,11 +1,14 @@
 package be.ictdynamic.helloworld;
 
+import be.ictdynamic.helloworld.domain.Employee;
+import be.ictdynamic.helloworld.domain.Worker;
 import be.ictdynamic.helloworld.oefening_function_10.ExampleOfAFunction;
 import be.ictdynamic.helloworld.oefening_inheritance_0.DateHelper;
 import be.ictdynamic.helloworld.oefening_inheritance_0.EuropeanDateHelper;
 import be.ictdynamic.helloworld.oefening_inheritance_0.IDateHelper;
 import be.ictdynamic.helloworld.oefening_interfaces_1.DummyInterface;
 import be.ictdynamic.helloworld.oefening_interfaces_1.DummyInterfaceImpl1;
+import be.ictdynamic.helloworld.oefening_interfaces_1.DummyInterfaceImpl2;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -25,6 +28,9 @@ public class Main {
                 break;
             case 1:
                 Main.oefeningInterfaces();
+                break;
+            case 2:
+                Main.oefeningStaticMethod();
                 break;
             case 10:
                 Main.oefeningFunction();
@@ -62,12 +68,17 @@ public class Main {
         DummyInterface.InnerInterface2.printToUpperCase("dit is nog een test");
 
         // voorbeeld van design by interface
-        DummyInterface dummyInterface = new DummyInterfaceImpl1();
-//        Object dummyInterface = new DummyInterfaceImpl1();
+        DummyInterface dummyInterface;
 
-        // concatenating van 2 strings met Java 8 - remember : a method should do one thing only and it should do it properly
+        // concatenating van 2 strings (using StringBuilder/StringBuffer)
+        dummyInterface = new DummyInterfaceImpl2();
         System.out.println("naam = " + dummyInterface.getCompleteName("wim", "van den brande"));
-        System.out.println("naam = " + dummyInterface.getCompleteName("wim", null));
+        System.out.println("freeMemory = " + Runtime.getRuntime().freeMemory());
+
+        // concatenating van 2 strings (using + operator)
+        dummyInterface = new DummyInterfaceImpl1();
+        System.out.println("naam = " + dummyInterface.getCompleteName("wim", "van den brande"));
+        System.out.println("freeMemory = " + Runtime.getRuntime().freeMemory());
 
         // concatenating van 2 strings met Java 8 - remember : a method should do one thing only and it should do it properly
         List<String> valuesList1 = Arrays.asList("wim", "van den brande");
@@ -78,6 +89,14 @@ public class Main {
 
         // voorbeeld van een default method
         dummyInterface.move();
+    }
+
+    private static void oefeningStaticMethod() {
+        Employee employee = new Employee();
+        Worker worker = employee;
+        Worker.testClassMethod();
+        worker.testInstanceMethod();
+        Employee.testClassMethod();
     }
 
     public static void oefeningFunction() {

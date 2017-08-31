@@ -1,5 +1,7 @@
 package be.ictdynamic.helloworld.oefening_function_10;
 
+import be.ictdynamic.helloworld.domain.Employee;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -36,19 +38,20 @@ public class ExampleOfAFunction {
     }
 
     public List<String> convertEmpListToNamesList1(List<Employee> employees, Function<Employee, String> funcEmpToString){
-        List<String> empNameList=new ArrayList<>();
+        List<String> employeeNames = new ArrayList<>();
         for (Employee employee:employees){
-            empNameList.add(funcEmpToString.apply(employee));
+            // apply the actual function on the employee
+            employeeNames.add(funcEmpToString.apply(employee));
         }
-        return empNameList;
+        return employeeNames;
     }
 
     public List<String> convertEmpListToNamesList2(List<Employee> employees){
-        List<String> empNameList=new ArrayList<>();
+        List<String> employeeNames = new ArrayList<>();
         for (Employee employee:employees){
-            empNameList.add(getNameOfEmployee(employee));
+            employeeNames.add(getNameOfEmployee(employee));
         }
-        return empNameList;
+        return employeeNames;
     }
 
     private String getNameOfEmployee(Employee employee) {

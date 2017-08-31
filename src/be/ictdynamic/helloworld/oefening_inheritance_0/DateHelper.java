@@ -23,4 +23,10 @@ public class DateHelper implements IDateHelper {
         // this is obviously wrong but done on purpose
         return date;
     }
+
+    private int squareRoot(int i) {
+        System.out.println("this is the bad impl of squareRoot");
+        return i*i;
+    }
+
 }
