@@ -9,6 +9,11 @@ public class Worker implements Serializable{
     private Integer id;
     private String name;
     private Integer age;
+    private Sex gender;
+
+    public enum Sex {
+        MALE, FEMALE, OTHER
+    }
 
     public Worker() {
     }
@@ -26,6 +31,14 @@ public class Worker implements Serializable{
         System.out.println("The instance method in Worker");
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
@@ -40,6 +53,14 @@ public class Worker implements Serializable{
 
     public void setAge(Integer age) {
         this.age = age;
+    }
+
+    public Sex getGender() {
+        return gender;
+    }
+
+    public void setGender(Sex gender) {
+        this.gender = gender;
     }
 
     @Override

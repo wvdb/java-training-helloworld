@@ -32,12 +32,17 @@ public class Main {
             case 2:
                 Main.oefeningStaticMethod();
                 break;
+            case 3:
+                Main.oefeningEquals();
+                break;
             case 10:
                 Main.oefeningFunction();
                 break;
             default :
                 System.out.println("geen oefening voorzien");
         }
+
+        reader.close();
     }
 
     private static void oefeningInheritance() {
@@ -47,6 +52,18 @@ public class Main {
 
         // nog een voorbeeld van design by interface
         IDateHelper dateHelper2 = new EuropeanDateHelper();
+
+        if (dateHelper2 instanceof EuropeanDateHelper) {
+            System.out.println("dateHelper2 is an instance of EuropeanDateHelper");
+        } else {
+            System.out.println("Houston we have a problem.");
+        }
+
+        if (dateHelper2 instanceof DateHelper) {
+            System.out.println("dateHelper2 is an instance of DateHelper");
+        } else {
+            System.out.println("Houston we have a problem.");
+        }
 
         EuropeanDateHelper dateHelper4 = new EuropeanDateHelper();
 
@@ -89,6 +106,28 @@ public class Main {
 
         // voorbeeld van een default method
         dummyInterface.move();
+    }
+
+    private static void oefeningEquals() {
+        String canoniekeString1 = "wim van den brande";
+        String canoniekeString2 = "wim van den brande";
+
+        if (canoniekeString1 == canoniekeString2) {
+            System.out.println("The references are identical. All hail to the string connection pool.");
+        }
+
+        // this was asked in an interview once ...
+
+        String string1 = new String("wim van den brande");
+        String sString2 = new String("wim van den brande");
+
+        if (string1 != sString2) {
+            System.out.println("The references are not identical. We instantiated 2 different objects and allocated memory twice!");
+        }
+
+        if (string1.equals(sString2) && canoniekeString1.equals(canoniekeString2)) {
+            System.out.println("Alles ok ...");
+        }
     }
 
     private static void oefeningStaticMethod() {
