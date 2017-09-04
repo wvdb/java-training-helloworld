@@ -15,28 +15,32 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
-public class Main {
+public class MyApplication {
 
     public static void main(String[] args) {
         Scanner reader = new Scanner(System.in);
         System.out.println("Geef identifier van de oefening: ");
-        int number = reader.nextInt();
+        int oefeningInteger = reader.nextInt();
 
-        switch (number) {
+        switch (oefeningInteger) {
             case 0:
-                Main.oefeningInheritance();
+                MyApplication.oefeningInheritance();
                 break;
             case 1:
-                Main.oefeningInterfaces();
+                MyApplication.oefeningInterfaces();
                 break;
             case 2:
-                Main.oefeningStaticMethod();
+                MyApplication.oefeningStaticMethod();
                 break;
             case 3:
-                Main.oefeningEquals();
+                MyApplication.oefeningEquals();
+                break;
+            case 4:
+                MyApplication myApplication = new MyApplication();
+                myApplication.oefeningPassByValue();
                 break;
             case 10:
-                Main.oefeningFunction();
+                MyApplication.oefeningFunction();
                 break;
             default :
                 System.out.println("geen oefening voorzien");
@@ -78,6 +82,16 @@ public class Main {
 
         System.out.println("datum verhoogd met 10 dagen (EuropeanDateHelper)= " + dateHelper2.addNumberOfDays(new Date(System.currentTimeMillis()), 10));
         System.out.println("datum verhoogd met 10 dagen (DangerousUSDateHelper)= " + dateHelper1.addNumberOfDays(new Date(System.currentTimeMillis()), 10));
+
+        Employee employee = new Employee("wim van den brande", 15);
+
+        Worker worker = employee;
+
+        // we cannot make a worker an employee
+//        employee = worker;
+
+        // now we cannot retrieve the hire date anymore (compilation error)
+//        worker.getHireDate();
     }
 
     public static void oefeningInterfaces() {
@@ -119,15 +133,60 @@ public class Main {
         // this was asked in an interview once ...
 
         String string1 = new String("wim van den brande");
-        String sString2 = new String("wim van den brande");
+        String string2 = new String("wim van den brande");
 
-        if (string1 != sString2) {
+        if (string1 != string2) {
             System.out.println("The references are not identical. We instantiated 2 different objects and allocated memory twice!");
         }
 
-        if (string1.equals(sString2) && canoniekeString1.equals(canoniekeString2)) {
-            System.out.println("Alles ok ...");
+        // Maak gebruik van debug in String equals
+        if (canoniekeString1.equals(canoniekeString2)) {
+            System.out.println("Alles ok. Er zijn nog zekerheden ...");
         }
+
+        // Maak gebruik van debug in String equals
+        if (string1.equals(string2))  {
+            System.out.println("Alles ok. Er zijn nog zekerheden ...");
+        }
+
+        // oefening op OR operator
+        int val1 = 16;
+        int val2 = 8;
+        // prints "24"
+        System.out.println(val1 | val2);
+
+        // oefening op AND operator
+        int[] intValues = {3, 11, 15};
+        // prints "3"
+        System.out.println(intValues[0] & intValues[1] & intValues[2]);
+
+    }
+
+    private void oefeningPassByValue() {
+        Employee employee = new Employee("wim van den brande", 49);
+
+        doSomething(employee);
+
+        // has employee changed ???
+        // what will be the name of employee ???
+
+        // do not try to LOG the actual refence since the JVM is free to move references over time
+
+        System.out.println("name of employee in oefeningPassByValue = " + employee.getName());
+    }
+
+    private void doSomething(Employee employee) {
+        // ho ho ... altering input parameters should be avoid
+        employee.setName("wim van den brande - bis");
+
+        employee = new Employee("Donald Trump --- way too old", 75);
+        System.out.println("name of employee in doSomething = " + employee.getName());
+    }
+
+    private static void doSomethingBis(final Employee employee) {
+        employee.setName("wim van den brande - bis");
+
+//        employee = new Employee("Donald Trump --- way too old", 75);
     }
 
     private static void oefeningStaticMethod() {

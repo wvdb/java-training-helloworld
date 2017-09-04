@@ -5,11 +5,12 @@ import java.io.Serializable;
 /**
  * Created by wvdbrand on 24/08/2017.
  */
-public class Worker implements Serializable{
+public abstract class Worker implements Serializable{
     private Integer id;
     private String name;
     private Integer age;
     private Sex gender;
+    private Float salary;
 
     public enum Sex {
         MALE, FEMALE, OTHER
@@ -61,6 +62,17 @@ public class Worker implements Serializable{
 
     public void setGender(Sex gender) {
         this.gender = gender;
+    }
+
+    // abstract method - the actual impl will be talen care of by the worker's sub-classes
+    public abstract Float calculateSalary(Float... objects);
+
+    public Float getSalary() {
+        return salary;
+    }
+
+    public void setSalary(Float salary) {
+        this.salary = salary;
     }
 
     @Override

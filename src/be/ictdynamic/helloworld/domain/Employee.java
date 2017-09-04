@@ -1,14 +1,27 @@
 package be.ictdynamic.helloworld.domain;
 
+import java.util.Date;
+
 /**
  * Created by wvdbrand on 24/08/2017.
  */
 public class Employee extends Worker {
+    // every sub-class of worker has a hireDate, a worker doesn't
+    private Date hireDate;
+
     public Employee(String name, Integer age) {
         super(name, age);
     }
 
     public Employee() {
+    }
+
+    public Date getHireDate() {
+        return hireDate;
+    }
+
+    public void setHireDate(Date hireDate) {
+        this.hireDate = hireDate;
     }
 
     //    @Override
@@ -19,6 +32,17 @@ public class Employee extends Worker {
     @Override
     public void testInstanceMethod() {
         System.out.println("The instance method in Employee");
+    }
+
+    @Override
+    public Float calculateSalary(Float... objects) {
+        if (objects == null) {
+            throw new IllegalArgumentException("An Employee should have at least one remuneration.");
+        }
+        if (objects.length > 1) {
+            throw new IllegalArgumentException("An Employee cannot have more than one remuneration.");
+        }
+        return objects[0];
     }
 
 }
