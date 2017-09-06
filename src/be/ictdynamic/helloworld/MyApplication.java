@@ -160,6 +160,18 @@ public class MyApplication {
         // prints "3"
         System.out.println(intValues[0] & intValues[1] & intValues[2]);
 
+        // oefening op Signed left shift
+        int val3 = 16;
+        // prints ???
+        for (byte b = 1; b<=3; b ++) {
+            System.out.println(val3 << b);
+        }
+
+        // prints ???
+        for (byte b = 1; b<=5; b ++) {
+            System.out.println(val3 >> b);
+        }
+
     }
 
     private void oefeningPassByValue() {

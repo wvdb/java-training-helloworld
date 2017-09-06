@@ -1,6 +1,7 @@
 package be.ictdynamic.helloworld.domain;
 
 import java.util.Date;
+import java.util.Set;
 
 /**
  * Created by wvdbrand on 24/08/2017.
@@ -8,6 +9,8 @@ import java.util.Date;
 public class Employee extends Worker {
     // every sub-class of worker has a hireDate, a worker doesn't
     private Date hireDate;
+    private Set<Project> projects;
+    private Set<Department> department;
 
     public Employee(String name, Integer age) {
         super(name, age);

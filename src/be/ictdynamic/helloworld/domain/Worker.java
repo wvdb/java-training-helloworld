@@ -5,8 +5,7 @@ import java.io.Serializable;
 /**
  * Created by wvdbrand on 24/08/2017.
  */
-public abstract class Worker implements Serializable{
-    private Integer id;
+public abstract class Worker extends DatabaseEntity implements Serializable{
     private String name;
     private Integer age;
     private Sex gender;
@@ -30,14 +29,6 @@ public abstract class Worker implements Serializable{
 
     public void testInstanceMethod() {
         System.out.println("The instance method in Worker");
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -75,19 +66,4 @@ public abstract class Worker implements Serializable{
         this.salary = salary;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Worker)) return false;
-
-        Worker worker = (Worker) o;
-
-        return id.equals(worker.id);
-
-    }
-
-    @Override
-    public int hashCode() {
-        return id.hashCode();
-    }
 }
