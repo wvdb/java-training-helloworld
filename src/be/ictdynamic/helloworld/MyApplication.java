@@ -85,10 +85,14 @@ public class MyApplication {
 
         Employee employee = new Employee("wim van den brande", 15);
 
+        // every employee is a worker
         Worker worker = employee;
 
         // we cannot make a worker an employee
 //        employee = worker;
+
+        // but we can cast to an Employee
+        Employee workerGecastToEmployee = (Employee) worker;
 
         // now we cannot retrieve the hire date anymore (compilation error)
 //        worker.getHireDate();
