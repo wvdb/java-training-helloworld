@@ -6,6 +6,11 @@ package be.ictdynamic.helloworld.domain;
 public class Department extends DatabaseEntity {
   private String departmentName;
 
+    public Department(Integer id, String departmentName) {
+        super(id);
+        this.departmentName = departmentName;
+    }
+
     public String getDepartmentName() {
         return departmentName;
     }
@@ -17,7 +22,8 @@ public class Department extends DatabaseEntity {
     @Override
     public String toString() {
         return "Department{" +
-                "departmentName='" + departmentName + '\'' +
+                "id=" + getId() +
+                ", departmentName='" + departmentName + '\'' +
                 '}';
     }
 }

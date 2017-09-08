@@ -1,6 +1,7 @@
 package be.ictdynamic.helloworld.domain;
 
 import java.util.Date;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
@@ -26,6 +27,25 @@ public class Employee extends Worker {
 
     public void setHireDate(Date hireDate) {
         this.hireDate = hireDate;
+    }
+
+    public Set<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(Set<Project> projects) {
+        this.projects = projects;
+    }
+
+    public Set<Department> getDepartment() {
+        if (department == null) {
+            department = new LinkedHashSet<>();
+        }
+        return department;
+    }
+
+    public void setDepartment(Set<Department> department) {
+        this.department = department;
     }
 
     //    @Override
