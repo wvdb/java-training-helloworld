@@ -1,6 +1,8 @@
 package be.ictdynamic.helloworld.domain;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by wvdbrand on 24/08/2017.
@@ -8,19 +10,21 @@ import java.io.Serializable;
 public abstract class Worker extends DatabaseEntity implements Serializable{
     private String name;
     private Integer age;
-    private Sex gender;
-    private Float salary;
+    private Gender gender;
+    private Map<String, Object> remunerations;
 
-    public enum Sex {
+    public enum Gender {
         MALE, FEMALE, OTHER
     }
 
     public Worker() {
     }
 
-    public Worker(String name, Integer age) {
+    public Worker(Integer id, String name, Integer age, Gender gender) {
+        super(id);
         this.name = name;
         this.age = age;
+        this.gender = gender;
     }
 
     public static void testClassMethod() {
@@ -47,23 +51,25 @@ public abstract class Worker extends DatabaseEntity implements Serializable{
         this.age = age;
     }
 
-    public Sex getGender() {
+    public Gender getGender() {
         return gender;
     }
 
-    public void setGender(Sex gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 
-    // abstract method - the actual impl will be talen care of by the worker's sub-classes
+    // abstract method - the actual impl will be taken care of by the worker's sub-classes
     public abstract Float calculateSalary(Float... objects);
 
-    public Float getSalary() {
-        return salary;
+    public Map<String, Object> getRemunerations() {
+        if (remunerations == null) {
+            remunerations = new HashMap<>();
+        }
+        return remunerations;
     }
 
-    public void setSalary(Float salary) {
-        this.salary = salary;
+    public void setRemunerations(Map<String, Object> remunerations) {
+        this.remunerations = remunerations;
     }
-
 }

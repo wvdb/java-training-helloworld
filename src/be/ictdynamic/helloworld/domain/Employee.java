@@ -12,8 +12,9 @@ public class Employee extends Worker {
     private Set<Project> projects;
     private Set<Department> department;
 
-    public Employee(String name, Integer age) {
-        super(name, age);
+    public Employee(Integer id, String name, Integer age, Gender gender, Date hireDate) {
+        super(id, name, age, gender);
+        this.hireDate = hireDate;
     }
 
     public Employee() {
@@ -48,4 +49,15 @@ public class Employee extends Worker {
         return objects[0];
     }
 
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + getId() +
+                ", name=" + getName() +
+                ", age=" + getAge() +
+                ", hireDate=" + hireDate +
+                ", projects=" + projects +
+                ", department=" + department +
+                '}';
+    }
 }

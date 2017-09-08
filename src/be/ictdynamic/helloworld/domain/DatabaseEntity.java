@@ -8,6 +8,13 @@ import java.io.Serializable;
 public class DatabaseEntity implements Serializable{
     private Integer id;
 
+    public DatabaseEntity() {
+    }
+
+    public DatabaseEntity(Integer id) {
+        this.id = id;
+    }
+
     public Integer getId() {
         return id;
     }

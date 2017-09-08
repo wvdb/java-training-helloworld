@@ -2,6 +2,7 @@ package be.ictdynamic.helloworld;
 
 import be.ictdynamic.helloworld.domain.Employee;
 import be.ictdynamic.helloworld.domain.Worker;
+import be.ictdynamic.helloworld.oefeningStreams_20.OefeningStreams;
 import be.ictdynamic.helloworld.oefening_function_10.ExampleOfAFunction;
 import be.ictdynamic.helloworld.oefening_inheritance_0.DateHelper;
 import be.ictdynamic.helloworld.oefening_inheritance_0.EuropeanDateHelper;
@@ -41,6 +42,12 @@ public class MyApplication {
                 break;
             case 10:
                 MyApplication.oefeningFunction();
+                break;
+            case 20:
+                MyApplication.oefeningStreams();
+                break;
+            case 30:
+                MyApplication.oefeningThreads();
                 break;
             default :
                 System.out.println("geen oefening voorzien");
@@ -83,7 +90,7 @@ public class MyApplication {
         System.out.println("datum verhoogd met 10 dagen (EuropeanDateHelper)= " + dateHelper2.addNumberOfDays(new Date(System.currentTimeMillis()), 10));
         System.out.println("datum verhoogd met 10 dagen (DangerousUSDateHelper)= " + dateHelper1.addNumberOfDays(new Date(System.currentTimeMillis()), 10));
 
-        Employee employee = new Employee("wim van den brande", 15);
+        Employee employee = new Employee(1, "wim van den brande", 15, null, null);
 
         // every employee is a worker
         Worker worker = employee;
@@ -179,7 +186,7 @@ public class MyApplication {
     }
 
     private void oefeningPassByValue() {
-        Employee employee = new Employee("wim van den brande", 49);
+        Employee employee = new Employee(1, "wim van den brande", 49, null, null);
 
         doSomething(employee);
 
@@ -195,7 +202,7 @@ public class MyApplication {
         // ho ho ... altering input parameters should be avoid
         employee.setName("wim van den brande - bis");
 
-        employee = new Employee("Donald Trump --- way too old", 75);
+        employee = new Employee(1, "Donald Trump", 71, null, null);
         System.out.println("name of employee in doSomething = " + employee.getName());
     }
 
@@ -208,15 +215,53 @@ public class MyApplication {
     private static void oefeningStaticMethod() {
         Employee employee = new Employee();
         Worker worker = employee;
+
         Worker.testClassMethod();
+        // CTRL click method and ask which method will be invoked
         worker.testInstanceMethod();
+
         Employee.testClassMethod();
+    }
+
+    private static void oefeningThreads() {
+        Runnable task = () -> {
+            String threadName = Thread.currentThread().getName();
+            System.out.println("Hello " + threadName);
+        };
+
+        task.run();
+
+        Thread thread = new Thread(task);
+        thread.start();
+
+        System.out.println("Done!");
+
+        // possible output (volgorde is niet voorspelbaar)
+
+//        Geef identifier van de oefening:
+//        20
+//        Hello main
+//        Done!
+//        Hello Thread-0
+
+//        Geef identifier van de oefening:
+//        20
+//        Hello main
+//        Hello Thread-0
+//        Done!
+
     }
 
     public static void oefeningFunction() {
         ExampleOfAFunction exampleOfAFunction = new ExampleOfAFunction();
         exampleOfAFunction.gettingNameOfTheEmployeeVeryFancy();
         exampleOfAFunction.gettingNameOfTheEmployeeRegular();
+    }
+
+    public static void oefeningStreams() {
+        OefeningStreams oefeningStreams = new OefeningStreams();
+//        oefeningStreams_20.init();
+        oefeningStreams.exec();
     }
 
 }

@@ -9,8 +9,8 @@ public class Director extends Worker {
     // every sub-class of worker has a hireDate, a worker doesn't
     private Date hireDate;
 
-    public Director(String name, Integer age) {
-        super(name, age);
+    public Director(Integer id, String name, Integer age, Gender gender) {
+        super(id, name, age, gender);
     }
 
     public Date getHireDate() {
