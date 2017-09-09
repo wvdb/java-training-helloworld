@@ -1,15 +1,17 @@
 package be.ictdynamic.helloworld;
 
+import be.ictdynamic.helloworld.cursus_domain.Rectangle;
+import be.ictdynamic.helloworld.cursus_domain.Square;
 import be.ictdynamic.helloworld.domain.Employee;
 import be.ictdynamic.helloworld.domain.Worker;
 import be.ictdynamic.helloworld.oefeningStreams_20.OefeningStreams;
 import be.ictdynamic.helloworld.oefening_function_10.ExampleOfAFunction;
-import be.ictdynamic.helloworld.oefening_inheritance_0.DateHelper;
-import be.ictdynamic.helloworld.oefening_inheritance_0.EuropeanDateHelper;
-import be.ictdynamic.helloworld.oefening_inheritance_0.IDateHelper;
-import be.ictdynamic.helloworld.oefening_interfaces_1.DummyInterface;
-import be.ictdynamic.helloworld.oefening_interfaces_1.DummyInterfaceImpl1;
-import be.ictdynamic.helloworld.oefening_interfaces_1.DummyInterfaceImpl2;
+import be.ictdynamic.helloworld.oefening_inheritance_1.DateHelper;
+import be.ictdynamic.helloworld.oefening_inheritance_1.EuropeanDateHelper;
+import be.ictdynamic.helloworld.oefening_inheritance_1.IDateHelper;
+import be.ictdynamic.helloworld.oefening_interfaces_2.DummyInterface;
+import be.ictdynamic.helloworld.oefening_interfaces_2.DummyInterfaceImpl1;
+import be.ictdynamic.helloworld.oefening_interfaces_2.DummyInterfaceImpl2;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -25,18 +27,21 @@ public class MyApplication {
 
         switch (oefeningInteger) {
             case 0:
-                MyApplication.oefeningInheritance();
+                MyApplication.oefeningInheritance_0();
                 break;
             case 1:
-                MyApplication.oefeningInterfaces();
+                MyApplication.oefeningInheritance_1();
                 break;
             case 2:
-                MyApplication.oefeningStaticMethod();
+                MyApplication.oefeningInterfaces_2();
                 break;
             case 3:
-                MyApplication.oefeningEquals();
+                MyApplication.oefeningStaticMethod_3();
                 break;
             case 4:
+                MyApplication.oefeningEquals();
+                break;
+            case 5:
                 MyApplication myApplication = new MyApplication();
                 myApplication.oefeningPassByValue();
                 break;
@@ -56,7 +61,34 @@ public class MyApplication {
         reader.close();
     }
 
-    private static void oefeningInheritance() {
+    private static void oefeningInheritance_0() {
+        Rectangle rectangle = new Rectangle(10, 5);
+        System.out.println("Rectangle = " + rectangle);
+
+        // The constructor of a square has only ONE argument (side)
+//        Square square = new Square(10, 5);
+        Square square = new Square(25);
+        System.out.println("Square = " + square);
+
+        // we make our square smaller
+        square.setHeight(10);
+        System.out.println("Square = " + square);
+
+        // we make our square larger
+        square.setWidth(50);
+        System.out.println("Square = " + square);
+
+        // TODO : change impl of Square -> stackoverflow
+
+        // we use change format
+        square.changeFormat(50);
+        System.out.println("Square = " + square);
+
+        System.out.println(square instanceof Rectangle);
+        System.out.println(rectangle instanceof Square);
+    }
+
+    private static void oefeningInheritance_1() {
         IDateHelper dateHelper1 = new DateHelper();
 
         EuropeanDateHelper europeanDateHelper = new EuropeanDateHelper();
@@ -105,7 +137,7 @@ public class MyApplication {
 //        worker.getHireDate();
     }
 
-    public static void oefeningInterfaces() {
+    public static void oefeningInterfaces_2() {
         DummyInterface.InnerInterface1.dummyMethod1("dit is een test");
         DummyInterface.InnerInterface2.printToUpperCase("dit is nog een test");
 
@@ -212,7 +244,7 @@ public class MyApplication {
 //        employee = new Employee("Donald Trump --- way too old", 75);
     }
 
-    private static void oefeningStaticMethod() {
+    private static void oefeningStaticMethod_3() {
         Employee employee = new Employee();
         Worker worker = employee;
 
