@@ -1,0 +1,126 @@
+{
+  "attributes": [
+    {
+      "name": "enh_000010",
+      "description": "Number of adults in the family",
+      "values": [
+        {
+          "value": "0",
+          "description": "Zero"
+        },
+        {
+          "value": "1",
+          "description": "One"
+        },
+        {
+          "value": "2",
+          "description": "Two"
+        }
+      ]
+    },
+    {
+      "name": "enh_000011",
+      "description": "Number of men in the family",
+      "values": [
+        {
+          "value": "0",
+          "description": "Zero"
+        },
+        {
+          "value": "1",
+          "description": "One"
+        },
+        {
+          "value": "2",
+          "description": "Two"
+        }
+      ]
+    },
+    {
+      "name": "enh_000012",
+      "description": "Number of women in the family",
+      "values": [
+        {
+          "value": "0",
+          "description": "Zero"
+        },
+        {
+          "value": "1",
+          "description": "One"
+        },
+        {
+          "value": "2",
+          "description": "Two"
+        },
+        {
+          "value": "3",
+          "description": "Three"
+        },
+        {
+          "value": "4",
+          "description": "Four"
+        },
+        {
+          "value": "5",
+          "description": "Five"
+        },
+        {
+          "value": "6",
+          "description": "Six"
+        }
+      ]
+    }
+  ],
+  "stbs": [
+    {
+      "id": "973196655371",
+      "owner": "Telenet",
+      "household": "644564693",
+      "attributes": [
+        {
+          "name": "enh_000010",
+          "value": "2"
+        },
+        {
+          "name": "enh_000011",
+          "value": "2"
+        },
+        {
+          "name": "enh_000012",
+          "value": "4"
+        }
+      ]
+    },
+    {
+      "id": "973196655372",
+      "owner": "Telenet",
+      "household": "644564692",
+      "attributes": [
+        {
+          "name": "enh_000010",
+          "value": "1"
+        },
+        {
+          "name": "enh_000011",
+          "value": "2"
+        }
+      ]
+    },
+    {
+      "id": "196655372",
+      "owner": "Telenet",
+      "household": "5212",
+      "attributes": [
+        {
+          "name": "enh_000010",
+          "value": "1"
+        },
+        {
+          "name": "enh_000011",
+          "value": "2"
+        }
+      ]
+    }
+  ]
+}
+

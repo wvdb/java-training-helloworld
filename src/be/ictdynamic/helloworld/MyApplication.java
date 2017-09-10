@@ -5,6 +5,7 @@ import be.ictdynamic.helloworld.cursus_domain.Square;
 import be.ictdynamic.helloworld.domain.Employee;
 import be.ictdynamic.helloworld.domain.Worker;
 import be.ictdynamic.helloworld.oefeningStreams_20.OefeningStreams;
+import be.ictdynamic.helloworld.oefening_abstract_class_6.CustomerDNAFile;
 import be.ictdynamic.helloworld.oefening_function_10.ExampleOfAFunction;
 import be.ictdynamic.helloworld.oefening_inheritance_1.DateHelper;
 import be.ictdynamic.helloworld.oefening_inheritance_1.EuropeanDateHelper;
@@ -13,6 +14,7 @@ import be.ictdynamic.helloworld.oefening_interfaces_2.DummyInterface;
 import be.ictdynamic.helloworld.oefening_interfaces_2.DummyInterfaceImpl1;
 import be.ictdynamic.helloworld.oefening_interfaces_2.DummyInterfaceImpl2;
 
+import java.time.Instant;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -42,8 +44,10 @@ public class MyApplication {
                 MyApplication.oefeningEquals();
                 break;
             case 5:
-                MyApplication myApplication = new MyApplication();
-                myApplication.oefeningPassByValue();
+                MyApplication.oefeningPassByValue();
+                break;
+            case 6:
+                MyApplication.oefeningAbstractClass_6();
                 break;
             case 10:
                 MyApplication.oefeningFunction();
@@ -131,10 +135,13 @@ public class MyApplication {
 //        employee = worker;
 
         // but we can cast to an Employee
-        Employee workerGecastToEmployee = (Employee) worker;
+        Employee workerCastedToEmployee = (Employee) worker;
 
         // now we cannot retrieve the hire date anymore (compilation error)
-//        worker.getHireDate();
+//        workerCastedToEmployee.getHireDate();
+
+        // Employee inherits the static properties as well
+        System.out.println("An employee is eligible for remuneration? : " + employee.isEligibleForRemuneration);
     }
 
     public static void oefeningInterfaces_2() {
@@ -165,7 +172,7 @@ public class MyApplication {
         dummyInterface.move();
     }
 
-    private static void oefeningEquals() {
+    static private void oefeningEquals() {
         String canoniekeString1 = "wim van den brande";
         String canoniekeString2 = "wim van den brande";
 
@@ -217,31 +224,34 @@ public class MyApplication {
 
     }
 
-    private void oefeningPassByValue() {
+    static private void oefeningPassByValue() {
+        MyApplication myApplication = new MyApplication();
+
         Employee employee = new Employee(1, "wim van den brande", 49, null, null);
 
-        doSomething(employee);
+        myApplication.doSomething(employee);
 
         // has employee changed ???
         // what will be the name of employee ???
 
-        // do not try to LOG the actual refence since the JVM is free to move references over time
+        // do not try to LOG the actual reference since the JVM is free to move references over time
 
         System.out.println("name of employee in oefeningPassByValue = " + employee.getName());
     }
 
     private void doSomething(Employee employee) {
-        // ho ho ... altering input parameters should be avoid
+        // ho ho ho ... altering input parameters should be avoided!!!
         employee.setName("wim van den brande - bis");
 
-        employee = new Employee(1, "Donald Trump", 71, null, null);
+        employee = new Employee(1, "Donald Tttttt....", 71, null, null);
         System.out.println("name of employee in doSomething = " + employee.getName());
     }
 
-    private static void doSomethingBis(final Employee employee) {
-        employee.setName("wim van den brande - bis");
+    private static void oefeningAbstractClass_6() {
+        CustomerDNAFile customerDNAFile = new CustomerDNAFile();
+        CustomerDNAFile.Preference preference = customerDNAFile.new Preference(Date.from(Instant.now()));
 
-//        employee = new Employee("Donald Trump --- way too old", 75);
+        CustomerDNAFile.exampleOfLocalInnnerClassMethod();
     }
 
     private static void oefeningStaticMethod_3() {
