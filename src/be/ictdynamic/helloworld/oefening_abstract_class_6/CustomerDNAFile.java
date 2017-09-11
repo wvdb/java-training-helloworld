@@ -10,7 +10,9 @@ import java.util.Map;
  * Created by wvdbrand on 29/08/2017.
  */
 public class CustomerDNAFile implements Serializable {
-    private List<Preference> preferences;
+    private Preference preference;
+    private CustomerDnaSource customerDnaSource;
+
     private List<Attribute> attributes;
     private List<Stb> stbs;
 
@@ -36,12 +38,12 @@ public class CustomerDNAFile implements Serializable {
         this.stbs = stbs;
     }
 
-    public List<Preference> getPreferences() {
-        return preferences;
+    public Preference getPreferences() {
+        return preference;
     }
 
-    public void setPreferences(List<Preference> preferences) {
-        this.preferences = preferences;
+    public void setPreferences(Preference preference) {
+        this.preference = preference;
     }
 
     public static void exampleOfLocalInnnerClassMethod() {
@@ -86,6 +88,32 @@ public class CustomerDNAFile implements Serializable {
 
         public void setPreferenceDate(Date preferenceDate) {
             this.preferenceDate = preferenceDate;
+        }
+    }
+
+    public static class CustomerDnaSource {
+        private String systemName;
+        private boolean systemReliable;
+
+        public CustomerDnaSource(String systemName, boolean systemReliable) {
+            this.systemName = systemName;
+            this.systemReliable = systemReliable;
+        }
+
+        public String getSystemName() {
+            return systemName;
+        }
+
+        public void setSystemName(String systemName) {
+            this.systemName = systemName;
+        }
+
+        public boolean isSystemReliable() {
+            return systemReliable;
+        }
+
+        public void setSystemReliable(boolean systemReliable) {
+            this.systemReliable = systemReliable;
         }
     }
 

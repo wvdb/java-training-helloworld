@@ -249,7 +249,18 @@ public class MyApplication {
 
     private static void oefeningAbstractClass_6() {
         CustomerDNAFile customerDNAFile = new CustomerDNAFile();
+
+        // Preference is (normal) inner class
+        // CustomerDnaSource is static inner class
+
         CustomerDNAFile.Preference preference = customerDNAFile.new Preference(Date.from(Instant.now()));
+        // use breakpoint
+        preference = customerDNAFile.new Preference(Date.from(Instant.now()));
+
+//        CustomerDNAFile.CustomerDnaSource attribute = customerDNAFile.new CustomerDnaSource();
+        CustomerDNAFile.CustomerDnaSource customerDnaSource = new CustomerDNAFile.CustomerDnaSource("Facebook", false);
+        // use breakpoint
+        customerDnaSource = new CustomerDNAFile.CustomerDnaSource("Twitter", false);
 
         CustomerDNAFile.exampleOfLocalInnnerClassMethod();
     }
