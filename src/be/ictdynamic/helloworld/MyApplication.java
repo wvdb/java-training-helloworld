@@ -260,7 +260,6 @@ public class MyApplication {
 
     public static void oefeningStreams() {
         OefeningStreams oefeningStreams = new OefeningStreams();
-//        oefeningStreams_20.init();
         oefeningStreams.exec();
     }
 
