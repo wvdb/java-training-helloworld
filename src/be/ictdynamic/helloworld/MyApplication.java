@@ -2,9 +2,9 @@ package be.ictdynamic.helloworld;
 
 import be.ictdynamic.helloworld.cursus_domain.Rectangle;
 import be.ictdynamic.helloworld.cursus_domain.Square;
+import be.ictdynamic.helloworld.domain.Department;
 import be.ictdynamic.helloworld.domain.Employee;
 import be.ictdynamic.helloworld.domain.Worker;
-import be.ictdynamic.helloworld.oefeningStreams_20.OefeningStreams;
 import be.ictdynamic.helloworld.oefening_abstract_class_6.CustomerDNAFile;
 import be.ictdynamic.helloworld.oefening_function_10.ExampleOfAFunction;
 import be.ictdynamic.helloworld.oefening_inheritance_1.DateHelper;
@@ -51,9 +51,6 @@ public class MyApplication {
                 break;
             case 10:
                 MyApplication.oefeningFunction();
-                break;
-            case 20:
-                MyApplication.oefeningStreams();
                 break;
             case 30:
                 MyApplication.oefeningThreads();
@@ -263,6 +260,13 @@ public class MyApplication {
         customerDnaSource = new CustomerDNAFile.CustomerDnaSource("Twitter", false);
 
         CustomerDNAFile.exampleOfLocalInnnerClassMethod();
+
+        // example of an inner class when using the builder design pattern
+
+        Department department = new Department.DepartmentBuilder()
+                .departmentAddress("example of an address")
+                .departmentName("example of a department")
+                .build();
     }
 
     private static void oefeningStaticMethod_3() {
@@ -309,12 +313,6 @@ public class MyApplication {
         ExampleOfAFunction exampleOfAFunction = new ExampleOfAFunction();
         exampleOfAFunction.gettingNameOfTheEmployeeVeryFancy();
         exampleOfAFunction.gettingNameOfTheEmployeeRegular();
-    }
-
-    public static void oefeningStreams() {
-        OefeningStreams oefeningStreams = new OefeningStreams();
-//        oefeningStreams_20.init();
-        oefeningStreams.exec();
     }
 
 }
