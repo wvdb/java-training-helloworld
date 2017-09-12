@@ -1,16 +1,20 @@
 package be.ictdynamic.helloworld;
 
+import be.ictdynamic.helloworld.cursus_domain.Rectangle;
+import be.ictdynamic.helloworld.cursus_domain.Square;
+import be.ictdynamic.helloworld.domain.Department;
 import be.ictdynamic.helloworld.domain.Employee;
 import be.ictdynamic.helloworld.domain.Worker;
-import be.ictdynamic.helloworld.oefeningStreams_20.OefeningStreams;
+import be.ictdynamic.helloworld.oefening_abstract_class_6.CustomerDNAFile;
 import be.ictdynamic.helloworld.oefening_function_10.ExampleOfAFunction;
-import be.ictdynamic.helloworld.oefening_inheritance_0.DateHelper;
-import be.ictdynamic.helloworld.oefening_inheritance_0.EuropeanDateHelper;
-import be.ictdynamic.helloworld.oefening_inheritance_0.IDateHelper;
-import be.ictdynamic.helloworld.oefening_interfaces_1.DummyInterface;
-import be.ictdynamic.helloworld.oefening_interfaces_1.DummyInterfaceImpl1;
-import be.ictdynamic.helloworld.oefening_interfaces_1.DummyInterfaceImpl2;
+import be.ictdynamic.helloworld.oefening_inheritance_1.DateHelper;
+import be.ictdynamic.helloworld.oefening_inheritance_1.EuropeanDateHelper;
+import be.ictdynamic.helloworld.oefening_inheritance_1.IDateHelper;
+import be.ictdynamic.helloworld.oefening_interfaces_2.DummyInterface;
+import be.ictdynamic.helloworld.oefening_interfaces_2.DummyInterfaceImpl1;
+import be.ictdynamic.helloworld.oefening_interfaces_2.DummyInterfaceImpl2;
 
+import java.time.Instant;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -25,26 +29,28 @@ public class MyApplication {
 
         switch (oefeningInteger) {
             case 0:
-                MyApplication.oefeningInheritance();
+                MyApplication.oefeningInheritance_0();
                 break;
             case 1:
-                MyApplication.oefeningInterfaces();
+                MyApplication.oefeningInheritance_1();
                 break;
             case 2:
-                MyApplication.oefeningStaticMethod();
+                MyApplication.oefeningInterfaces_2();
                 break;
             case 3:
-                MyApplication.oefeningEquals();
+                MyApplication.oefeningStaticMethod_3();
                 break;
             case 4:
-                MyApplication myApplication = new MyApplication();
-                myApplication.oefeningPassByValue();
+                MyApplication.oefeningEquals();
+                break;
+            case 5:
+                MyApplication.oefeningPassByValue();
+                break;
+            case 6:
+                MyApplication.oefeningAbstractClass_6();
                 break;
             case 10:
                 MyApplication.oefeningFunction();
-                break;
-            case 20:
-                MyApplication.oefeningStreams();
                 break;
             case 30:
                 MyApplication.oefeningThreads();
@@ -56,7 +62,34 @@ public class MyApplication {
         reader.close();
     }
 
-    private static void oefeningInheritance() {
+    private static void oefeningInheritance_0() {
+        Rectangle rectangle = new Rectangle(10, 5);
+        System.out.println("Rectangle = " + rectangle);
+
+        // The constructor of a square has only ONE argument (side)
+//        Square square = new Square(10, 5);
+        Square square = new Square(25);
+        System.out.println("Square = " + square);
+
+        // we make our square smaller
+        square.setHeight(10);
+        System.out.println("Square = " + square);
+
+        // we make our square larger
+        square.setWidth(50);
+        System.out.println("Square = " + square);
+
+        // TODO : change impl of Square -> stackoverflow
+
+        // we use change format
+        square.changeFormat(50);
+        System.out.println("Square = " + square);
+
+        System.out.println(square instanceof Rectangle);
+        System.out.println(rectangle instanceof Square);
+    }
+
+    private static void oefeningInheritance_1() {
         IDateHelper dateHelper1 = new DateHelper();
 
         EuropeanDateHelper europeanDateHelper = new EuropeanDateHelper();
@@ -99,13 +132,16 @@ public class MyApplication {
 //        employee = worker;
 
         // but we can cast to an Employee
-        Employee workerGecastToEmployee = (Employee) worker;
+        Employee workerCastedToEmployee = (Employee) worker;
 
         // now we cannot retrieve the hire date anymore (compilation error)
-//        worker.getHireDate();
+//        workerCastedToEmployee.getHireDate();
+
+        // Employee inherits the static properties as well
+        System.out.println("An employee is eligible for remuneration? : " + employee.isEligibleForRemuneration);
     }
 
-    public static void oefeningInterfaces() {
+    public static void oefeningInterfaces_2() {
         DummyInterface.InnerInterface1.dummyMethod1("dit is een test");
         DummyInterface.InnerInterface2.printToUpperCase("dit is nog een test");
 
@@ -133,7 +169,7 @@ public class MyApplication {
         dummyInterface.move();
     }
 
-    private static void oefeningEquals() {
+    static private void oefeningEquals() {
         String canoniekeString1 = "wim van den brande";
         String canoniekeString2 = "wim van den brande";
 
@@ -185,34 +221,55 @@ public class MyApplication {
 
     }
 
-    private void oefeningPassByValue() {
+    static private void oefeningPassByValue() {
+        MyApplication myApplication = new MyApplication();
+
         Employee employee = new Employee(1, "wim van den brande", 49, null, null);
 
-        doSomething(employee);
+        myApplication.doSomething(employee);
 
         // has employee changed ???
         // what will be the name of employee ???
 
-        // do not try to LOG the actual refence since the JVM is free to move references over time
+        // do not try to LOG the actual reference since the JVM is free to move references over time
 
         System.out.println("name of employee in oefeningPassByValue = " + employee.getName());
     }
 
     private void doSomething(Employee employee) {
-        // ho ho ... altering input parameters should be avoid
+        // ho ho ho ... altering input parameters should be avoided!!!
         employee.setName("wim van den brande - bis");
 
-        employee = new Employee(1, "Donald Trump", 71, null, null);
+        employee = new Employee(1, "Donald Tttttt....", 71, null, null);
         System.out.println("name of employee in doSomething = " + employee.getName());
     }
 
-    private static void doSomethingBis(final Employee employee) {
-        employee.setName("wim van den brande - bis");
+    private static void oefeningAbstractClass_6() {
+        CustomerDNAFile customerDNAFile = new CustomerDNAFile();
 
-//        employee = new Employee("Donald Trump --- way too old", 75);
+        // Preference is (normal) inner class
+        // CustomerDnaSource is static inner class
+
+        CustomerDNAFile.Preference preference = customerDNAFile.new Preference(Date.from(Instant.now()));
+        // use breakpoint
+        preference = customerDNAFile.new Preference(Date.from(Instant.now()));
+
+//        CustomerDNAFile.CustomerDnaSource attribute = customerDNAFile.new CustomerDnaSource();
+        CustomerDNAFile.CustomerDnaSource customerDnaSource = new CustomerDNAFile.CustomerDnaSource("Facebook", false);
+        // use breakpoint
+        customerDnaSource = new CustomerDNAFile.CustomerDnaSource("Twitter", false);
+
+        CustomerDNAFile.exampleOfLocalInnnerClassMethod();
+
+        // example of an inner class when using the builder design pattern
+
+        Department department = new Department.DepartmentBuilder()
+                .departmentAddress("example of an address")
+                .departmentName("example of a department")
+                .build();
     }
 
-    private static void oefeningStaticMethod() {
+    private static void oefeningStaticMethod_3() {
         Employee employee = new Employee();
         Worker worker = employee;
 

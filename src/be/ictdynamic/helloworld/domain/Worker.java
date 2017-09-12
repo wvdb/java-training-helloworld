@@ -8,6 +8,8 @@ import java.util.Map;
  * Created by wvdbrand on 24/08/2017.
  */
 public abstract class Worker extends DatabaseEntity implements Serializable{
+    static public boolean isEligibleForRemuneration = Boolean.TRUE;
+
     private String name;
     private Integer age;
     private Gender gender;

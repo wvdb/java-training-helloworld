@@ -4,11 +4,14 @@ package be.ictdynamic.helloworld.domain;
  * Created by wvdbrand on 6/09/2017.
  */
 public class Department extends DatabaseEntity {
-  private String departmentName;
+    private String departmentName;
+    private String departmentAddress;
+    private Manager departmentManager;
 
-    public Department(Integer id, String departmentName) {
-        super(id);
-        this.departmentName = departmentName;
+    private Department(DepartmentBuilder builder) {
+        this.departmentName = builder.nestedDepartmentName;
+        this.departmentAddress = builder.nestedDepartmentAddress;
+        this.departmentManager = builder.nestedDepartmentManager;
     }
 
     public String getDepartmentName() {
@@ -19,11 +22,36 @@ public class Department extends DatabaseEntity {
         this.departmentName = departmentName;
     }
 
-    @Override
-    public String toString() {
-        return "Department{" +
-                "id=" + getId() +
-                ", departmentName='" + departmentName + '\'' +
-                '}';
+    public String getDepartmentAddress() {
+        return departmentAddress;
+    }
+
+    public void setDepartmentAddress(String departmentAddress) {
+        this.departmentAddress = departmentAddress;
+    }
+
+    public static class DepartmentBuilder {
+        private String nestedDepartmentName;
+        private String nestedDepartmentAddress;
+        private Manager nestedDepartmentManager;
+
+        public DepartmentBuilder departmentName(String departmentName) {
+            this.nestedDepartmentName = departmentName;
+            return this;
+        }
+
+        public DepartmentBuilder departmentAddress(String nestedDepartmentAddress) {
+            this.nestedDepartmentAddress = nestedDepartmentAddress;
+            return this;
+        }
+
+        public DepartmentBuilder departmentManager(Manager nestedDepartmentManager) {
+            this.nestedDepartmentManager = nestedDepartmentManager;
+            return this;
+        }
+
+        public Department build() {
+            return new Department(this);
+        }
     }
 }

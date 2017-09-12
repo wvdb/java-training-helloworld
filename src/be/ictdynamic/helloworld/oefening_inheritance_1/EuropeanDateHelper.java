@@ -1,4 +1,4 @@
-package be.ictdynamic.helloworld.oefening_inheritance_0;
+package be.ictdynamic.helloworld.oefening_inheritance_1;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
