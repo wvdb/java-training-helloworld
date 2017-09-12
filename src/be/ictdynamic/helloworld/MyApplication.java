@@ -315,9 +315,4 @@ public class MyApplication {
         exampleOfAFunction.gettingNameOfTheEmployeeRegular();
     }
 
-    public static void oefeningStreams() {
-        OefeningStreams oefeningStreams = new OefeningStreams();
-        oefeningStreams.exec();
-    }
-
 }
