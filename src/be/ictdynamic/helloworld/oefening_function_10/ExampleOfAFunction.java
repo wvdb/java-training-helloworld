@@ -39,7 +39,7 @@ public class ExampleOfAFunction {
 
     public List<String> convertEmpListToNamesList1(List<Employee> employees, Function<Employee, String> funcEmpToString){
         List<String> employeeNames = new ArrayList<>();
-        for (Employee employee:employees){
+        for (Employee employee: employees){
             // apply the actual function on the employee
             employeeNames.add(funcEmpToString.apply(employee));
         }

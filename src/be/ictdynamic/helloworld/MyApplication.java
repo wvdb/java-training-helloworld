@@ -47,7 +47,7 @@ public class MyApplication {
                 MyApplication.oefeningPassByValue();
                 break;
             case 6:
-                MyApplication.oefeningAbstractClass_6();
+                MyApplication.oefeningInnerClass_6();
                 break;
             case 10:
                 MyApplication.oefeningFunction();
@@ -244,7 +244,7 @@ public class MyApplication {
         System.out.println("name of employee in doSomething = " + employee.getName());
     }
 
-    private static void oefeningAbstractClass_6() {
+    private static void oefeningInnerClass_6() {
         CustomerDNAFile customerDNAFile = new CustomerDNAFile();
 
         // Preference is (normal) inner class
@@ -261,12 +261,19 @@ public class MyApplication {
 
         CustomerDNAFile.exampleOfLocalInnnerClassMethod();
 
-        // example of an inner class when using the builder design pattern
+        // example of a static inner class when using the builder design pattern
 
         Department department = new Department.DepartmentBuilder()
                 .departmentAddress("example of an address")
                 .departmentName("example of a department")
                 .build();
+
+        // example of a (normal) inner class : Addresses have been embedded within Employee
+
+        Employee employee = new Employee(1, "wim van den brande", 49, null, null);
+        Employee.Address address1 = employee.new Address(1, "home", "street 1", "house no1", "zip 1", "commune 1");
+        Employee.Address address2 = employee.new Address(2, "office", "street 2", "house no2", "zip 2", "commune 2");
+
     }
 
     private static void oefeningStaticMethod_3() {

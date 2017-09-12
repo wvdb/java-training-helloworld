@@ -11,7 +11,8 @@ public class Employee extends Worker {
     // every sub-class of worker has a hireDate, a worker doesn't
     private Date hireDate;
     private Set<Project> projects;
-    private Set<Department> department;
+    private Set<Department> departments;
+    private Set<Address> addresses;
 
     public Employee(Integer id, String name, Integer age, Gender gender, Date hireDate) {
         super(id, name, age, gender);
@@ -37,15 +38,23 @@ public class Employee extends Worker {
         this.projects = projects;
     }
 
-    public Set<Department> getDepartment() {
-        if (department == null) {
-            department = new LinkedHashSet<>();
+    public Set<Department> getDepartments() {
+        if (departments == null) {
+            departments = new LinkedHashSet<>();
         }
-        return department;
+        return departments;
     }
 
-    public void setDepartment(Set<Department> department) {
-        this.department = department;
+    public void setDepartments(Set<Department> departments) {
+        this.departments = departments;
+    }
+
+    public Set<Address> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(Set<Address> addresses) {
+        this.addresses = addresses;
     }
 
     //    @Override
@@ -77,7 +86,75 @@ public class Employee extends Worker {
                 ", age=" + getAge() +
                 ", hireDate=" + hireDate +
                 ", projects=" + projects +
-                ", department=" + department +
+                ", departments=" + departments +
                 '}';
+    }
+
+    public class Address extends DatabaseEntity {
+        // should be an enum
+        private String addressType;
+        private String street;
+        private String houseNo;
+        private String zip;
+        private String city;
+
+        public Address(Integer id, String addressType, String street, String houseNo, String zip, String city) {
+            super(id);
+            this.addressType = addressType;
+            this.street = street;
+            this.houseNo = houseNo;
+            this.zip = zip;
+            this.city = city;
+        }
+
+        public String getAddressType() {
+            return addressType;
+        }
+
+        public void setAddressType(String addressType) {
+            this.addressType = addressType;
+        }
+
+        public String getStreet() {
+            return street;
+        }
+
+        public void setStreet(String street) {
+            this.street = street;
+        }
+
+        public String getHouseNo() {
+            return houseNo;
+        }
+
+        public void setHouseNo(String houseNo) {
+            this.houseNo = houseNo;
+        }
+
+        public String getZip() {
+            return zip;
+        }
+
+        public void setZip(String zip) {
+            this.zip = zip;
+        }
+
+        public String getCity() {
+            return city;
+        }
+
+        public void setCity(String city) {
+            this.city = city;
+        }
+
+        @Override
+        public String toString() {
+            return "Address{" +
+                    "street='" + street + '\'' +
+                    ", houseNo='" + houseNo + '\'' +
+                    ", zip='" + zip + '\'' +
+                    ", city='" + city + '\'' +
+                    "} " + super.toString();
+        }
     }
 }

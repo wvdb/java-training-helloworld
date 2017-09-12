@@ -1,5 +1,7 @@
 package be.ictdynamic.helloworld.oefening_interfaces_2;
 
+import java.util.Date;
+
 /**
  * Created by wvdbrand on 24/08/2017.
  */
@@ -18,5 +20,9 @@ public interface DummyInterface extends DummyInterface1, DummyInterface2, DummyI
 
     default void move(){
         System.out.println("I am moving");
+    }
+
+    static Date getCurrentDate() {
+        return new Date();
     }
 }
