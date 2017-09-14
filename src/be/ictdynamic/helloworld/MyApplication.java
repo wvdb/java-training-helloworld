@@ -6,7 +6,6 @@ import be.ictdynamic.helloworld.domain.Department;
 import be.ictdynamic.helloworld.domain.Employee;
 import be.ictdynamic.helloworld.domain.Worker;
 import be.ictdynamic.helloworld.oefening_abstract_class_6.CustomerDNAFile;
-import be.ictdynamic.helloworld.oefening_function_10.ExampleOfAFunction;
 import be.ictdynamic.helloworld.oefening_inheritance_1.DateHelper;
 import be.ictdynamic.helloworld.oefening_inheritance_1.EuropeanDateHelper;
 import be.ictdynamic.helloworld.oefening_inheritance_1.IDateHelper;
@@ -48,12 +47,6 @@ public class MyApplication {
                 break;
             case 6:
                 MyApplication.oefeningInnerClass_6();
-                break;
-            case 10:
-                MyApplication.oefeningFunction();
-                break;
-            case 30:
-                MyApplication.oefeningThreads();
                 break;
             default :
                 System.out.println("geen oefening voorzien");
@@ -151,12 +144,10 @@ public class MyApplication {
         // concatenating van 2 strings (using StringBuilder/StringBuffer)
         dummyInterface = new DummyInterfaceImpl2();
         System.out.println("naam = " + dummyInterface.getCompleteName("wim", "van den brande"));
-        System.out.println("freeMemory = " + Runtime.getRuntime().freeMemory());
 
         // concatenating van 2 strings (using + operator)
         dummyInterface = new DummyInterfaceImpl1();
         System.out.println("naam = " + dummyInterface.getCompleteName("wim", "van den brande"));
-        System.out.println("freeMemory = " + Runtime.getRuntime().freeMemory());
 
         // concatenating van 2 strings met Java 8 - remember : a method should do one thing only and it should do it properly
         List<String> valuesList1 = Arrays.asList("wim", "van den brande");
@@ -170,6 +161,13 @@ public class MyApplication {
     }
 
     static private void oefeningEquals() {
+        int i1 = 10;
+        int i2 = 20;
+
+        // DOES THIS COMPILE ???
+
+        // if (i1 = i2)
+
         String canoniekeString1 = "wim van den brande";
         String canoniekeString2 = "wim van den brande";
 
@@ -196,13 +194,13 @@ public class MyApplication {
             System.out.println("Alles ok. Er zijn nog zekerheden ...");
         }
 
-        // oefening op OR operator
+        // oefening op bitwise OR operator
         int val1 = 16;
         int val2 = 8;
         // prints "24"
         System.out.println(val1 | val2);
 
-        // oefening op AND operator
+        // oefening op bitwise AND operator
         int[] intValues = {3, 11, 15};
         // prints "3"
         System.out.println(intValues[0] & intValues[1] & intValues[2]);
@@ -219,6 +217,16 @@ public class MyApplication {
             System.out.println(val3 >> b);
         }
 
+        // oefening op conditional operator
+        int[] years = {2016, 2017, 2100, 2000};
+
+        for (int year : years) {
+            System.out.println("year " + year + " is a leap year? " + (isLeapYear(year) ? "This is correct" : "This is not correct"));
+        }
+    }
+
+    private static boolean isLeapYear(int year) {
+        return year % 4 == 0 && (year % 100 != 0 || year % 400 == 0);
     }
 
     static private void oefeningPassByValue() {
@@ -285,41 +293,6 @@ public class MyApplication {
         worker.testInstanceMethod();
 
         Employee.testClassMethod();
-    }
-
-    private static void oefeningThreads() {
-        Runnable task = () -> {
-            String threadName = Thread.currentThread().getName();
-            System.out.println("Hello " + threadName);
-        };
-
-        task.run();
-
-        Thread thread = new Thread(task);
-        thread.start();
-
-        System.out.println("Done!");
-
-        // possible output (volgorde is niet voorspelbaar)
-
-//        Geef identifier van de oefening:
-//        20
-//        Hello main
-//        Done!
-//        Hello Thread-0
-
-//        Geef identifier van de oefening:
-//        20
-//        Hello main
-//        Hello Thread-0
-//        Done!
-
-    }
-
-    public static void oefeningFunction() {
-        ExampleOfAFunction exampleOfAFunction = new ExampleOfAFunction();
-        exampleOfAFunction.gettingNameOfTheEmployeeVeryFancy();
-        exampleOfAFunction.gettingNameOfTheEmployeeRegular();
     }
 
 }
