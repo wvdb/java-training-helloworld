@@ -43,7 +43,8 @@ public class MyApplication {
                 MyApplication.oefeningEquals();
                 break;
             case 5:
-                MyApplication.oefeningPassByValue();
+                MyApplication.oefeningPassByValue1();
+                MyApplication.oefeningPassByValue2();
                 break;
             case 6:
                 MyApplication.oefeningInnerClass_6();
@@ -229,27 +230,61 @@ public class MyApplication {
         return year % 4 == 0 && (year % 100 != 0 || year % 400 == 0);
     }
 
-    static private void oefeningPassByValue() {
+    static private void oefeningPassByValue1() {
         MyApplication myApplication = new MyApplication();
 
         Employee employee = new Employee(1, "wim van den brande", 49, null, null);
 
-        myApplication.doSomething(employee);
+        myApplication.doSomething1(employee);
 
         // has employee changed ???
         // what will be the name of employee ???
 
         // do not try to LOG the actual reference since the JVM is free to move references over time
 
-        System.out.println("name of employee in oefeningPassByValue = " + employee.getName());
+        System.out.println("name of employee in oefeningPassByValue1 = " + employee.getName());
     }
 
-    private void doSomething(Employee employee) {
+    private void doSomething1(Employee employee) {
         // ho ho ho ... altering input parameters should be avoided!!!
         employee.setName("wim van den brande - bis");
 
         employee = new Employee(1, "Donald Tttttt....", 71, null, null);
         System.out.println("name of employee in doSomething = " + employee.getName());
+    }
+
+    static private void oefeningPassByValue2() {
+        Integer[] myIntegers = {10, 20, 30, 40};
+
+        doSomething2(myIntegers);
+
+        // has myArray  changed ???
+        // what will be the name of employee ???
+
+        for (Integer myInteger : myIntegers) {
+            System.out.println("myInteger = " + myInteger);
+        }
+
+    }
+
+    private static void doSomething2(Integer[] myIntegers) {
+        // ho ho ho ... altering input parameters should be avoided!!!
+        myIntegers[0] /= 10;
+        myIntegers[1] /= 10;
+        myIntegers[2] /= 10;
+        myIntegers[3] /= 10;
+
+        myIntegers = new Integer[]{100, 200, 300, 400};
+
+        for (Integer myInteger : myIntegers) {
+            System.out.println("myInteger = " + myInteger);
+        }
+
+        Integer[] myIntegersBis1 = new Integer[4];
+        System.arraycopy(myIntegers, 0, myIntegersBis1, 0, 4);
+
+        Integer[] myIntegersBis2 = myIntegersBis1;
+        int i=0;
     }
 
     private static void oefeningInnerClass_6() {
