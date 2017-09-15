@@ -12,6 +12,7 @@ import be.ictdynamic.helloworld.oefening_inheritance_1.IDateHelper;
 import be.ictdynamic.helloworld.oefening_interfaces_2.DummyInterface;
 import be.ictdynamic.helloworld.oefening_interfaces_2.DummyInterfaceImpl1;
 import be.ictdynamic.helloworld.oefening_interfaces_2.DummyInterfaceImpl2;
+import com.sun.deploy.util.StringUtils;
 
 import java.time.Instant;
 import java.util.Arrays;
@@ -43,11 +44,16 @@ public class MyApplication {
                 MyApplication.oefeningEquals();
                 break;
             case 5:
+                MyApplication.oefeningPassByValue0();
                 MyApplication.oefeningPassByValue1();
                 MyApplication.oefeningPassByValue2();
                 break;
             case 6:
                 MyApplication.oefeningInnerClass_6();
+                break;
+            case 7:
+                Employee employee = new Employee(1, "wim van den brande", 49, null, null);
+                MyApplication.oefeningWithAssert_7(employee);
                 break;
             default :
                 System.out.println("geen oefening voorzien");
@@ -227,7 +233,30 @@ public class MyApplication {
     }
 
     private static boolean isLeapYear(int year) {
+        // example of conditional operator
         return year % 4 == 0 && (year % 100 != 0 || year % 400 == 0);
+    }
+
+    static private void oefeningPassByValue0() {
+        Integer myInteger = new Integer(5);
+
+        doSomething0(myInteger);
+
+        // has myInteger changed ???
+        // what will be the name of myInteger ???
+
+        // do not try to LOG the actual reference since the JVM is free to move references over time
+
+        System.out.println("value of myInteger in oefeningPassByValue0 = " + myInteger);
+    }
+
+    private static void doSomething0(Integer myInteger) {
+        // ho ho ho ... altering input parameters should be avoided!!!
+        myInteger *= myInteger;
+
+        myInteger = new Integer(100);
+
+        System.out.println("value of myInteger in doSomething0 = " + myInteger);
     }
 
     static private void oefeningPassByValue1() {
@@ -250,7 +279,7 @@ public class MyApplication {
         employee.setName("wim van den brande - bis");
 
         employee = new Employee(1, "Donald Tttttt....", 71, null, null);
-        System.out.println("name of employee in doSomething = " + employee.getName());
+        System.out.println("name of employee in doSomething1 = " + employee.getName());
     }
 
     static private void oefeningPassByValue2() {
@@ -262,7 +291,7 @@ public class MyApplication {
         // what will be the name of employee ???
 
         for (Integer myInteger : myIntegers) {
-            System.out.println("myInteger = " + myInteger);
+            System.out.println("myInteger in oefeningPassByValue2 = " + myInteger);
         }
 
     }
@@ -329,5 +358,21 @@ public class MyApplication {
 
         Employee.testClassMethod();
     }
+
+    private static void oefeningWithAssert_7(Employee employee) {
+        // assert facilitates the idea of validation / pre-condition
+        // assert throws AssertionError (inherits from Error) !!!
+
+        // assert ONLY works when running when passing JAVA the -ea option
+        assert employee.getId() >= 0;
+//        assert employee.getName().length() > 0;
+        assert employee.getName() != null && employee.getName().length() > 0;
+        assert employee.getHireDate() != null ;
+
+        // alternative is an IllegalArgumentException
+        // be aware of the
+        // InvalidArgumentException !!!
+    }
+
 
 }
