@@ -385,21 +385,34 @@ public class MyApplication {
             piramideMaxValue = reader.nextInt();
         }
 
+        System.out.println("\nCreating a pyramid as we know it.\n");
+
         for (int i=1; i<=piramideMaxValue; i++) {
-            // take care of printing spaces (if any)
-            for (int j=1; j <= piramideMaxValue -i; j++ ) {
-                System.out.print(" ");
-            }
-            // take care of printing actual digit
-            for (int j=1; j <= i; j++ ) {
-                System.out.print(String.format("%02d", i) + " ");
-            }
-            // take care of printing newline
-            System.out.println();
+            piramideImpl(piramideMaxValue, i);
+
+        }
+
+        System.out.println("\nCreating a company with too much overhead.\n");
+
+        for (int i=piramideMaxValue; i>=1; i--) {
+            piramideImpl(piramideMaxValue, i);
         }
 
     }
 
+    private static void piramideImpl(int piramideMaxValue, int i) {
+        // take care of printing spaces (if any)
+        for (int j=1; j <= piramideMaxValue -i; j++ ) {
+            // TODO : 2 spaces should become a constant
+            System.out.print("  ");
+        }
+        // take care of printing actual digit
+        for (int j=1; j <= i; j++ ) {
+            System.out.print(String.format("%02d", i) + "  ");
+        }
+        // take care of printing newline
+        System.out.println();
+    }
 
 
 }
