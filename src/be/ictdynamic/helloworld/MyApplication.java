@@ -378,8 +378,12 @@ public class MyApplication {
 
     private static void oefeningPrintPiramide_8() {
         Scanner reader = new Scanner(System.in);
-        System.out.println("Geef maximale waare van de piramide: ");
-        int piramideMaxValue = reader.nextInt();
+        int piramideMaxValue = 0;
+
+        while (piramideMaxValue <= 0 || piramideMaxValue > 99) {
+            System.out.println("Geef maximale waare van de piramide: ");
+            piramideMaxValue = reader.nextInt();
+        }
 
         for (int i=1; i<=piramideMaxValue; i++) {
             // take care of printing spaces (if any)
