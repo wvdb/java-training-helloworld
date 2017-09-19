@@ -12,7 +12,6 @@ import be.ictdynamic.helloworld.oefening_inheritance_1.IDateHelper;
 import be.ictdynamic.helloworld.oefening_interfaces_2.DummyInterface;
 import be.ictdynamic.helloworld.oefening_interfaces_2.DummyInterfaceImpl1;
 import be.ictdynamic.helloworld.oefening_interfaces_2.DummyInterfaceImpl2;
-import com.sun.deploy.util.StringUtils;
 
 import java.time.Instant;
 import java.util.Arrays;
@@ -54,6 +53,9 @@ public class MyApplication {
             case 7:
                 Employee employee = new Employee(1, "wim van den brande", 49, null, null);
                 MyApplication.oefeningWithAssert_7(employee);
+                break;
+            case 8:
+                MyApplication.oefeningPrintPiramide_8();
                 break;
             default :
                 System.out.println("geen oefening voorzien");
@@ -363,7 +365,7 @@ public class MyApplication {
         // assert facilitates the idea of validation / pre-condition
         // assert throws AssertionError (inherits from Error) !!!
 
-        // assert ONLY works when running when passing JAVA the -ea option
+        // assert ONLY works when running when passing JAVA the -ea (enable assert) option
         assert employee.getId() >= 0;
 //        assert employee.getName().length() > 0;
         assert employee.getName() != null && employee.getName().length() > 0;
@@ -373,6 +375,27 @@ public class MyApplication {
         // be aware of the
         // InvalidArgumentException !!!
     }
+
+    private static void oefeningPrintPiramide_8() {
+        Scanner reader = new Scanner(System.in);
+        System.out.println("Geef maximale waare van de piramide: ");
+        int piramideMaxValue = reader.nextInt();
+
+        for (int i=1; i<=piramideMaxValue; i++) {
+            // take care of printing spaces (if any)
+            for (int j=1; j <= piramideMaxValue -i; j++ ) {
+                System.out.print(" ");
+            }
+            // take care of printing actual digit
+            for (int j=1; j <= i; j++ ) {
+                System.out.print(String.format("%02d", i) + " ");
+            }
+            // take care of printing newline
+            System.out.println();
+        }
+
+    }
+
 
 
 }
