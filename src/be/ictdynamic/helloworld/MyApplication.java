@@ -198,12 +198,12 @@ public class MyApplication {
 
         // Maak gebruik van debug in String equals
         if (canoniekeString1.equals(canoniekeString2)) {
-            System.out.println("Alles ok. Er zijn nog zekerheden ...");
+            System.out.println("Everything fine ...");
         }
 
         // Maak gebruik van debug in String equals
         if (string1.equals(string2))  {
-            System.out.println("Alles ok. Er zijn nog zekerheden ...");
+            System.out.println("Everything fine ...");
         }
 
         // oefening op bitwise OR operator
@@ -213,8 +213,8 @@ public class MyApplication {
         System.out.println("Bitwise or gives us: " + (val1 | val2));
 
         // oefening op bitwise AND operator
-        int[] intValues = {3, 11, 15};
-        // prints "3"
+        int[] intValues = {3, 11, 14};
+        // prints "2"
         System.out.println("Bitwise and gives us: " + (intValues[0] & intValues[1] & intValues[2]));
 
         // oefening op Signed left shift
@@ -257,9 +257,11 @@ public class MyApplication {
 
     private static void doSomething0(Integer myInteger) {
         // ho ho ho ... altering input parameters should be avoided!!!
+        // this is not an antipattern, it's a bad practice.
+
         myInteger *= myInteger;
 
-        myInteger = new Integer(100);
+//        myInteger = new Integer(100);
 
         System.out.println("value of myInteger in doSomething0 = " + myInteger);
     }
@@ -292,7 +294,7 @@ public class MyApplication {
 
         doSomething2(myIntegers);
 
-        // has myArray  changed ???
+        // has myArray changed ???
         // what will be the name of employee ???
 
         for (Integer myInteger : myIntegers) {
