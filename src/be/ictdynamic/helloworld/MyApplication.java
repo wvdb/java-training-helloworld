@@ -14,10 +14,7 @@ import be.ictdynamic.helloworld.oefening_interfaces_2.DummyInterfaceImpl1;
 import be.ictdynamic.helloworld.oefening_interfaces_2.DummyInterfaceImpl2;
 
 import java.time.Instant;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class MyApplication {
 
@@ -27,7 +24,7 @@ public class MyApplication {
         int oefeningInteger = reader.nextInt();
 
         // TODO : explain case 4 and case 5 first
-        // TODO : piramide : oefening 8
+        // TODO : piramide : exercise 8
 
         switch (oefeningInteger) {
             case 0:
@@ -46,9 +43,9 @@ public class MyApplication {
                 MyApplication.oefeningEquals_4();
                 break;
             case 5:
-                MyApplication.oefeningPassByValue0();
-                MyApplication.oefeningPassByValue1();
-                MyApplication.oefeningPassByValue2();
+                MyApplication.oefeningPassByValue5_0();
+//                MyApplication.exercisePassByValue5_1();
+//                MyApplication.exercisePassByValue5_2();
                 break;
             case 6:
                 MyApplication.oefeningInnerClass_6();
@@ -65,6 +62,8 @@ public class MyApplication {
         }
 
         reader.close();
+
+        System.exit(0);
     }
 
     private static void oefeningInheritance_0() {
@@ -121,12 +120,12 @@ public class MyApplication {
 
     // IntelliJ geeft aan dat 4de argument niet wordt gebruikt
     private static void oefeningInheritanceHelper(IDateHelper dateHelper1, IDateHelper dateHelper2, IDateHelper dateHelper3, IDateHelper dateHelper4) {
-        System.out.println("datum = " + dateHelper1.getCurrentDateAsString());
-        System.out.println("datum = " + dateHelper2.getCurrentDateAsString());
-        System.out.println("datum = " + dateHelper3.getCurrentDateAsString());
+        System.out.println("date = " + dateHelper1.getCurrentDateAsString());
+        System.out.println("date = " + dateHelper2.getCurrentDateAsString());
+        System.out.println("date = " + dateHelper3.getCurrentDateAsString());
 
-        System.out.println("datum verhoogd met 10 dagen (EuropeanDateHelper)= " + dateHelper2.addNumberOfDays(new Date(System.currentTimeMillis()), 10));
-        System.out.println("datum verhoogd met 10 dagen (DangerousUSDateHelper)= " + dateHelper1.addNumberOfDays(new Date(System.currentTimeMillis()), 10));
+        System.out.println("date increased with 10 days (EuropeanDateHelper)= " + dateHelper2.addNumberOfDays(new Date(System.currentTimeMillis()), 10));
+        System.out.println("date increased with 10 days (DangerousUSDateHelper)= " + dateHelper1.addNumberOfDays(new Date(System.currentTimeMillis()), 10));
 
         Employee employee = new Employee(1, "wim van den brande", 15, null, null);
 
@@ -143,32 +142,33 @@ public class MyApplication {
 //        workerCastedToEmployee.getHireDate();
 
         // Employee inherits the static properties as well
-        System.out.println("An employee is eligible for remuneration? : " + employee.isEligibleForRemuneration);
+        System.out.println("An employee is eligible for remuneration? : " + Employee.isEligibleForRemuneration);
     }
 
     public static void oefeningInterfaces_2() {
         DummyInterface.InnerInterface1.dummyMethod1("dit is een test");
         DummyInterface.InnerInterface2.printToUpperCase("dit is nog een test");
 
-        // voorbeeld van design by interface
+        // example of design by interface
         DummyInterface dummyInterface;
 
-        // concatenating van 2 strings (using StringBuilder/StringBuffer)
+        // concatenating 2 strings (using StringBuilder/StringBuffer)
         dummyInterface = new DummyInterfaceImpl2();
-        System.out.println("naam = " + dummyInterface.getCompleteName("wim", "van den brande"));
+        System.out.println("name = " + dummyInterface.getCompleteName("wim", "van den brande"));
 
-        // concatenating van 2 strings (using + operator)
+        // concatenating 2 strings (using + operator)
         dummyInterface = new DummyInterfaceImpl1();
-        System.out.println("naam = " + dummyInterface.getCompleteName("wim", "van den brande"));
+        System.out.println("name = " + dummyInterface.getCompleteName("wim", "van den brande"));
 
-        // concatenating van 2 strings met Java 8 - remember : a method should do one thing only and it should do it properly
+        // concatenating 2 strings with Java 8 - remember : a method should do one thing only and it should do it properly
         List<String> valuesList1 = Arrays.asList("wim", "van den brande");
-        System.out.println("naam = " + String.join(" ", valuesList1));
+        System.out.println("name = " + String.join(" ", valuesList1));
 
-        // voorbeeld van een NPE (join method does not accept a null value as an argument)
-        System.out.println("naam = " + String.join(null, valuesList1));
+        // example of a NPE (join method does not accept a null value as an argument)
+        System.out.println("name = " + String.join(null, valuesList1));
 
-        // voorbeeld van een default method
+        // example of a default method
+
         dummyInterface.move();
     }
 
@@ -180,11 +180,11 @@ public class MyApplication {
 
         // if (i1 = i2)
 
-        String canoniekeString1 = "wim van den brande";
-        String canoniekeString2 = "wim van den brande";
+        String canonicalString1 = "wim van den brande";
+        String canonicalString2 = "wim van den brande";
 
-        if (canoniekeString1 == canoniekeString2) {
-            System.out.println("The references are identical. All hail to the string connection pool.");
+        if (canonicalString1 == canonicalString2) {
+            System.out.println("The references are identical. All hail to the string constant pool.");
         }
 
         // this was asked in an interview once ...
@@ -197,7 +197,7 @@ public class MyApplication {
         }
 
         // Maak gebruik van debug in String equals
-        if (canoniekeString1.equals(canoniekeString2)) {
+        if (canonicalString1.equals(canonicalString2)) {
             System.out.println("Everything fine ...");
         }
 
@@ -206,18 +206,18 @@ public class MyApplication {
             System.out.println("Everything fine ...");
         }
 
-        // oefening op bitwise OR operator
+        // exercise bitwise OR operator
         int val1 = 16;
         int val2 = 8;
         // prints "24"
         System.out.println("Bitwise or gives us: " + (val1 | val2));
 
-        // oefening op bitwise AND operator
+        // exercise op bitwise AND operator
         int[] intValues = {3, 11, 14};
         // prints "2"
         System.out.println("Bitwise and gives us: " + (intValues[0] & intValues[1] & intValues[2]));
 
-        // oefening op Signed left shift
+        // exercise op Signed left shift
         int val3 = 16;
         // prints ???
         for (byte b = 1; b<=3; b ++) {
@@ -229,7 +229,7 @@ public class MyApplication {
             System.out.println("Signed right shift: value has become: " + (val3 >> b));
         }
 
-        // oefening op conditional operator
+        // exercise op conditional operator
         int[] years = {2016, 2017, 2100, 2000};
 
         for (int year : years) {
@@ -242,7 +242,7 @@ public class MyApplication {
         return year % 4 == 0 && (year % 100 != 0 || year % 400 == 0);
     }
 
-    static private void oefeningPassByValue0() {
+    static private void oefeningPassByValue5_0() {
         Integer myInteger = new Integer(5);
 
         doSomething0(myInteger);
@@ -252,36 +252,38 @@ public class MyApplication {
 
         // do not try to LOG the actual reference since the JVM is free to move references over time
 
-        System.out.println("value of myInteger in oefeningPassByValue0 = " + myInteger);
+        System.out.println("value of myInteger in oefeningPassByValue5_0 = " + myInteger);
     }
 
     private static void doSomething0(Integer myInteger) {
         // ho ho ho ... altering input parameters should be avoided!!!
-        // this is not an antipattern, it's a bad practice.
+        // this is not an anti-pattern, it's a bad practice.
+
+        // ALL JAVA.LANG WRAPPER TYPES ARE IMMUTABLE !!!
 
         myInteger *= myInteger;
 
 //        myInteger = new Integer(100);
 
+        // explain advantage of final
+
         System.out.println("value of myInteger in doSomething0 = " + myInteger);
     }
 
-    static private void oefeningPassByValue1() {
-        MyApplication myApplication = new MyApplication();
-
+    static private void oefeningPassByValue5_1() {
         Employee employee = new Employee(1, "wim van den brande", 49, null, null);
 
-        myApplication.doSomething1(employee);
+        doSomething1(employee);
 
         // has employee changed ???
         // what will be the name of employee ???
 
         // do not try to LOG the actual reference since the JVM is free to move references over time
 
-        System.out.println("name of employee in oefeningPassByValue1 = " + employee.getName());
+        System.out.println("name of employee in oefeningPassByValue5_1 = " + employee.getName());
     }
 
-    private void doSomething1(Employee employee) {
+    private static void doSomething1(Employee employee) {
         // ho ho ho ... altering input parameters should be avoided!!!
         employee.setName("wim van den brande - bis");
 
@@ -289,7 +291,7 @@ public class MyApplication {
         System.out.println("name of employee in doSomething1 = " + employee.getName());
     }
 
-    static private void oefeningPassByValue2() {
+    static private void oefeningPassByValue5_2() {
         Integer[] myIntegers = {10, 20, 30, 40};
 
         doSomething2(myIntegers);
@@ -298,7 +300,7 @@ public class MyApplication {
         // what will be the name of employee ???
 
         for (Integer myInteger : myIntegers) {
-            System.out.println("myInteger in oefeningPassByValue2 = " + myInteger);
+            System.out.println("myInteger in oefeningPassByValue5_2 = " + myInteger);
         }
 
     }
@@ -310,7 +312,7 @@ public class MyApplication {
         myIntegers[2] /= 10;
         myIntegers[3] /= 10;
 
-        myIntegers = new Integer[]{100, 200, 300, 400};
+//        myIntegers = new Integer[]{100, 200, 300, 400};
 
         for (Integer myInteger : myIntegers) {
             System.out.println("myInteger = " + myInteger);
@@ -320,6 +322,8 @@ public class MyApplication {
         System.arraycopy(myIntegers, 0, myIntegersBis1, 0, 4);
 
         Integer[] myIntegersBis2 = myIntegersBis1;
+
+        // breakpoint
         int i=0;
     }
 
@@ -352,7 +356,6 @@ public class MyApplication {
         Employee employee = new Employee(1, "wim van den brande", 49, null, null);
         Employee.Address address1 = employee.new Address(1, "home", "street 1", "house no1", "zip 1", "commune 1");
         Employee.Address address2 = employee.new Address(2, "office", "street 2", "house no2", "zip 2", "commune 2");
-
     }
 
     private static void oefeningStaticMethod_3() {
@@ -360,10 +363,11 @@ public class MyApplication {
         Worker worker = employee;
 
         Worker.testClassMethod();
-        // CTRL click method and ask which method will be invoked
-        worker.testInstanceMethod();
-
         Employee.testClassMethod();
+
+        // CTRL click method and ask which method will be invoked
+        // use debugger
+        worker.testInstanceMethod();
     }
 
     private static void oefeningWithAssert_7(Employee employee) {

@@ -57,7 +57,8 @@ public class Employee extends Worker {
         this.addresses = addresses;
     }
 
-    //    @Override
+//    Does not compile !!!
+//    @Override
     public static void testClassMethod() {
         System.out.println("The static method in Employee");
     }

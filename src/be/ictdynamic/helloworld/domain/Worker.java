@@ -1,6 +1,5 @@
 package be.ictdynamic.helloworld.domain;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
