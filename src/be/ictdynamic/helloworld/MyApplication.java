@@ -23,8 +23,11 @@ public class MyApplication {
 
     public static void main(String[] args) {
         Scanner reader = new Scanner(System.in);
-        System.out.println("Geef identifier van de oefening: ");
+        System.out.println("Enter identifier of the exercise: ");
         int oefeningInteger = reader.nextInt();
+
+        // TODO : explain case 4 and case 5 first
+        // TODO : piramide : oefening 8
 
         switch (oefeningInteger) {
             case 0:
@@ -40,7 +43,7 @@ public class MyApplication {
                 MyApplication.oefeningStaticMethod_3();
                 break;
             case 4:
-                MyApplication.oefeningEquals();
+                MyApplication.oefeningEquals_4();
                 break;
             case 5:
                 MyApplication.oefeningPassByValue0();
@@ -58,7 +61,7 @@ public class MyApplication {
                 MyApplication.oefeningPrintPiramide_8();
                 break;
             default :
-                System.out.println("geen oefening voorzien");
+                System.err.println("!!!No exercise supported. ");
         }
 
         reader.close();
@@ -169,7 +172,7 @@ public class MyApplication {
         dummyInterface.move();
     }
 
-    static private void oefeningEquals() {
+    static private void oefeningEquals_4() {
         int i1 = 10;
         int i2 = 20;
 
@@ -207,23 +210,23 @@ public class MyApplication {
         int val1 = 16;
         int val2 = 8;
         // prints "24"
-        System.out.println(val1 | val2);
+        System.out.println("Bitwise or gives us: " + (val1 | val2));
 
         // oefening op bitwise AND operator
         int[] intValues = {3, 11, 15};
         // prints "3"
-        System.out.println(intValues[0] & intValues[1] & intValues[2]);
+        System.out.println("Bitwise and gives us: " + (intValues[0] & intValues[1] & intValues[2]));
 
         // oefening op Signed left shift
         int val3 = 16;
         // prints ???
         for (byte b = 1; b<=3; b ++) {
-            System.out.println(val3 << b);
+            System.out.println("Signed left shift: value has become: " + (val3 << b));
         }
 
         // prints ???
         for (byte b = 1; b<=5; b ++) {
-            System.out.println(val3 >> b);
+            System.out.println("Signed right shift: value has become: " + (val3 >> b));
         }
 
         // oefening op conditional operator
@@ -381,7 +384,7 @@ public class MyApplication {
         int piramideMaxValue = 0;
 
         while (piramideMaxValue <= 0 || piramideMaxValue > 99) {
-            System.out.println("Geef maximale waare van de piramide: ");
+            System.out.println("Enter maximal value of the pyramid:");
             piramideMaxValue = reader.nextInt();
         }
 
