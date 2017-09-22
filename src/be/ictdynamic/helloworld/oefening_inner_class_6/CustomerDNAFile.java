@@ -1,10 +1,9 @@
-package be.ictdynamic.helloworld.oefening_abstract_class_6;
+package be.ictdynamic.helloworld.oefening_inner_class_6;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by wvdbrand on 29/08/2017.

@@ -5,7 +5,8 @@ import be.ictdynamic.helloworld.cursus_domain.Square;
 import be.ictdynamic.helloworld.domain.Department;
 import be.ictdynamic.helloworld.domain.Employee;
 import be.ictdynamic.helloworld.domain.Worker;
-import be.ictdynamic.helloworld.oefening_abstract_class_6.CustomerDNAFile;
+import be.ictdynamic.helloworld.enums.Month;
+import be.ictdynamic.helloworld.oefening_inner_class_6.CustomerDNAFile;
 import be.ictdynamic.helloworld.oefening_inheritance_1.DateHelper;
 import be.ictdynamic.helloworld.oefening_inheritance_1.EuropeanDateHelper;
 import be.ictdynamic.helloworld.oefening_inheritance_1.IDateHelper;
@@ -23,9 +24,6 @@ public class MyApplication {
         System.out.println("Enter identifier of the exercise: ");
         int oefeningInteger = reader.nextInt();
 
-        // TODO : explain case 4 and case 5 first
-        // TODO : piramide : exercise 8
-
         switch (oefeningInteger) {
             case 0:
                 MyApplication.oefeningInheritance_0();
@@ -40,15 +38,18 @@ public class MyApplication {
                 MyApplication.oefeningStaticMethod_3();
                 break;
             case 4:
-                MyApplication.oefeningEquals_4();
+                MyApplication.oefeningConditionalOperatorAndShiftOperator_4A();
+                MyApplication.oefeningEquals_4B();
                 break;
             case 5:
-                MyApplication.oefeningPassByValue5_0();
+                MyApplication.exercisePassByValue5_0();
 //                MyApplication.exercisePassByValue5_1();
 //                MyApplication.exercisePassByValue5_2();
+//                MyApplication.exercisePassByValue5_3();
                 break;
             case 6:
-                MyApplication.oefeningInnerClass_6();
+                MyApplication.oefeningAbstractClass_6a();
+                MyApplication.oefeningInnerClass_6b();
                 break;
             case 7:
                 Employee employee = new Employee(1, "wim van den brande", 49, null, null);
@@ -56,6 +57,12 @@ public class MyApplication {
                 break;
             case 8:
                 MyApplication.oefeningPrintPiramide_8();
+                break;
+            case 9:
+                MyApplication.oefeningEnum_9();
+                break;
+            case 10:
+                MyApplication.oefeningException_10();
                 break;
             default :
                 System.err.println("!!!No exercise supported. ");
@@ -172,7 +179,7 @@ public class MyApplication {
         dummyInterface.move();
     }
 
-    static private void oefeningEquals_4() {
+    static private void oefeningConditionalOperatorAndShiftOperator_4A() {
         int i1 = 10;
         int i2 = 20;
 
@@ -180,6 +187,52 @@ public class MyApplication {
 
         // if (i1 = i2)
 
+        // exercise bitwise OR operator
+        int val1 = 16;
+        int val2 = 8;
+        // prints "24"
+        System.out.println("Bitwise or gives us: " + (val1 | val2));
+
+        // exercise op bitwise AND operator
+        int[] intValues = {3, 11, 14};
+        // prints "2"
+        System.out.println("Bitwise and gives us: " + (intValues[0] & intValues[1] & intValues[2]));
+
+        // exercise op Signed left shift
+        int val3 = 16;
+        // prints ???
+        for (byte b = 1; b<=3; b ++) {
+            System.out.println("Signed left shift: value has become: " + (val3 << b));
+        }
+
+        // prints ???
+        for (byte b = 1; b<=5; b ++) {
+            System.out.println("Signed right shift: value has become: " + (val3 >> b));
+        }
+
+        // exercise playDays
+        int[] playDays = {20, 31, 3} ;
+        String[] days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+        int[] playDaysx = {1, 2, 4, 8, 16, 32, 64} ;
+
+        for (int playDay: playDays) {
+
+            int index = 0;
+            for (String day: days) {
+                System.out.println("Player with playDay " + playDay + ", day " + day + ": " + ((playDay & playDaysx[index]) > 0 ? "plays" : "does not play") );
+                index += 1;
+            }
+        }
+
+        // exercise op conditional operator
+        int[] years = {2016, 2017, 2100, 2000};
+
+        for (int year : years) {
+            System.out.println("year " + year + " is a leap year? " + (isLeapYear(year) ? "This is correct" : "This is not correct"));
+        }
+    }
+
+    static private void oefeningEquals_4B() {
         String canonicalString1 = "wim van den brande";
         String canonicalString2 = "wim van den brande";
 
@@ -205,36 +258,6 @@ public class MyApplication {
         if (string1.equals(string2))  {
             System.out.println("Everything fine ...");
         }
-
-        // exercise bitwise OR operator
-        int val1 = 16;
-        int val2 = 8;
-        // prints "24"
-        System.out.println("Bitwise or gives us: " + (val1 | val2));
-
-        // exercise op bitwise AND operator
-        int[] intValues = {3, 11, 14};
-        // prints "2"
-        System.out.println("Bitwise and gives us: " + (intValues[0] & intValues[1] & intValues[2]));
-
-        // exercise op Signed left shift
-        int val3 = 16;
-        // prints ???
-        for (byte b = 1; b<=3; b ++) {
-            System.out.println("Signed left shift: value has become: " + (val3 << b));
-        }
-
-        // prints ???
-        for (byte b = 1; b<=5; b ++) {
-            System.out.println("Signed right shift: value has become: " + (val3 >> b));
-        }
-
-        // exercise op conditional operator
-        int[] years = {2016, 2017, 2100, 2000};
-
-        for (int year : years) {
-            System.out.println("year " + year + " is a leap year? " + (isLeapYear(year) ? "This is correct" : "This is not correct"));
-        }
     }
 
     private static boolean isLeapYear(int year) {
@@ -242,7 +265,7 @@ public class MyApplication {
         return year % 4 == 0 && (year % 100 != 0 || year % 400 == 0);
     }
 
-    static private void oefeningPassByValue5_0() {
+    static private void exercisePassByValue5_0() {
         Integer myInteger = new Integer(5);
 
         doSomething0(myInteger);
@@ -261,16 +284,16 @@ public class MyApplication {
 
         // ALL JAVA.LANG WRAPPER TYPES ARE IMMUTABLE !!!
 
-        myInteger *= myInteger;
+        myInteger = new Integer(100);
 
-//        myInteger = new Integer(100);
+//        myInteger *= myInteger;
 
         // explain advantage of final
 
         System.out.println("value of myInteger in doSomething0 = " + myInteger);
     }
 
-    static private void oefeningPassByValue5_1() {
+    static private void exercisePassByValue5_1() {
         Employee employee = new Employee(1, "wim van den brande", 49, null, null);
 
         doSomething1(employee);
@@ -280,7 +303,7 @@ public class MyApplication {
 
         // do not try to LOG the actual reference since the JVM is free to move references over time
 
-        System.out.println("name of employee in oefeningPassByValue5_1 = " + employee.getName());
+        System.out.println("name of employee in exercisePassByValue5_1 = " + employee.getName());
     }
 
     private static void doSomething1(Employee employee) {
@@ -291,16 +314,15 @@ public class MyApplication {
         System.out.println("name of employee in doSomething1 = " + employee.getName());
     }
 
-    static private void oefeningPassByValue5_2() {
+    static private void exercisePassByValue5_2() {
         Integer[] myIntegers = {10, 20, 30, 40};
 
         doSomething2(myIntegers);
 
-        // has myArray changed ???
-        // what will be the name of employee ???
+        // has myIntegers changed ???
 
         for (Integer myInteger : myIntegers) {
-            System.out.println("myInteger in oefeningPassByValue5_2 = " + myInteger);
+            System.out.println("myInteger in exercisePassByValue5_2 = " + myInteger);
         }
 
     }
@@ -327,7 +349,50 @@ public class MyApplication {
         int i=0;
     }
 
-    private static void oefeningInnerClass_6() {
+    static private void exercisePassByValue5_3() {
+        Integer[] myIntegers = {10, 20, 30, 40};
+        Integer[] myIntegers2 = new Integer[myIntegers.length];
+
+        doSomething3(myIntegers, myIntegers2);
+
+        for (Integer myInteger2 : myIntegers2) {
+            System.out.println("myInteger2 in exercisePassByValue5_3 = " + myInteger2);
+        }
+
+    }
+
+    private static void doSomething3(Integer[] myIntegers, Integer[] myModifiedIntegers) {
+        // ho ho ho ... altering input parameters should be avoided!!!
+        myIntegers[0] /= 10;
+        myIntegers[1] /= 10;
+        myIntegers[2] /= 10;
+        myIntegers[3] /= 10;
+
+//        System.arraycopy(myIntegers, 0, myModifiedIntegers, 0, myIntegers.length);
+
+        // DO NOT : REMEMBER .... PASSED BY VALUE BUT THE VALUE IS THE REFERENCE !!!
+
+//        myModifiedIntegers = myIntegers;
+
+//        for (int i=0; i<myIntegers.length; i++) {
+//            myModifiedIntegers[i] = myIntegers[i];
+//        }
+
+//        int i=0;
+    }
+
+    private static void oefeningAbstractClass_6a() {
+//        Worker worker1 = new Worker();
+
+        Worker worker2 = new Worker() {
+            @Override
+            public Object calculateSalary(Object... objects) {
+                return null;
+            }
+        };
+    }
+
+    private static void oefeningInnerClass_6b() {
         CustomerDNAFile customerDNAFile = new CustomerDNAFile();
 
         // Preference is (normal) inner class
@@ -409,6 +474,25 @@ public class MyApplication {
 
     }
 
+    private static void oefeningEnum_9() {
+        for (Month month : Month.values()) {
+            System.out.println("month " + month + " has an index of " + month.getIndex());
+            for (String monthAsString : month.getMonthLanguages()) {
+                System.out.println("month " + month + " is written as " + monthAsString);
+            }
+        }
+    }
+
+    private static void oefeningException_10() {
+        Employee employee = new Employee(1, "wim van den brande", 49, null, null);
+        String[] remunerations1 = {"meal voucher", "salary", "hospital insurance"};
+        String[] remunerations2 = {};
+
+        employee.calculateSalary(remunerations1);
+
+        employee.calculateSalary(remunerations2);
+    }
+
     private static void piramideImpl(int piramideMaxValue, int i) {
         // take care of printing spaces (if any)
         for (int j=1; j <= piramideMaxValue -i; j++ ) {
@@ -423,5 +507,8 @@ public class MyApplication {
         System.out.println();
     }
 
+    private void dummyMethod() {
+        System.out.println("do something");
+    }
 
 }

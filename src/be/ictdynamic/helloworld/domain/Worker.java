@@ -61,7 +61,7 @@ public abstract class Worker extends DatabaseEntity{
     }
 
     // abstract method - the actual impl will be taken care of by the worker's sub-classes
-    public abstract Float calculateSalary(Float... objects);
+    public abstract Object calculateSalary(Object... objects);
 
     public Map<String, Object> getRemunerations() {
         if (remunerations == null) {
@@ -72,5 +72,9 @@ public abstract class Worker extends DatabaseEntity{
 
     public void setRemunerations(Map<String, Object> remunerations) {
         this.remunerations = remunerations;
+    }
+
+    private void dummyMethod() {
+        System.out.println("do something");
     }
 }

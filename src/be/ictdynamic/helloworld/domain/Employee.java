@@ -1,5 +1,7 @@
 package be.ictdynamic.helloworld.domain;
 
+import be.ictdynamic.helloworld.exception.MyDomainException;
+
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -69,13 +71,22 @@ public class Employee extends Worker {
     }
 
     @Override
-    public Float calculateSalary(Float... objects) {
+    public Object calculateSalary(Object... objects) {
+//        if (objects == null) {
+//            throw new IllegalArgumentException("An Employee should have at least one remuneration.");
+//        }
+//        if (objects.length > 1) {
+//            throw new IllegalArgumentException("An Employee cannot have more than one remuneration.");
+//        }
+
         if (objects == null) {
-            throw new IllegalArgumentException("An Employee should have at least one remuneration.");
+            // NO ADDITIONAL LOGGING
+            throw new MyDomainException("An Employee should have at least one remuneration.", "Employee");
         }
-        if (objects.length > 1) {
-            throw new IllegalArgumentException("An Employee cannot have more than one remuneration.");
+        if (objects.length == 0) {
+            throw new MyDomainException("An Employee should have at least one remuneration.", "Employee");
         }
+
         return objects[0];
     }
 
@@ -89,6 +100,12 @@ public class Employee extends Worker {
                 ", projects=" + projects +
                 ", departments=" + departments +
                 '}';
+    }
+
+    // DOES NOT COMPILE
+//    @Override
+    private void dummyMethod() {
+        System.out.println("do something");
     }
 
     public class Address extends DatabaseEntity {
