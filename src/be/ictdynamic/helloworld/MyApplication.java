@@ -42,7 +42,8 @@ public class MyApplication {
                 MyApplication.oefeningEquals_4B();
                 break;
             case 5:
-                MyApplication.exercisePassByValue5_0();
+                MyApplication.exercisePassByValue5_00();
+//                MyApplication.exercisePassByValue5_0();
 //                MyApplication.exercisePassByValue5_1();
 //                MyApplication.exercisePassByValue5_2();
 //                MyApplication.exercisePassByValue5_3();
@@ -265,13 +266,34 @@ public class MyApplication {
         return year % 4 == 0 && (year % 100 != 0 || year % 400 == 0);
     }
 
+    static private void exercisePassByValue5_00() {
+        int myInteger = 5;
+
+        doSomething00(myInteger);
+
+        // has myInteger changed ???
+
+        // do not try to LOG the actual reference since the JVM is free to move references over time
+
+        System.out.println("value of myInteger in oefeningPassByValue5_0 = " + myInteger);
+    }
+
+    private static void doSomething00(int myInteger) {
+        // ho ho ho ... altering input parameters should be avoided!!!
+        // this is not an anti-pattern, it's a bad practice.
+
+        myInteger = 100;
+
+        System.out.println("value of myInteger in doSomething00 = " + myInteger);
+    }
+
+
     static private void exercisePassByValue5_0() {
         Integer myInteger = new Integer(5);
 
         doSomething0(myInteger);
 
         // has myInteger changed ???
-        // what will be the name of myInteger ???
 
         // do not try to LOG the actual reference since the JVM is free to move references over time
 
@@ -284,9 +306,7 @@ public class MyApplication {
 
         // ALL JAVA.LANG WRAPPER TYPES ARE IMMUTABLE !!!
 
-        myInteger = new Integer(100);
-
-//        myInteger *= myInteger;
+//        myInteger = new Integer(100);
 
         // explain advantage of final
 
@@ -350,35 +370,30 @@ public class MyApplication {
     }
 
     static private void exercisePassByValue5_3() {
-        Integer[] myIntegers = {10, 20, 30, 40};
-        Integer[] myIntegers2 = new Integer[myIntegers.length];
+        Integer[] myInputIntegers = {10, 20, 30, 40};
+        Integer[] myOutputIntegers = new Integer[myInputIntegers.length];
 
-        doSomething3(myIntegers, myIntegers2);
+        doSomething3(myInputIntegers, myOutputIntegers);
 
-        for (Integer myInteger2 : myIntegers2) {
-            System.out.println("myInteger2 in exercisePassByValue5_3 = " + myInteger2);
+        for (Integer myOutputInteger : myOutputIntegers) {
+            System.out.println("myOutputInteger in exercisePassByValue5_3 = " + myOutputInteger);
         }
 
     }
 
-    private static void doSomething3(Integer[] myIntegers, Integer[] myModifiedIntegers) {
-        // ho ho ho ... altering input parameters should be avoided!!!
-        myIntegers[0] /= 10;
-        myIntegers[1] /= 10;
-        myIntegers[2] /= 10;
-        myIntegers[3] /= 10;
+    private static void doSomething3(Integer[] myInputIntegers, Integer[] myOutputIntegers) {
+        // DO NOT !!!
+        // REMEMBER .... PASSED BY VALUE BUT THE VALUE IS THE REFERENCE !!!
 
-//        System.arraycopy(myIntegers, 0, myModifiedIntegers, 0, myIntegers.length);
+//        myOutputIntegers = myInputIntegers;
 
-        // DO NOT : REMEMBER .... PASSED BY VALUE BUT THE VALUE IS THE REFERENCE !!!
+        // CORRECT SOLUTION !!!
 
-//        myModifiedIntegers = myIntegers;
+        System.arraycopy(myInputIntegers, 0, myOutputIntegers, 0, myInputIntegers.length);
 
-//        for (int i=0; i<myIntegers.length; i++) {
-//            myModifiedIntegers[i] = myIntegers[i];
-//        }
-
-//        int i=0;
+        for (int i=0; i<myOutputIntegers.length; i++) {
+            myOutputIntegers[i] = myInputIntegers[i] / 10;
+        }
     }
 
     private static void oefeningAbstractClass_6a() {
@@ -485,8 +500,8 @@ public class MyApplication {
 
     private static void oefeningException_10() {
         Employee employee = new Employee(1, "wim van den brande", 49, null, null);
-        String[] remunerations1 = {"meal voucher", "salary", "hospital insurance"};
-        String[] remunerations2 = {};
+        Object[] remunerations1 = {"meal voucher", "salary", "hospital insurance"};
+        Object[] remunerations2 = {};
 
         employee.calculateSalary(remunerations1);
 
