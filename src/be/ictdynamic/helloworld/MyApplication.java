@@ -19,8 +19,11 @@ import java.util.*;
 
 public class MyApplication {
 
+    public static final String EMPTY_STRING = "  ";
+
     public static void main(String[] args) {
         Scanner reader = new Scanner(System.in);
+
         System.out.println("Enter identifier of the exercise: ");
         int oefeningInteger = reader.nextInt();
 
@@ -38,13 +41,13 @@ public class MyApplication {
                 MyApplication.oefeningStaticMethod_3();
                 break;
             case 4:
-                MyApplication.oefeningConditionalOperatorAndShiftOperator_4A();
+//                MyApplication.oefeningConditionalOperatorAndShiftOperator_4A();
                 MyApplication.oefeningEquals_4B();
                 break;
             case 5:
-                MyApplication.exercisePassByValue5_00();
+//                MyApplication.exercisePassByValue5_00();
 //                MyApplication.exercisePassByValue5_0();
-//                MyApplication.exercisePassByValue5_1();
+                MyApplication.exercisePassByValue5_1();
 //                MyApplication.exercisePassByValue5_2();
 //                MyApplication.exercisePassByValue5_3();
                 break;
@@ -64,6 +67,10 @@ public class MyApplication {
                 break;
             case 10:
                 MyApplication.oefeningException_10();
+                break;
+            case 11:
+                MyApplication.oefeningString_11A();
+//                MyApplication.oefeningString_11B();
                 break;
             default :
                 System.err.println("!!!No exercise supported. ");
@@ -97,8 +104,8 @@ public class MyApplication {
         square.changeFormat(50);
         System.out.println("Square = " + square);
 
-        System.out.println(square instanceof Rectangle);
-        System.out.println(rectangle instanceof Square);
+//        System.out.println(square instanceof Rectangle);
+//        System.out.println(rectangle instanceof Square);
     }
 
     private static void oefeningInheritance_1() {
@@ -181,12 +188,14 @@ public class MyApplication {
     }
 
     static private void oefeningConditionalOperatorAndShiftOperator_4A() {
-        int i1 = 10;
+        int i1 = 20;
         int i2 = 20;
 
         // DOES THIS COMPILE ???
 
-        // if (i1 = i2)
+//         if (i1 = i2) {
+//
+//         }
 
         // exercise bitwise OR operator
         int val1 = 16;
@@ -227,6 +236,9 @@ public class MyApplication {
 
         // exercise op conditional operator
         int[] years = {2016, 2017, 2100, 2000};
+
+        double i = 5.0;
+        double j = Math.pow(i, 4.0);
 
         for (int year : years) {
             System.out.println("year " + year + " is a leap year? " + (isLeapYear(year) ? "This is correct" : "This is not correct"));
@@ -290,6 +302,7 @@ public class MyApplication {
 
     static private void exercisePassByValue5_0() {
         Integer myInteger = new Integer(5);
+//        Integer myInteger = 5;
 
         doSomething0(myInteger);
 
@@ -306,7 +319,7 @@ public class MyApplication {
 
         // ALL JAVA.LANG WRAPPER TYPES ARE IMMUTABLE !!!
 
-//        myInteger = new Integer(100);
+        myInteger = new Integer(100);
 
         // explain advantage of final
 
@@ -326,11 +339,11 @@ public class MyApplication {
         System.out.println("name of employee in exercisePassByValue5_1 = " + employee.getName());
     }
 
-    private static void doSomething1(Employee employee) {
+    private static void doSomething1(final Employee employee) {
         // ho ho ho ... altering input parameters should be avoided!!!
-        employee.setName("wim van den brande - bis");
+//        employee.setName("wim van den brande - bis");
 
-        employee = new Employee(1, "Donald Tttttt....", 71, null, null);
+//        employee = new Employee(1, "Donald Tttttt....", 71, null, null);
         System.out.println("name of employee in doSomething1 = " + employee.getName());
     }
 
@@ -426,9 +439,13 @@ public class MyApplication {
 
         // example of a static inner class when using the builder design pattern
 
-        Department department = new Department.DepartmentBuilder()
+        Department department1 = new Department.DepartmentBuilder()
                 .departmentAddress("example of an address")
                 .departmentName("example of a department")
+                .build();
+
+        Department department2 = new Department.DepartmentBuilder()
+                .departmentAddress("example of an address")
                 .build();
 
         // example of a (normal) inner class : Addresses have been embedded within Employee
@@ -508,15 +525,47 @@ public class MyApplication {
         employee.calculateSalary(remunerations2);
     }
 
+    private static void oefeningString_11A() {
+        long timeStart = System.currentTimeMillis();
+        String initString = new String("this is a test");
+//        for (Integer i=0; i<=Integer.MAX_VALUE; i++) {
+        for (Integer i=0; i<=10_000_000; i++) {
+            if (i%1000 == 0) {
+//                System.out.println("INDEX HAS BECOME " + i);
+            }
+            initString = initString.concat(i.toString());
+        }
+        long timeEnd = System.currentTimeMillis();
+        System.out.println("method took " + (timeEnd - timeStart) + " milliseconds");
+    }
+
+    private static String getDummyString() {
+        return null;
+    }
+
+    private static void oefeningString_11B() {
+        long timeStart = System.currentTimeMillis();
+        StringBuilder initString = new StringBuilder("dit is een 2de test");
+//        for (Integer i=0; i<=Integer.MAX_VALUE; i++) {
+        for (Integer i=0; i<=10_000_000; i++) {
+            if (i%1000 == 0) {
+                System.out.println("INDEX HAS BECOME " + i);
+            }
+            StringBuilder dummy = initString.append(i.toString());
+        }
+        long timeEnd = System.currentTimeMillis();
+        System.out.println("method took " + (timeEnd - timeStart) + " milliseconds");
+    }
+
     private static void piramideImpl(int piramideMaxValue, int i) {
         // take care of printing spaces (if any)
         for (int j=1; j <= piramideMaxValue -i; j++ ) {
             // TODO : 2 spaces should become a constant
-            System.out.print("  ");
+            System.out.print(EMPTY_STRING);
         }
         // take care of printing actual digit
         for (int j=1; j <= i; j++ ) {
-            System.out.print(String.format("%02d", i) + "  ");
+            System.out.print(String.format("%02d", i) + EMPTY_STRING);
         }
         // take care of printing newline
         System.out.println();
