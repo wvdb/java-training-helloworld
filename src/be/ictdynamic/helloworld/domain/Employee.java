@@ -102,11 +102,13 @@ public class Employee extends Worker {
                 '}';
     }
 
-    // DOES NOT COMPILE
+    // DOES COMPILE OR DOES NOT ???
+    // a dummyMethod exists as well in Worker
+    // verify access level
 //    @Override
-    private void dummyMethod() {
-        System.out.println("do something");
-    }
+//    private void dummyMethod() {
+//        System.out.println("do something");
+//    }
 
     public class Address extends DatabaseEntity {
         // should be an enum
@@ -175,4 +177,6 @@ public class Employee extends Worker {
                     "} " + super.toString();
         }
     }
+
+
 }

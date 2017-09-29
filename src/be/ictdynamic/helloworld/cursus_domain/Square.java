@@ -15,24 +15,27 @@ public class Square extends Rectangle {
     }
 
     @Override
-    public void setHeight(int side) {
-        super.setHeight(side);
-//        setWidth(side);
-//        super.setWidth(side);
+    public int getWidth() {
+        return width;
     }
 
-    @Override
-    public void setWidth(int side) {
-        super.setWidth(side);
-//        setHeight(side);
-        super.setHeight(side);
-    }
+//    @Override
+//    public void setHeight(int side) {
+//        super.setHeight(side);
+////        setWidth(side);
+//        super.setWidth(side);
+//    }
+//
+//    @Override
+//    public void setWidth(int side) {
+//        super.setWidth(side);
+////        setHeight(side);
+//        super.setHeight(side);
+//    }
+
 
     @Override
     public String toString() {
-        return "Square{" +
-                "height=" + getHeight() +
-                ", width=" + getWidth() +
-                '}';
+        return "Square{}";
     }
 }

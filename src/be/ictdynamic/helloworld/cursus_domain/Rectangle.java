@@ -5,27 +5,40 @@ package be.ictdynamic.helloworld.cursus_domain;
  */
 public class Rectangle {
     private int height;
-    private int width;
+    public int width;
+    private int[] coordinates;
 
     public Rectangle(int height, int width) {
         this.height = height;
         this.width = width;
     }
 
+    public Rectangle() {
+
+    }
+
     public int getHeight() {
         return height;
     }
 
-    public void setHeight(int height) {
+    protected void setHeight(int height) {
         this.height = height;
     }
 
-    public int getWidth() {
+    public  int getWidth() {
         return width;
     }
 
-    public void setWidth(int width) {
+    protected void setWidth(int width) {
         this.width = width;
+    }
+
+    public int[] getCoordinates() {
+        return coordinates;
+    }
+
+    public void setCoordinates(int[] coordinates) {
+        this.coordinates = coordinates;
     }
 
     @Override

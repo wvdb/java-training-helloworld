@@ -6,7 +6,8 @@ import java.util.Map;
 /**
  * Created by wvdbrand on 24/08/2017.
  */
-public abstract class Worker extends DatabaseEntity{
+//public abstract class Worker extends DatabaseEntity implements Workable {
+public abstract class Worker extends DatabaseEntity {
     static public boolean isEligibleForRemuneration = Boolean.TRUE;
 
     private String name;
@@ -74,7 +75,7 @@ public abstract class Worker extends DatabaseEntity{
         this.remunerations = remunerations;
     }
 
-    private void dummyMethod() {
+    public void dummyMethod() {
         System.out.println("do something");
     }
 }

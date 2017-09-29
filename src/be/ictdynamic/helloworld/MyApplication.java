@@ -2,10 +2,8 @@ package be.ictdynamic.helloworld;
 
 import be.ictdynamic.helloworld.cursus_domain.Rectangle;
 import be.ictdynamic.helloworld.cursus_domain.Square;
-import be.ictdynamic.helloworld.domain.Department;
-import be.ictdynamic.helloworld.domain.Employee;
-import be.ictdynamic.helloworld.domain.Worker;
-import be.ictdynamic.helloworld.enums.Month;
+import be.ictdynamic.helloworld.domain.*;
+import be.ictdynamic.helloworld.enums.MonthEnumeration;
 import be.ictdynamic.helloworld.oefening_inner_class_6.CustomerDNAFile;
 import be.ictdynamic.helloworld.oefening_inheritance_1.DateHelper;
 import be.ictdynamic.helloworld.oefening_inheritance_1.EuropeanDateHelper;
@@ -19,7 +17,8 @@ import java.util.*;
 
 public class MyApplication {
 
-    public static final String EMPTY_STRING = "  ";
+    public static final String EMPTY_STRING_2_SPACES = "  ";
+    public static final String EMPTY_STRING_1_SPACE = " ";
 
     public static void main(String[] args) {
         Scanner reader = new Scanner(System.in);
@@ -38,16 +37,16 @@ public class MyApplication {
                 MyApplication.oefeningInterfaces_2();
                 break;
             case 3:
-                MyApplication.oefeningStaticMethod_3();
+                MyApplication.oefeningStaticMethodAndInstanceMethod_3();
                 break;
             case 4:
-//                MyApplication.oefeningConditionalOperatorAndShiftOperator_4A();
-                MyApplication.oefeningEquals_4B();
+                MyApplication.oefeningConditionalOperatorAndShiftOperator_4A();
+//                MyApplication.oefeningEquals_4B();
                 break;
             case 5:
-//                MyApplication.exercisePassByValue5_00();
+                MyApplication.exercisePassByValue5_00();
 //                MyApplication.exercisePassByValue5_0();
-                MyApplication.exercisePassByValue5_1();
+//                MyApplication.exercisePassByValue5_1();
 //                MyApplication.exercisePassByValue5_2();
 //                MyApplication.exercisePassByValue5_3();
                 break;
@@ -70,7 +69,10 @@ public class MyApplication {
                 break;
             case 11:
                 MyApplication.oefeningString_11A();
-//                MyApplication.oefeningString_11B();
+//                MyApplication.oefeningStringBuilder_11B();
+                break;
+            case 12:
+                MyApplication.oefeningDate_12();
                 break;
             default :
                 System.err.println("!!!No exercise supported. ");
@@ -79,6 +81,12 @@ public class MyApplication {
         reader.close();
 
         System.exit(0);
+    }
+
+    private static void oefeningDate_12() {
+        long long1 = System.currentTimeMillis();
+        long long2 = Instant.now().toEpochMilli();
+        int i = 0;
     }
 
     private static void oefeningInheritance_0() {
@@ -91,21 +99,25 @@ public class MyApplication {
         System.out.println("Square = " + square);
 
         // we make our square smaller
-        square.setHeight(10);
+//        square.setHeight(10);
         System.out.println("Square = " + square);
 
         // we make our square larger
-        square.setWidth(50);
+//        square.setWidth(50);
         System.out.println("Square = " + square);
 
         // TODO : change impl of Square -> stackoverflow
 
         // we use change format
         square.changeFormat(50);
+
+//        square.setHeight(10);
+//        square.setWidth(10);
+
         System.out.println("Square = " + square);
 
-//        System.out.println(square instanceof Rectangle);
-//        System.out.println(rectangle instanceof Square);
+        System.out.println(square instanceof Rectangle);
+        System.out.println(rectangle instanceof Square);
     }
 
     private static void oefeningInheritance_1() {
@@ -147,6 +159,8 @@ public class MyApplication {
         // every employee is a worker
         Worker worker = employee;
 
+        doSomethingWithWorker(worker);
+
         // we cannot make a worker an employee
 //        employee = worker;
 
@@ -158,6 +172,18 @@ public class MyApplication {
 
         // Employee inherits the static properties as well
         System.out.println("An employee is eligible for remuneration? : " + Employee.isEligibleForRemuneration);
+    }
+
+    private static void doSomethingWithWorker(Worker worker) {
+        if (worker instanceof Employee) {
+            System.out.println("we've got an Employee");
+        } else if (worker instanceof Manager) {
+            System.out.println("we've got a Manager");
+        } else if (worker instanceof Director) {
+            System.out.println("we've got a Director");
+        } else {
+            System.out.println("we've got a problem");
+        }
     }
 
     public static void oefeningInterfaces_2() {
@@ -451,11 +477,11 @@ public class MyApplication {
         // example of a (normal) inner class : Addresses have been embedded within Employee
 
         Employee employee = new Employee(1, "wim van den brande", 49, null, null);
-        Employee.Address address1 = employee.new Address(1, "home", "street 1", "house no1", "zip 1", "commune 1");
+        Employee.Address address1 = employee.new Address(1, "home", "street 1", null, null, null);
         Employee.Address address2 = employee.new Address(2, "office", "street 2", "house no2", "zip 2", "commune 2");
     }
 
-    private static void oefeningStaticMethod_3() {
+    private static void oefeningStaticMethodAndInstanceMethod_3() {
         Employee employee = new Employee();
         Worker worker = employee;
 
@@ -464,6 +490,8 @@ public class MyApplication {
 
         // CTRL click method and ask which method will be invoked
         // use debugger
+
+        // refer to late
         worker.testInstanceMethod();
     }
 
@@ -494,35 +522,38 @@ public class MyApplication {
         System.out.println("\nCreating a pyramid as we know it.\n");
 
         for (int i=1; i<=piramideMaxValue; i++) {
-            piramideImpl(piramideMaxValue, i);
+            piramideImpl_8(piramideMaxValue, i);
 
         }
 
         System.out.println("\nCreating a company with too much overhead.\n");
 
         for (int i=piramideMaxValue; i>=1; i--) {
-            piramideImpl(piramideMaxValue, i);
+            piramideImpl_8(piramideMaxValue, i);
         }
 
     }
 
     private static void oefeningEnum_9() {
-        for (Month month : Month.values()) {
-            System.out.println("month " + month + " has an index of " + month.getIndex());
-            for (String monthAsString : month.getMonthLanguages()) {
-                System.out.println("month " + month + " is written as " + monthAsString);
+        for (MonthEnumeration monthEnumeration : MonthEnumeration.values()) {
+            System.out.println("month " + monthEnumeration + " has an index of " + monthEnumeration.getIndex() + ". The ordinal value = " + monthEnumeration.ordinal() + ", numDays = " + monthEnumeration.getDaysInMonth());
+            for (String monthAsString : monthEnumeration.getMonthLanguages()) {
+                System.out.println("month " + monthEnumeration + " is written as " + monthAsString);
             }
         }
     }
 
     private static void oefeningException_10() {
-        Employee employee = new Employee(1, "wim van den brande", 49, null, null);
-        Object[] remunerations1 = {"meal voucher", "salary", "hospital insurance"};
-        Object[] remunerations2 = {};
+//        Employee employee = new Employee(1, "wim van den brande", 49, null, null);
+//        Object[] remunerations1 = {"meal voucher", "salary", "hospital insurance"};
+//        Object[] remunerations2 = {};
+//
+//        employee.calculateSalary(remunerations1);
+//
+//        employee.calculateSalary(remunerations2);
 
-        employee.calculateSalary(remunerations1);
-
-        employee.calculateSalary(remunerations2);
+//        Integer i = new Integer(12);
+//        Integer.parseInt("");
     }
 
     private static void oefeningString_11A() {
@@ -539,11 +570,7 @@ public class MyApplication {
         System.out.println("method took " + (timeEnd - timeStart) + " milliseconds");
     }
 
-    private static String getDummyString() {
-        return null;
-    }
-
-    private static void oefeningString_11B() {
+    private static void oefeningStringBuilder_11B() {
         long timeStart = System.currentTimeMillis();
         StringBuilder initString = new StringBuilder("dit is een 2de test");
 //        for (Integer i=0; i<=Integer.MAX_VALUE; i++) {
@@ -557,22 +584,25 @@ public class MyApplication {
         System.out.println("method took " + (timeEnd - timeStart) + " milliseconds");
     }
 
-    private static void piramideImpl(int piramideMaxValue, int i) {
+    private static void piramideImpl_8(int piramideMaxValue, int i) {
         // take care of printing spaces (if any)
         for (int j=1; j <= piramideMaxValue -i; j++ ) {
             // TODO : 2 spaces should become a constant
-            System.out.print(EMPTY_STRING);
+            System.out.print((piramideMaxValue > 9) ? EMPTY_STRING_2_SPACES : EMPTY_STRING_1_SPACE);
         }
         // take care of printing actual digit
         for (int j=1; j <= i; j++ ) {
-            System.out.print(String.format("%02d", i) + EMPTY_STRING);
+            // TODO : to refactor validation method
+
+            if (piramideMaxValue > 9) {
+                System.out.print(String.format("%02d", i) + EMPTY_STRING_2_SPACES);
+            }
+            else {
+                System.out.print(String.format("%d", i) + EMPTY_STRING_1_SPACE);
+            }
         }
         // take care of printing newline
         System.out.println();
-    }
-
-    private void dummyMethod() {
-        System.out.println("do something");
     }
 
 }

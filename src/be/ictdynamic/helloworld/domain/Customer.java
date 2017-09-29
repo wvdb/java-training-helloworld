@@ -1,5 +1,6 @@
 package be.ictdynamic.helloworld.domain;
 
+import be.ictdynamic.helloworld.enums.MonthEnumeration;
 import be.ictdynamic.helloworld.exception.MyCustomizedException;
 import be.ictdynamic.helloworld.exception.MyDomainException;
 import com.sun.deploy.util.StringUtils;
@@ -11,15 +12,20 @@ import java.util.Set;
 /**
  * Created by wvdbrand on 24/08/2017.
  */
-public class Customer extends DatabaseEntity {
+public class Customer {
     private String firstName;
     private String middleName;
     private String lastName;
+    private MonthEnumeration monthOfCustomer = MonthEnumeration.DECEMBER;
 
-    public Customer(String firstName, String middleName, String lastName) {
+    public Customer(Integer id, String firstName, String middleName, String lastName)  {
 //        setFirstName(firstName);
         setMiddleName(middleName);
         setLastName(lastName);
+    }
+
+    public Customer() {
+
     }
 
     public String getFirstName() {
@@ -30,9 +36,6 @@ public class Customer extends DatabaseEntity {
     }
 
     public void setFirstName(String firstName) throws MyCustomizedException {
-//        if (firstName != null && firstName.length() == 0) {
-//            throw new IllegalArgumentException();
-//        }
         if (firstName == null || firstName.length() == 0) {
             throw new MyCustomizedException();
         }
@@ -59,5 +62,15 @@ public class Customer extends DatabaseEntity {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "firstName='" + firstName + '\'' +
+                ", middleName='" + middleName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", monthOfCustomer=" + monthOfCustomer +
+                '}';
     }
 }
