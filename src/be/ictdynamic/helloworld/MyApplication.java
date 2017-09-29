@@ -369,15 +369,15 @@ public class MyApplication {
 
         // do not try to LOG the actual reference since the JVM is free to move references over time
 
-        System.out.println("name of employee in exercisePassByValue5_1 = " + employee.getName());
+        System.out.println("name of employee in exercisePassByValue5_1 = " + employee.getFirstName());
     }
 
     private static void doSomething1(final Employee employee) {
         // ho ho ho ... altering input parameters should be avoided!!!
-//        employee.setName("wim van den brande - bis");
+//        employee.setFirstName("wim van den brande - bis");
 
 //        employee = new Employee(1, "Donald Tttttt....", 71, null, null);
-        System.out.println("name of employee in doSomething1 = " + employee.getName());
+        System.out.println("name of employee in doSomething1 = " + employee.getFirstName());
     }
 
     static private void exercisePassByValue5_2() {
@@ -506,8 +506,8 @@ public class MyApplication {
         // assert throws AssertionError (inherits from Error) !!!
 
         // assert ONLY works when running when passing JAVA the -ea (enable assert) option
-//        assert employee.getName().length() > 0;
-        assert employee.getName() != null && employee.getName().length() > 0;
+//        assert employee.getFirstName().length() > 0;
+        assert employee.getFirstName() != null && employee.getFirstName().length() > 0;
         assert employee.getHireDate() != null ;
 
         // alternative is an IllegalArgumentException

@@ -3,8 +3,6 @@ package be.ictdynamic.helloworld.domain;
 import be.ictdynamic.helloworld.exception.MyDomainException;
 
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by wvdbrand on 24/08/2017.
@@ -12,7 +10,10 @@ import java.util.Map;
 public abstract class Worker extends DatabaseEntity {
     static public boolean isEligibleForRemuneration = Boolean.TRUE;
 
-    private String name;
+    private String firstName;
+    private String middleName;
+    private String lastName;
+
     private Integer age;
     private Gender gender;
     private Date hireDate;
@@ -27,11 +28,40 @@ public abstract class Worker extends DatabaseEntity {
         MALE, FEMALE, OTHER
     }
 
-    public Worker(String name, Integer age, Gender gender, Date hireDate) {
-        this.name = name;
+    public Worker(String firstName, Integer age, Gender gender, Date hireDate) {
+        this.firstName = firstName;
         this.age = age;
         this.gender = gender;
         this.hireDate = hireDate;
+    }
+
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getFullName(String firstName, String middleName, String lastName) {
+        return firstName + " " + middleName + " " + lastName;
+    }
+
+    public String getFullName(String... partOfNames) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (String partOfName : partOfNames) {
+            stringBuilder.append(partOfName);
+            stringBuilder.append(" ");
+        }
+        return stringBuilder.toString();
     }
 
     public static void testClassMethod() {
@@ -42,12 +72,12 @@ public abstract class Worker extends DatabaseEntity {
         System.out.println("The instance method in Worker");
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public Integer getAge() {

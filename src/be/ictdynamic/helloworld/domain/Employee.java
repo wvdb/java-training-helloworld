@@ -1,7 +1,5 @@
 package be.ictdynamic.helloworld.domain;
 
-import be.ictdynamic.helloworld.exception.MyDomainException;
-
 import java.util.Date;
 import java.util.Set;
 
@@ -49,7 +47,7 @@ public class Employee extends Worker {
     public String toString() {
         return "Employee{" +
                 "id=" + getId() +
-                ", name=" + getName() +
+                ", name=" + getFirstName() +
                 ", age=" + getAge() +
                 ", remunerations=" + getRemunerations() +
                 ", projects=" + getProjects() +

@@ -12,7 +12,7 @@ import java.util.function.Function;
  */
 public class ExampleOfAFunction {
     public void gettingNameOfTheEmployeeVeryFancy() {
-        Function<Employee, String> getNameOfEmployeeFunction = Employee::getName;
+        Function<Employee, String> getNameOfEmployeeFunction = Employee::getFirstName;
 
         List<Employee> employees = getEmployees();
 
@@ -55,6 +55,6 @@ public class ExampleOfAFunction {
     }
 
     private String getNameOfEmployee(Employee employee) {
-        return employee.getName();
+        return employee.getFirstName();
     }
 }
