@@ -15,11 +15,6 @@ public class Manager extends Worker {
         super(name, age, gender, hireDate);
     }
 
-    @Override
-    public Object calculateSalary(Object... objects) {
-        return null;
-    }
-
     public Set<Employee> getSubordinates() {
         return subordinates;
     }

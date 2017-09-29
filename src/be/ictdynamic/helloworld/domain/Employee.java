@@ -3,7 +3,6 @@ package be.ictdynamic.helloworld.domain;
 import be.ictdynamic.helloworld.exception.MyDomainException;
 
 import java.util.Date;
-import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
@@ -11,13 +10,24 @@ import java.util.Set;
  */
 public class Employee extends Worker {
     public final static int MAX_NUMBER_OF_REMUNERATIONS_FOR_EMPLOYEE = 2;
+    private static int numberOfEmployees;
+    private static int numberOfFemaleEmployees;
 
     private Set<Address> addresses;
     private Manager manager;
+    private boolean validEmployee = true;
 
     public Employee(Manager manager, String name, Integer age, Gender gender, Date hireDate) {
         super(name, age, gender, hireDate);
         this.manager = manager;
+        numberOfEmployees+= 1;
+        if (Gender.FEMALE == gender) {
+            numberOfFemaleEmployees += 1;
+        }
+        if (numberOfEmployees > 5 && (numberOfFemaleEmployees < numberOfEmployees / 2) && Gender.MALE == gender) {
+           System.err.println("We are getting too many male employees. Employee " + this + " should be rejected.");
+           this.validEmployee = false;
+        }
     }
 
     public Employee() {
@@ -33,26 +43,6 @@ public class Employee extends Worker {
     @Override
     public void testInstanceMethod() {
         System.out.println("The instance method in Employee");
-    }
-
-    @Override
-    public Object calculateSalary(Object... objects) {
-//        if (objects == null) {
-//            throw new IllegalArgumentException("An Employee should have at least one remuneration.");
-//        }
-//        if (objects.length > 1) {
-//            throw new IllegalArgumentException("An Employee cannot have more than one remuneration.");
-//        }
-
-        if (objects == null) {
-            // NO ADDITIONAL LOGGING
-            throw new MyDomainException("An Employee should have at least one remuneration.", "Employee");
-        }
-        if (objects.length == 0) {
-            throw new MyDomainException("An Employee should have at least one remuneration.", "Employee");
-        }
-
-        return objects[0];
     }
 
     @Override
@@ -73,7 +63,9 @@ public class Employee extends Worker {
             this.remunerations = remunerations;
         }
         else {
-            System.err.println("This employee is getting too many remunerations");
+            System.err.println("Employee " + this + " is getting too many remunerations");
+            // option 2
+            this.validEmployee = false;
         }
     }
 
@@ -84,6 +76,11 @@ public class Employee extends Worker {
 //    private void dummyMethod() {
 //        System.out.println("do something");
 //    }
+
+
+    public boolean isValidEmployee() {
+        return validEmployee;
+    }
 
     public class Address extends DatabaseEntity {
         // should be an enum

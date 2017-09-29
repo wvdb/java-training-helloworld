@@ -447,11 +447,6 @@ public class MyApplication {
 
         Worker worker2 = new Worker() {
             @Override
-            public Object calculateSalary(Object... objects) {
-                return null;
-            }
-
-            @Override
             protected void setRemunerations(Remuneration[] remunerations) {
             }
         };
@@ -558,9 +553,9 @@ public class MyApplication {
 //        Object[] remunerations1 = {"meal voucher", "salary", "hospital insurance"};
 //        Object[] remunerations2 = {};
 //
-//        employee.calculateSalary(remunerations1);
+//        employee.calculateTotalIncentiveCost(remunerations1);
 //
-//        employee.calculateSalary(remunerations2);
+//        employee.calculateTotalIncentiveCost(remunerations2);
 
 //        Integer i = new Integer(12);
 //        Integer.parseInt("");
@@ -617,14 +612,32 @@ public class MyApplication {
 
     private static void myCompany_99() {
         Worker[] workers = new Worker[10];
+        int index = 0;
 
-        Employee employee1 = new Employee(null, "wim van den brande", 49, null, Date.from(Instant.now()));
-        employee1.setRemunerations(getCorrectNumberOfRemunerationsForEmployee());
-        workers[0] = employee1;
+        Employee employee1 = new Employee(null, "employee 1", 49, Worker.Gender.MALE, Date.from(Instant.now()));
+        employee1.setRemunerations(getCorrectNumberOfRemunerationsForEmployee(1000));
+        System.out.println("Total cost of employee1 " +  employee1.calculateTotalIncentiveCost());
+        workers[index++] = employee1;
 
-        Employee employee2 = new Employee(null, "wim van den brande", 49, null, Date.from(Instant.now()));
-        employee2.setRemunerations(getInCorrectNumberOfRemunerationsForEmployee());
-        workers[1] = employee2;
+        Employee employee2 = new Employee(null, "employee 2", 49, Worker.Gender.MALE, Date.from(Instant.now()));
+        employee2.setRemunerations(getInCorrectNumberOfRemunerationsForEmployee(2000));
+        workers[index++] = employee2;
+
+        Employee employee3 = new Employee(null, "employee 3", 49, Worker.Gender.MALE, Date.from(Instant.now()));
+        employee3.setRemunerations(getCorrectNumberOfRemunerationsForEmployee(3000));
+        workers[index++] = employee3;
+
+        Employee employee4 = new Employee(null, "employee 4", 49, Worker.Gender.MALE, Date.from(Instant.now()));
+        employee4.setRemunerations(getCorrectNumberOfRemunerationsForEmployee(4000));
+        workers[index++] = employee4;
+
+        Employee employee5 = new Employee(null, "employee 5", 49, Worker.Gender.MALE, Date.from(Instant.now()));
+        employee5.setRemunerations(getCorrectNumberOfRemunerationsForEmployee(5000));
+        workers[index++] = employee5;
+
+        Employee employee6 = new Employee(null, "employee 6", 49, Worker.Gender.MALE, Date.from(Instant.now()));
+        employee6.setRemunerations(getCorrectNumberOfRemunerationsForEmployee(6000));
+        workers[index++] = employee6;
 
         countWorkerTypes(workers);
         System.out.println("Number of Employees = " + numberOfEmployees);
@@ -632,18 +645,18 @@ public class MyApplication {
         System.out.println("Number of Director = " + numberOfDirectors);
     }
 
-    private static Remuneration[] getCorrectNumberOfRemunerationsForEmployee() {
+    private static Remuneration[] getCorrectNumberOfRemunerationsForEmployee(float salary) {
         Remuneration[] remunerations = new Remuneration[2];
         remunerations[0] = new MealVoucher("dagelijkse maaltijdcheque", 7.00);
-        remunerations[1] = new HospitalInsurance("DKV", 200.00);
+        remunerations[1] = new Salary(salary);
         return remunerations;
     }
 
-    private static Remuneration[] getInCorrectNumberOfRemunerationsForEmployee() {
+    private static Remuneration[] getInCorrectNumberOfRemunerationsForEmployee(float salary) {
         Remuneration[] remunerations = new Remuneration[3];
-        remunerations[0] = getCorrectNumberOfRemunerationsForEmployee()[0];
-        remunerations[1] = getCorrectNumberOfRemunerationsForEmployee()[1];
-        remunerations[2] = new Mobile("Privé", "0485717182", 200.00);
+        remunerations[0] = getCorrectNumberOfRemunerationsForEmployee(salary)[0];
+        remunerations[1] = getCorrectNumberOfRemunerationsForEmployee(salary)[1];
+        remunerations[2] = new Mobile("I-phone", "0485717182", 1000.00);
         return remunerations;
     }
 
@@ -652,7 +665,15 @@ public class MyApplication {
             // TODO : is this possible with a switch ???
             if (worker instanceof Employee) {
                 Employee employee = (Employee) worker;
-                if (isEligibleForHRSystem(employee.getRemunerations(), Employee.MAX_NUMBER_OF_REMUNERATIONS_FOR_EMPLOYEE)) {
+                // option 1
+//                if (isEligibleForHRSystem(employee.getRemunerations(), Employee.MAX_NUMBER_OF_REMUNERATIONS_FOR_EMPLOYEE)) {
+//                    if (employee.isValidEmployee()) {
+//                        numberOfEmployees++;
+//                    }
+//                }
+
+                // option 2
+                if (employee.isValidEmployee()) {
                     numberOfEmployees++;
                 }
             } else if (worker instanceof  Manager) {

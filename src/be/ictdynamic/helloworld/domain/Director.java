@@ -22,8 +22,4 @@ public class Director extends Worker {
         }
     }
 
-    @Override
-    public Object calculateSalary(Object... objects) {
-        return null;
-    }
 }

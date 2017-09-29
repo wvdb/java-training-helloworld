@@ -1,5 +1,7 @@
 package be.ictdynamic.helloworld.domain;
 
+import be.ictdynamic.helloworld.exception.MyDomainException;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -64,8 +66,33 @@ public abstract class Worker extends DatabaseEntity {
         this.gender = gender;
     }
 
-    // abstract method - the actual impl will be taken care of by the worker's sub-classes
-    public abstract Object calculateSalary(Object... objects);
+//    public Float calculateTotalIncentiveCost(Object... objects) {
+    public Float calculateTotalIncentiveCost() {
+        float totalIncentiveCost = 0;
+//        if (objects == null) {
+//            throw new IllegalArgumentException("An Employee should have at least one remuneration.");
+//        }
+//        if (objects.length > 1) {
+//            throw new IllegalArgumentException("An Employee cannot have more than one remuneration.");
+//        }
+
+        if (this.getRemunerations() == null) {
+            // NO ADDITIONAL LOGGING
+            throw new MyDomainException("A worker should have at least one remuneration.", "Employee");
+        }
+        if (this.getRemunerations().length == 0) {
+            throw new MyDomainException("A worker should have at least one remuneration.", "Employee");
+        }
+
+        for (Remuneration remuneration : this.getRemunerations()) {
+            if (remuneration instanceof MealVoucher) {
+                totalIncentiveCost += remuneration.getCost() * MealVoucher.NUMBER_OF_OCCURRANCES;
+            } else {
+                totalIncentiveCost += remuneration.getCost() * Remuneration.NUMBER_OF_OCCURRANCES;
+            }
+        }
+        return totalIncentiveCost;
+    }
 
     public Department getDepartment() {
         return department;
