@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * Created by wvdbrand on 24/08/2017.
  */
-public abstract class Worker extends DatabaseEntity {
+public abstract class Worker extends DatabaseEntity implements Workable {
     static public boolean isEligibleForRemuneration = Boolean.TRUE;
 
     private String firstName;
@@ -51,10 +51,12 @@ public abstract class Worker extends DatabaseEntity {
         this.lastName = lastName;
     }
 
+    @Override
     public String getFullName(String firstName, String middleName, String lastName) {
         return firstName + " " + middleName + " " + lastName;
     }
 
+    @Override
     public String getFullName(String... partOfNames) {
         StringBuilder stringBuilder = new StringBuilder();
         for (String partOfName : partOfNames) {
@@ -96,7 +98,7 @@ public abstract class Worker extends DatabaseEntity {
         this.gender = gender;
     }
 
-//    public Float calculateTotalIncentiveCost(Object... objects) {
+    @Override
     public Float calculateTotalIncentiveCost() {
         float totalIncentiveCost = 0;
 //        if (objects == null) {
