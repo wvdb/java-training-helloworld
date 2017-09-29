@@ -30,11 +30,11 @@ public class ExampleOfAFunction {
     }
 
     private List<Employee> getEmployees() {
-        return Arrays.asList(new Employee(1, "Tom Jones", 45, null, null),
-                new Employee(2, "Harry Major", 25, null, null),
-                new Employee(3, "Ethan Hardy", 65, null, null),
-                new Employee(4, "Nancy Smith", 15, null, null),
-                new Employee(5, "Deborah Sprightly", 29, null, null));
+        return Arrays.asList(new Employee(null, "Tom Jones", 45, null, null),
+                new Employee(null, "Harry Major", 25, null, null),
+                new Employee(null, "Ethan Hardy", 65, null, null),
+                new Employee(null, "Nancy Smith", 15, null, null),
+                new Employee(null, "Deborah Sprightly", 29, null, null));
     }
 
     public List<String> convertEmpListToNamesList1(List<Employee> employees, Function<Employee, String> funcEmpToString){

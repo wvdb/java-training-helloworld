@@ -10,53 +10,18 @@ import java.util.Set;
  * Created by wvdbrand on 24/08/2017.
  */
 public class Employee extends Worker {
-    // every sub-class of worker has a hireDate, a worker doesn't
-    private Date hireDate;
-    private Set<Project> projects;
-    private Set<Department> departments;
-    private Set<Address> addresses;
+    public final static int MAX_NUMBER_OF_REMUNERATIONS_FOR_EMPLOYEE = 2;
 
-    public Employee(Integer id, String name, Integer age, Gender gender, Date hireDate) {
-        super(id, name, age, gender);
-        this.hireDate = hireDate;
+    private Set<Address> addresses;
+    private Manager manager;
+
+    public Employee(Manager manager, String name, Integer age, Gender gender, Date hireDate) {
+        super(name, age, gender, hireDate);
+        this.manager = manager;
     }
 
     public Employee() {
-    }
-
-    public Date getHireDate() {
-        return hireDate;
-    }
-
-    public void setHireDate(Date hireDate) {
-        this.hireDate = hireDate;
-    }
-
-    public Set<Project> getProjects() {
-        return projects;
-    }
-
-    public void setProjects(Set<Project> projects) {
-        this.projects = projects;
-    }
-
-    public Set<Department> getDepartments() {
-        if (departments == null) {
-            departments = new LinkedHashSet<>();
-        }
-        return departments;
-    }
-
-    public void setDepartments(Set<Department> departments) {
-        this.departments = departments;
-    }
-
-    public Set<Address> getAddresses() {
-        return addresses;
-    }
-
-    public void setAddresses(Set<Address> addresses) {
-        this.addresses = addresses;
+        super();
     }
 
 //    Does not compile !!!
@@ -96,10 +61,20 @@ public class Employee extends Worker {
                 "id=" + getId() +
                 ", name=" + getName() +
                 ", age=" + getAge() +
-                ", hireDate=" + hireDate +
-                ", projects=" + projects +
-                ", departments=" + departments +
+                ", remunerations=" + getRemunerations() +
+                ", projects=" + getProjects() +
+                ", department=" + department +
                 '}';
+    }
+
+    @Override
+    public void setRemunerations(Remuneration[] remunerations) {
+        if (remunerations.length <= MAX_NUMBER_OF_REMUNERATIONS_FOR_EMPLOYEE) {
+            this.remunerations = remunerations;
+        }
+        else {
+            System.err.println("This employee is getting too many remunerations");
+        }
     }
 
     // DOES COMPILE OR DOES NOT ???
@@ -118,8 +93,7 @@ public class Employee extends Worker {
         private String zip;
         private String city;
 
-        public Address(Integer id, String addressType, String street, String houseNo, String zip, String city) {
-            super(id);
+        public Address(String addressType, String street, String houseNo, String zip, String city) {
             this.addressType = addressType;
             this.street = street;
             this.houseNo = houseNo;

@@ -1,4 +1,6 @@
-package be.ictdynamic.helloworld.domain;
+package be.ictdynamic.helloworld.interfaces;
+
+import be.ictdynamic.helloworld.domain.Worker;
 
 import java.util.Map;
 

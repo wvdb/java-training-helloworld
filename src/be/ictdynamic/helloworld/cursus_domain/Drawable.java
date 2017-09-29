@@ -1,4 +1,4 @@
-package be.ictdynamic.helloworld.domain;
+package be.ictdynamic.helloworld.cursus_domain;
 
 import java.awt.*;
 

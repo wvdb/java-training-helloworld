@@ -1,4 +1,4 @@
-package be.ictdynamic.helloworld.domain;
+package be.ictdynamic.helloworld.cursus_domain;
 
 import be.ictdynamic.helloworld.enums.MonthEnumeration;
 import be.ictdynamic.helloworld.exception.MyCustomizedException;

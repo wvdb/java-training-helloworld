@@ -20,6 +20,10 @@ public class MyApplication {
     public static final String EMPTY_STRING_2_SPACES = "  ";
     public static final String EMPTY_STRING_1_SPACE = " ";
 
+    public static int numberOfEmployees = 0;
+    public static int numberOfManagers = 0;
+    public static int numberOfDirectors = 0;
+
     public static void main(String[] args) {
         Scanner reader = new Scanner(System.in);
 
@@ -55,7 +59,7 @@ public class MyApplication {
                 MyApplication.oefeningInnerClass_6b();
                 break;
             case 7:
-                Employee employee = new Employee(1, "wim van den brande", 49, null, null);
+                Employee employee = new Employee(null, "wim van den brande", 49, null, null);
                 MyApplication.oefeningWithAssert_7(employee);
                 break;
             case 8:
@@ -73,6 +77,9 @@ public class MyApplication {
                 break;
             case 12:
                 MyApplication.oefeningDate_12();
+                break;
+            case 99:
+                MyApplication.myCompany_99();
                 break;
             default :
                 System.err.println("!!!No exercise supported. ");
@@ -154,7 +161,7 @@ public class MyApplication {
         System.out.println("date increased with 10 days (EuropeanDateHelper)= " + dateHelper2.addNumberOfDays(new Date(System.currentTimeMillis()), 10));
         System.out.println("date increased with 10 days (DangerousUSDateHelper)= " + dateHelper1.addNumberOfDays(new Date(System.currentTimeMillis()), 10));
 
-        Employee employee = new Employee(1, "wim van den brande", 15, null, null);
+        Employee employee = new Employee(null, "wim van den brande", 15, null, null);
 
         // every employee is a worker
         Worker worker = employee;
@@ -353,7 +360,7 @@ public class MyApplication {
     }
 
     static private void exercisePassByValue5_1() {
-        Employee employee = new Employee(1, "wim van den brande", 49, null, null);
+        Employee employee = new Employee(null, "wim van den brande", 49, null, null);
 
         doSomething1(employee);
 
@@ -443,6 +450,10 @@ public class MyApplication {
             public Object calculateSalary(Object... objects) {
                 return null;
             }
+
+            @Override
+            protected void setRemunerations(Remuneration[] remunerations) {
+            }
         };
     }
 
@@ -476,9 +487,9 @@ public class MyApplication {
 
         // example of a (normal) inner class : Addresses have been embedded within Employee
 
-        Employee employee = new Employee(1, "wim van den brande", 49, null, null);
-        Employee.Address address1 = employee.new Address(1, "home", "street 1", null, null, null);
-        Employee.Address address2 = employee.new Address(2, "office", "street 2", "house no2", "zip 2", "commune 2");
+        Employee employee = new Employee(null, "wim van den brande", 49, null, null);
+        Employee.Address address1 = employee.new Address("home", "street 1", null, null, null);
+        Employee.Address address2 = employee.new Address("office", "street 2", "house no2", "zip 2", "commune 2");
     }
 
     private static void oefeningStaticMethodAndInstanceMethod_3() {
@@ -500,7 +511,6 @@ public class MyApplication {
         // assert throws AssertionError (inherits from Error) !!!
 
         // assert ONLY works when running when passing JAVA the -ea (enable assert) option
-        assert employee.getId() >= 0;
 //        assert employee.getName().length() > 0;
         assert employee.getName() != null && employee.getName().length() > 0;
         assert employee.getHireDate() != null ;
@@ -544,7 +554,7 @@ public class MyApplication {
     }
 
     private static void oefeningException_10() {
-//        Employee employee = new Employee(1, "wim van den brande", 49, null, null);
+//        Employee employee = new Employee("wim van den brande", 49, null, null);
 //        Object[] remunerations1 = {"meal voucher", "salary", "hospital insurance"};
 //        Object[] remunerations2 = {};
 //
@@ -604,5 +614,67 @@ public class MyApplication {
         // take care of printing newline
         System.out.println();
     }
+
+    private static void myCompany_99() {
+        Worker[] workers = new Worker[10];
+
+        Employee employee1 = new Employee(null, "wim van den brande", 49, null, Date.from(Instant.now()));
+        employee1.setRemunerations(getCorrectNumberOfRemunerationsForEmployee());
+        workers[0] = employee1;
+
+        Employee employee2 = new Employee(null, "wim van den brande", 49, null, Date.from(Instant.now()));
+        employee2.setRemunerations(getInCorrectNumberOfRemunerationsForEmployee());
+        workers[1] = employee2;
+
+        countWorkerTypes(workers);
+        System.out.println("Number of Employees = " + numberOfEmployees);
+        System.out.println("Number of Managers = " + numberOfManagers);
+        System.out.println("Number of Director = " + numberOfDirectors);
+    }
+
+    private static Remuneration[] getCorrectNumberOfRemunerationsForEmployee() {
+        Remuneration[] remunerations = new Remuneration[2];
+        remunerations[0] = new MealVoucher("dagelijkse maaltijdcheque", 7.00);
+        remunerations[1] = new HospitalInsurance("DKV", 200.00);
+        return remunerations;
+    }
+
+    private static Remuneration[] getInCorrectNumberOfRemunerationsForEmployee() {
+        Remuneration[] remunerations = new Remuneration[3];
+        remunerations[0] = getCorrectNumberOfRemunerationsForEmployee()[0];
+        remunerations[1] = getCorrectNumberOfRemunerationsForEmployee()[1];
+        remunerations[2] = new Mobile("Privé", "0485717182", 200.00);
+        return remunerations;
+    }
+
+    private static void countWorkerTypes(Worker[] workers) {
+        for(Worker worker: workers) {
+            // TODO : is this possible with a switch ???
+            if (worker instanceof Employee) {
+                Employee employee = (Employee) worker;
+                if (isEligibleForHRSystem(employee.getRemunerations(), Employee.MAX_NUMBER_OF_REMUNERATIONS_FOR_EMPLOYEE)) {
+                    numberOfEmployees++;
+                }
+            } else if (worker instanceof  Manager) {
+                Manager manager = (Manager) worker;
+                if (isEligibleForHRSystem(manager.getRemunerations(), Manager.MAX_NUMBER_OF_REMUNERATIONS_FOR_MANAGER)) {
+                    numberOfManagers++;
+                }
+            } else {
+                if (worker != null ) {
+                    Director director = (Director) worker;
+                    if (isEligibleForHRSystem(director.getRemunerations(), Director.MAX_NUMBER_OF_REMUNERATIONS_FOR_DIRECTOR)) {
+                        numberOfDirectors++;
+                    }
+                }
+            }
+        }
+
+    }
+
+    private static boolean isEligibleForHRSystem(Remuneration[] remunerations, int maxNumberOfRemunerationsAllowed) {
+        return remunerations != null && remunerations.length <= maxNumberOfRemunerationsAllowed;
+    }
+
 
 }

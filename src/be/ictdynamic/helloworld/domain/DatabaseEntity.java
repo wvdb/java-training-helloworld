@@ -1,25 +1,27 @@
 package be.ictdynamic.helloworld.domain;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 /**
  * Created by wvdbrand on 6/09/2017.
  */
 public class DatabaseEntity implements Serializable{
-    private Integer id;
+    private UUID id;
 
     public DatabaseEntity() {
+        this.id = UUID.randomUUID();
     }
 
-    public DatabaseEntity(Integer id) {
+    public DatabaseEntity(UUID id) {
         this.id = id;
     }
 
-    public Integer getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

@@ -6,19 +6,20 @@ import java.util.Date;
  * Created by wvdbrand on 24/08/2017.
  */
 public class Director extends Worker {
-    // every sub-class of worker has a hireDate, a worker doesn't
-    private Date hireDate;
+    public final static int MAX_NUMBER_OF_REMUNERATIONS_FOR_DIRECTOR = 4;
 
-    public Director(Integer id, String name, Integer age, Gender gender) {
-        super(id, name, age, gender);
+    public Director(String name, Integer age, Gender gender, Date hireDate) {
+        super(name, age, gender, hireDate);
     }
 
-    public Date getHireDate() {
-        return hireDate;
-    }
-
-    public void setHireDate(Date hireDate) {
-        this.hireDate = hireDate;
+    @Override
+    public void setRemunerations(Remuneration[] remunerations) {
+        if (remunerations.length < MAX_NUMBER_OF_REMUNERATIONS_FOR_DIRECTOR) {
+            this.remunerations = remunerations;
+        }
+        else {
+            System.err.println("This director is getting too many remunerations");
+        }
     }
 
     @Override

@@ -1,32 +1,35 @@
 package be.ictdynamic.helloworld.domain;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Created by wvdbrand on 24/08/2017.
  */
-//public abstract class Worker extends DatabaseEntity implements Workable {
 public abstract class Worker extends DatabaseEntity {
     static public boolean isEligibleForRemuneration = Boolean.TRUE;
 
     private String name;
     private Integer age;
     private Gender gender;
-    private Map<String, Object> remunerations;
+    private Date hireDate;
+    protected Department department;
+    private Project[] projects;
+    protected Remuneration[] remunerations;
+
+    public Worker() {
+    }
 
     public enum Gender {
         MALE, FEMALE, OTHER
     }
 
-    public Worker() {
-    }
-
-    public Worker(Integer id, String name, Integer age, Gender gender) {
-        super(id);
+    public Worker(String name, Integer age, Gender gender, Date hireDate) {
         this.name = name;
         this.age = age;
         this.gender = gender;
+        this.hireDate = hireDate;
     }
 
     public static void testClassMethod() {
@@ -64,18 +67,40 @@ public abstract class Worker extends DatabaseEntity {
     // abstract method - the actual impl will be taken care of by the worker's sub-classes
     public abstract Object calculateSalary(Object... objects);
 
-    public Map<String, Object> getRemunerations() {
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    public Project[] getProjects() {
+        if (projects == null) {
+            projects = new Project[5];
+        }
+        return projects;
+    }
+
+    public void setProjects(Project[] projects) {
+        this.projects = projects;
+    }
+
+    public Remuneration[] getRemunerations() {
         if (remunerations == null) {
-            remunerations = new HashMap<>();
+            remunerations = new Remuneration[4];
         }
         return remunerations;
     }
 
-    public void setRemunerations(Map<String, Object> remunerations) {
-        this.remunerations = remunerations;
+    protected abstract void setRemunerations(Remuneration[] remunerations);
+
+    public Date getHireDate() {
+        return hireDate;
     }
 
-    public void dummyMethod() {
-        System.out.println("do something");
+    public void setHireDate(Date hireDate) {
+        this.hireDate = hireDate;
     }
+
 }
