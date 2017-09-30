@@ -162,4 +162,26 @@ public abstract class Worker extends DatabaseEntity implements Workable {
         this.hireDate = hireDate;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        Worker worker = (Worker) o;
+
+        if (!getFirstName().equals(worker.getFirstName())) return false;
+        if (!getMiddleName().equals(worker.getMiddleName())) return false;
+        return getLastName().equals(worker.getLastName());
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + getFirstName().hashCode();
+        result = 31 * result + getMiddleName().hashCode();
+        result = 31 * result + getLastName().hashCode();
+        return result;
+    }
 }

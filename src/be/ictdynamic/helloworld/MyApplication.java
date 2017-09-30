@@ -42,7 +42,8 @@ public class MyApplication {
                 MyApplication.oefeningInheritance_1();
                 break;
             case 2:
-                MyApplication.oefeningInterfaces_2();
+//                MyApplication.oefeningInterfaces_2A();
+                MyApplication.oefeningInterfaces_2B();
                 break;
             case 3:
                 MyApplication.oefeningStaticMethodAndInstanceMethod_3();
@@ -59,7 +60,7 @@ public class MyApplication {
 //                MyApplication.exercisePassByValue5_3();
                 break;
             case 6:
-                MyApplication.oefeningAbstractClass_6a();
+//                MyApplication.oefeningAbstractClass_6a();
                 MyApplication.oefeningInnerClass_6b();
                 break;
             case 7:
@@ -211,7 +212,7 @@ public class MyApplication {
         }
     }
 
-    public static void oefeningInterfaces_2() {
+    public static void oefeningInterfaces_2A() {
         DummyInterface.InnerInterface1.dummyMethod1("dit is een test");
         DummyInterface.InnerInterface2.printToUpperCase("dit is nog een test");
 
@@ -269,7 +270,11 @@ public class MyApplication {
         // correct example :
         System.out.println("Result of  = " + dummyInterface.getCompleteName("wim", "van den brande"));
     }
-
+    public static void oefeningInterfaces_2B() {
+        Pig pig = new MyPig();
+        pig.grunt();
+        pig.fly();
+    }
     static private void oefeningConditionalOperatorAndShiftOperator_4A() {
         int i1 = 20;
         int i2 = 20;
@@ -533,8 +538,17 @@ public class MyApplication {
         // example of a (normal) inner class : Addresses have been embedded within Employee
 
         Employee employee = new Employee(null, "wim van den brande", 49, null, null);
-        Employee.Address address1 = employee.new Address("home", "street 1", null, null, null);
+        Employee.Address address1 = employee.new Address("home", "street 1", "house no 1", "zip 1", "commune 1");
         Employee.Address address2 = employee.new Address("office", "street 2", "house no2", "zip 2", "commune 2");
+        Employee.Address address3 = employee.new Address("office", "street 2", "house no2", "zip 2", "commune 2");
+
+        Set<Employee.Address> addresses = new LinkedHashSet<>();
+        addresses.add(address1);
+        addresses.add(address2);
+        addresses.add(address3);
+
+        // use breakpoint
+        System.out.println("Number of addresses in set = " + addresses.size());
     }
 
     private static void oefeningStaticMethodAndInstanceMethod_3() {
@@ -557,8 +571,8 @@ public class MyApplication {
 
         // assert ONLY works when running when passing JAVA the -ea (enable assert) option
 //        assert employee.getFirstName().length() > 0;
-        assert employee.getFirstName() != null && employee.getFirstName().length() > 0;
-        assert employee.getHireDate() != null ;
+        assert employee.getHireDate() != null : "Oepsie... hireDate is null";
+        assert employee.getMiddleName() != null && employee.getMiddleName().length() > 0 : "Oepsie... middleName is unknown";
 
         // alternative is an IllegalArgumentException
         // be aware of the

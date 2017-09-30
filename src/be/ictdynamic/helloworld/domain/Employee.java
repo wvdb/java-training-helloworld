@@ -11,7 +11,7 @@ public class Employee extends Worker {
     private static int numberOfEmployees;
     private static int numberOfFemaleEmployees;
 
-    private Set<Address> addresses;
+//    private Set<Address> addresses;
     private Manager manager;
     private boolean validEmployee = true;
 
@@ -144,6 +144,36 @@ public class Employee extends Worker {
                     ", zip='" + zip + '\'' +
                     ", city='" + city + '\'' +
                     "} " + super.toString();
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            // BE AWARE !!!
+//            if (!super.equals(o)) return false;
+
+            Address address = (Address) o;
+
+            if (!getAddressType().equals(address.getAddressType())) return false;
+            if (!getStreet().equals(address.getStreet())) return false;
+            if (!getHouseNo().equals(address.getHouseNo())) return false;
+            if (!getZip().equals(address.getZip())) return false;
+            return getCity().equals(address.getCity());
+        }
+
+        @Override
+        public int hashCode() {
+            // BE AWARE !!!
+//            int result = super.hashCode();
+//            result = 31 * result + getAddressType().hashCode();
+            int result = 31 * getAddressType().hashCode();
+            result = 31 * result + getStreet().hashCode();
+            result = 31 * result + getHouseNo().hashCode();
+            result = 31 * result + getZip().hashCode();
+            result = 31 * result + getCity().hashCode();
+            return result;
         }
     }
 

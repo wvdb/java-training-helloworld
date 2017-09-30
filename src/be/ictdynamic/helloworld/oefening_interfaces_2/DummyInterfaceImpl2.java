@@ -7,7 +7,7 @@ public class DummyInterfaceImpl2 implements DummyInterface{
     @Override
     public String getCompleteName(String firstName, String lastName) {
         // usage of StringBuilder
-        StringBuffer stringBuilder = new StringBuffer(firstName);
+        StringBuilder stringBuilder = new StringBuilder(firstName);
         stringBuilder.append(", ");
         stringBuilder.append(lastName);
         return stringBuilder.toString();

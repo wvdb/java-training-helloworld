@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by wvdbrand on 29/08/2017.
  */
-public class CustomerDNAFile implements Serializable {
+public class CustomerDNAFile {
     private Preference preference;
     private CustomerDnaSource customerDnaSource;
 
@@ -46,23 +46,20 @@ public class CustomerDNAFile implements Serializable {
     }
 
     public static void exampleOfLocalInnnerClassMethod() {
-        final int var1 = 10;
-        int var2 = 10;
-//        var2 = 11;
+        final int VAR1 = 1000;
+        int var2 = 2000;
+//        var2 = 3000;
 
         // Local inner classes : Probably the vast majority of Java programmers don't know they exist
         class Dummy {
-            int i1 = var1;
-            int i2 = var2;
-
             void dummyMethod() {
-                System.out.println(i1);
-                System.out.println(i2);
+                System.out.println(VAR1);
+                System.out.println(var2);
             }
         }
 
-        Dummy dummy = new Dummy();
-        dummy.dummyMethod();
+        // ready to invoke our dummyMethod
+        new Dummy().dummyMethod();
     }
 
     public class Preference {
