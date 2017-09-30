@@ -13,7 +13,11 @@ import be.ictdynamic.helloworld.oefening_interfaces_2.DummyInterfaceImpl1;
 import be.ictdynamic.helloworld.oefening_interfaces_2.DummyInterfaceImpl2;
 
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.Year;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class MyApplication {
 
@@ -93,7 +97,21 @@ public class MyApplication {
     private static void oefeningDate_12() {
         long long1 = System.currentTimeMillis();
         long long2 = Instant.now().toEpochMilli();
-        int i = 0;
+
+        Scanner reader = new Scanner(System.in);
+
+        System.out.println("Enter a date in dd/mm/yyyy format");
+        String myDate = reader.nextLine();
+
+        DateTimeFormatter ddMMyyyyFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter oracleDateFormatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
+
+        LocalDate localDate = LocalDate.parse(myDate, ddMMyyyyFormatter);
+
+        System.out.println("My localDate = " + localDate);
+//        System.out.println("My localDate = " + (new Year(localDate.getYear())).isLeap());
+        System.out.println("Leap Year? " + (Year.parse(myDate, ddMMyyyyFormatter)).isLeap());
+        System.out.println("My localDate = " + localDate.format(oracleDateFormatter));
     }
 
     private static void oefeningInheritance_0() {
@@ -197,16 +215,28 @@ public class MyApplication {
         DummyInterface.InnerInterface1.dummyMethod1("dit is een test");
         DummyInterface.InnerInterface2.printToUpperCase("dit is nog een test");
 
+//        DummyInterface dummyInterface2 = new DummyInterface();
+
         // example of design by interface
         DummyInterface dummyInterface;
 
         // concatenating 2 strings (using StringBuilder/StringBuffer)
+        // go to impl and read https://stackoverflow.com/questions/42855964/how-to-prevent-notice-stringbuilder-sb-can-be-replaced-with-string-in-int
+
+        // IDE is actually very smart here,
+        // it suggests you to change it for better code readability since internally compiler
+        // will generate exactly the same bytecode and your code
+        // will have the same performance and the same memory usage, but it will be easier to read.
         dummyInterface = new DummyInterfaceImpl2();
         System.out.println("name = " + dummyInterface.getCompleteName("wim", "van den brande"));
 
         // concatenating 2 strings (using + operator)
+        // example of Design By Interface
         dummyInterface = new DummyInterfaceImpl1();
         System.out.println("name = " + dummyInterface.getCompleteName("wim", "van den brande"));
+
+        oefeningInterfaces_2_gebruik_InstanceOf(dummyInterface);
+//        oefeningInterfaces_2_gebruik_InstanceOf(null);
 
         // concatenating 2 strings with Java 8 - remember : a method should do one thing only and it should do it properly
         List<String> valuesList1 = Arrays.asList("wim", "van den brande");
@@ -216,8 +246,28 @@ public class MyApplication {
         System.out.println("name = " + String.join(null, valuesList1));
 
         // example of a default method
-
         dummyInterface.move();
+
+        // example of interfaces (HP)
+        // remark 1: duplication (interface and impl)
+        // remark 2: JavaDoc
+        // remark 3: naamgeving
+    }
+
+    private static void oefeningInterfaces_2_gebruik_InstanceOf(DummyInterface dummyInterface) {
+        if (dummyInterface instanceof Object) {
+            System.out.println("This makes sense. However... ");
+        }
+
+        // REMARK : this should be avoided - loose coupling
+        if (dummyInterface instanceof DummyInterfaceImpl2) {
+            System.out.println("We use the DummyInterfaceImpl2");
+        } else {
+            System.out.println("We use the DummyInterfaceImpl1");
+        }
+
+        // correct example :
+        System.out.println("Result of  = " + dummyInterface.getCompleteName("wim", "van den brande"));
     }
 
     static private void oefeningConditionalOperatorAndShiftOperator_4A() {
@@ -639,10 +689,21 @@ public class MyApplication {
         employee6.setRemunerations(getCorrectNumberOfRemunerationsForEmployee(6000));
         workers[index++] = employee6;
 
+        Employee employee7 = new Employee(null, "employee 6", 49, null, Date.from(Instant.now()));
+        employee7.setRemunerations(getCorrectNumberOfRemunerationsForEmployee(6000));
+        workers[index++] = employee7;
+
         countWorkerTypes(workers);
         System.out.println("Number of Employees = " + numberOfEmployees);
         System.out.println("Number of Managers = " + numberOfManagers);
         System.out.println("Number of Director = " + numberOfDirectors);
+        
+        exampleOfStreams1(workers); 
+    }
+
+    private static void exampleOfStreams1(Worker[] workers) {
+        List<Worker> workersWithGenderUnknown = Arrays.stream(workers).filter(worker -> worker != null && worker.getGender() == null).collect(Collectors.toList());
+        System.out.println("Number with gender unknown = " + workersWithGenderUnknown.size());
     }
 
     private static Remuneration[] getCorrectNumberOfRemunerationsForEmployee(float salary) {
@@ -662,7 +723,6 @@ public class MyApplication {
 
     private static void countWorkerTypes(Worker[] workers) {
         for(Worker worker: workers) {
-            // TODO : is this possible with a switch ???
             if (worker instanceof Employee) {
                 Employee employee = (Employee) worker;
                 // option 1

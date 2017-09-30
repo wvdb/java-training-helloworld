@@ -1,5 +1,7 @@
 package be.ictdynamic.helloworld.oefening_interfaces_2;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 
 /**
@@ -18,11 +20,16 @@ public interface DummyInterface extends DummyInterface1, DummyInterface2, DummyI
         }
     }
 
+    // example of consequences when an interface is being modified
+//    void move2();
+
     default void move(){
         System.out.println("I am moving");
     }
 
-    static Date getCurrentDate() {
-        return new Date();
+    static Date addNumberOfDays(Date date, int numberOfDays) {
+        LocalDateTime localDateTime = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        localDateTime = localDateTime.plusDays(numberOfDays);
+        return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
     }
 }
