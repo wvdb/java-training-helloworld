@@ -502,6 +502,11 @@ public class MyApplication {
 
         Worker worker2 = new Worker() {
             @Override
+            public Float calculateTotalIncentiveCost() {
+                return null;
+            }
+
+            @Override
             protected void setRemunerations(Remuneration[] remunerations) {
             }
         };
@@ -707,13 +712,20 @@ public class MyApplication {
         employee7.setRemunerations(getCorrectNumberOfRemunerationsForEmployee(6000));
         workers[index++] = employee7;
 
+        Employee employee8 = new Employee(null, "employee 5", 49, Worker.Gender.MALE, Date.from(Instant.now()));
+        employee8.setRemunerations(getCorrectNumberOfRemunerationsForEmployee(5000));
+        workers[index++] = employee8;
+
         countWorkerTypes(workers);
-        System.out.println("Number of Employees = " + numberOfEmployees);
-        System.out.println("Number of Managers = " + numberOfManagers);
-        System.out.println("Number of Director = " + numberOfDirectors);
+        System.out.println("Number of valid Employees = " + numberOfEmployees);
+        System.out.println("Number of valid Managers = " + numberOfManagers);
+        System.out.println("Number of valid Director = " + numberOfDirectors);
         
-        exampleOfStreams1(workers); 
+        exampleOfStreams1(workers);
+
+        System.out.println("Number of unique workers = " + getListWithUniqueEmployees(workers).size());
     }
+
 
     private static void exampleOfStreams1(Worker[] workers) {
         List<Worker> workersWithGenderUnknown = Arrays.stream(workers).filter(worker -> worker != null && worker.getGender() == null).collect(Collectors.toList());
@@ -733,6 +745,30 @@ public class MyApplication {
         remunerations[1] = getCorrectNumberOfRemunerationsForEmployee(salary)[1];
         remunerations[2] = new Mobile("I-phone", "0485717182", 1000.00);
         return remunerations;
+    }
+
+    private static List<Worker> getListWithUniqueEmployees(Worker[] arrayOfWorkers) {
+        List<Worker> workers = new ArrayList<>();
+
+        for (int i = 0; i < arrayOfWorkers.length && arrayOfWorkers[i] != null; i++) {
+            boolean workerIsUnique = true;
+
+            for(int j = i+1; j < arrayOfWorkers.length && arrayOfWorkers[j] != null; j++) {
+                if (arrayOfWorkers[i].getFirstName().equals(arrayOfWorkers[j].getFirstName()) &&
+                    arrayOfWorkers[i].getMiddleName().equals(arrayOfWorkers[j].getMiddleName()) &&
+                    arrayOfWorkers[i].getLastName().equals(arrayOfWorkers[j].getLastName())) {
+                    // worker is not unique -- we ignore this worker
+                    workerIsUnique = false;
+                }
+            }
+
+            if (workerIsUnique) {
+                // we've got a unique worker - let's add it to our list
+                workers.add(arrayOfWorkers[i]);
+            }
+        }
+
+        return workers;
     }
 
     private static void countWorkerTypes(Worker[] workers) {

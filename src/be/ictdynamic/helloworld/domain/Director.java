@@ -22,4 +22,18 @@ public class Director extends Worker {
         }
     }
 
+    @Override
+    public Float calculateTotalIncentiveCost() {
+        float totalIncentiveCost = 0;
+
+        for (Remuneration remuneration : this.getRemunerations()) {
+            if (remuneration instanceof MealVoucher) {
+                totalIncentiveCost += remuneration.getCost() * MealVoucher.NUMBER_OF_OCCURRANCES;
+            } else {
+                totalIncentiveCost += remuneration.getCost() * Remuneration.NUMBER_OF_OCCURRANCES;
+            }
+        }
+        return totalIncentiveCost;
+    }
+
 }

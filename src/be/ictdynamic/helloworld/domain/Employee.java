@@ -1,5 +1,7 @@
 package be.ictdynamic.helloworld.domain;
 
+import be.ictdynamic.helloworld.exception.MyDomainException;
+
 import java.util.Date;
 import java.util.Set;
 
@@ -75,6 +77,31 @@ public class Employee extends Worker {
 //        System.out.println("do something");
 //    }
 
+    @Override
+    public Float calculateTotalIncentiveCost() {
+        float totalIncentiveCost = 0;
+//        if (objects == null) {
+//            throw new IllegalArgumentException("An Employee should have at least one remuneration.");
+//        }
+//        if (objects.length > 1) {
+//            throw new IllegalArgumentException("An Employee cannot have more than one remuneration.");
+//        }
+
+        if (this.getRemunerations() == null || this.getRemunerations().length == 0) {
+            throw new MyDomainException("A worker should have at least one remuneration.", "Employee");
+            // NO ADDITIONAL LOGGING
+//            throw new MyDomainException2("A worker should have at least one remuneration.", "Employee");
+        }
+
+        for (Remuneration remuneration : this.getRemunerations()) {
+            if (remuneration instanceof MealVoucher) {
+                totalIncentiveCost += remuneration.getCost() * MealVoucher.NUMBER_OF_OCCURRANCES;
+            } else {
+                totalIncentiveCost += remuneration.getCost() * Remuneration.NUMBER_OF_OCCURRANCES;
+            }
+        }
+        return totalIncentiveCost;
+    }
 
     public boolean isValidEmployee() {
         return validEmployee;

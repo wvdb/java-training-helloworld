@@ -1,6 +1,7 @@
 package be.ictdynamic.helloworld.domain;
 
 import be.ictdynamic.helloworld.exception.MyDomainException;
+import be.ictdynamic.helloworld.exception.MyDomainException2;
 
 import java.util.Date;
 
@@ -36,6 +37,9 @@ public abstract class Worker extends DatabaseEntity implements Workable {
     }
 
     public String getMiddleName() {
+        if (middleName == null ) {
+            middleName = "";
+        }
         return middleName;
     }
 
@@ -44,6 +48,9 @@ public abstract class Worker extends DatabaseEntity implements Workable {
     }
 
     public String getLastName() {
+        if (lastName == null ) {
+            lastName = "";
+        }
         return lastName;
     }
 
@@ -75,6 +82,9 @@ public abstract class Worker extends DatabaseEntity implements Workable {
     }
 
     public String getFirstName() {
+        if (firstName == null ) {
+            firstName = "";
+        }
         return firstName;
     }
 
@@ -99,32 +109,7 @@ public abstract class Worker extends DatabaseEntity implements Workable {
     }
 
     @Override
-    public Float calculateTotalIncentiveCost() {
-        float totalIncentiveCost = 0;
-//        if (objects == null) {
-//            throw new IllegalArgumentException("An Employee should have at least one remuneration.");
-//        }
-//        if (objects.length > 1) {
-//            throw new IllegalArgumentException("An Employee cannot have more than one remuneration.");
-//        }
-
-        if (this.getRemunerations() == null) {
-            // NO ADDITIONAL LOGGING
-            throw new MyDomainException("A worker should have at least one remuneration.", "Employee");
-        }
-        if (this.getRemunerations().length == 0) {
-            throw new MyDomainException("A worker should have at least one remuneration.", "Employee");
-        }
-
-        for (Remuneration remuneration : this.getRemunerations()) {
-            if (remuneration instanceof MealVoucher) {
-                totalIncentiveCost += remuneration.getCost() * MealVoucher.NUMBER_OF_OCCURRANCES;
-            } else {
-                totalIncentiveCost += remuneration.getCost() * Remuneration.NUMBER_OF_OCCURRANCES;
-            }
-        }
-        return totalIncentiveCost;
-    }
+    abstract public Float calculateTotalIncentiveCost();
 
     public Department getDepartment() {
         return department;
