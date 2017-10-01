@@ -103,6 +103,25 @@ public class Employee extends Worker {
         return totalIncentiveCost;
     }
 
+    public final static Float calculateTotalIncentiveCost(Remuneration[] remunerations) {
+        float totalIncentiveCost = 0;
+        if (remunerations == null || remunerations.length == 0) {
+            throw new IllegalArgumentException("An Employee should have at least one remuneration.");
+        }
+        if (remunerations.length > 2) {
+            throw new IllegalArgumentException("An Employee cannot have more than one remuneration.");
+        }
+
+        for (Remuneration remuneration : remunerations) {
+            if (remuneration instanceof MealVoucher) {
+                totalIncentiveCost += remuneration.getCost() * MealVoucher.NUMBER_OF_OCCURRANCES;
+            } else {
+                totalIncentiveCost += remuneration.getCost() * Remuneration.NUMBER_OF_OCCURRANCES;
+            }
+        }
+        return totalIncentiveCost;
+    }
+
     public boolean isValidEmployee() {
         return validEmployee;
     }

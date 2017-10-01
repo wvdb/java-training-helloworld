@@ -3,6 +3,7 @@ package be.ictdynamic.helloworld;
 import be.ictdynamic.helloworld.cursus_domain.Rectangle;
 import be.ictdynamic.helloworld.cursus_domain.Square;
 import be.ictdynamic.helloworld.domain.*;
+import be.ictdynamic.helloworld.enums.Coin;
 import be.ictdynamic.helloworld.enums.MonthEnumeration;
 import be.ictdynamic.helloworld.oefening_inner_class_6.CustomerDNAFile;
 import be.ictdynamic.helloworld.oefening_inheritance_1.DateHelper;
@@ -83,6 +84,9 @@ public class MyApplication {
             case 12:
                 MyApplication.oefeningDate_12();
                 break;
+            case 13:
+                MyApplication.oefeningMap_13();
+                break;
             case 99:
                 MyApplication.myCompany_99();
                 break;
@@ -113,6 +117,24 @@ public class MyApplication {
 //        System.out.println("My localDate = " + (new Year(localDate.getYear())).isLeap());
         System.out.println("Leap Year? " + (Year.parse(myDate, ddMMyyyyFormatter)).isLeap());
         System.out.println("My localDate = " + localDate.format(oracleDateFormatter));
+    }
+
+    private static void oefeningMap_13() {
+        Map<Coin, Integer> myPurse1 = new HashMap<>();
+        Map<Coin, Integer> myPurse2 = new LinkedHashMap<>();
+
+        createPurse(myPurse1);
+        myPurse1.forEach((coin, numberOf) -> System.out.println("coin : " + coin + " #: " + numberOf));
+
+        createPurse(myPurse2);
+        myPurse2.forEach((coin, numberOf) -> System.out.println("coin : " + coin + " #: " + numberOf));
+    }
+
+    private static void createPurse(Map<Coin, Integer> myPurse1) {
+        myPurse1.put(Coin.TEN_EURO_CENT, 3);
+        myPurse1.put(Coin.FIVE_EURO_CENT, 2);
+        myPurse1.put(Coin.TWENTY_EURO_CENT, 2);
+        myPurse1.put(Coin.ONE_EURO_CENT, 20);
     }
 
     private static void oefeningInheritance_0() {
@@ -547,7 +569,7 @@ public class MyApplication {
         Employee.Address address2 = employee.new Address("office", "street 2", "house no2", "zip 2", "commune 2");
         Employee.Address address3 = employee.new Address("office", "street 2", "house no2", "zip 2", "commune 2");
 
-        Set<Employee.Address> addresses = new LinkedHashSet<>();
+        Set<Employee.Address> addresses = new HashSet<>();
         addresses.add(address1);
         addresses.add(address2);
         addresses.add(address3);
@@ -618,16 +640,11 @@ public class MyApplication {
     }
 
     private static void oefeningException_10() {
-//        Employee employee = new Employee("wim van den brande", 49, null, null);
-//        Object[] remunerations1 = {"meal voucher", "salary", "hospital insurance"};
-//        Object[] remunerations2 = {};
-//
-//        employee.calculateTotalIncentiveCost(remunerations1);
-//
-//        employee.calculateTotalIncentiveCost(remunerations2);
+        Remuneration[] remunerations1 = {new MealVoucher("dag", 6), new Salary(1000.00)};
+        Remuneration[] remunerations2 = {};
 
-//        Integer i = new Integer(12);
-//        Integer.parseInt("");
+        Employee.calculateTotalIncentiveCost(remunerations1);
+        Employee.calculateTotalIncentiveCost(remunerations2);
     }
 
     private static void oefeningString_11A() {
