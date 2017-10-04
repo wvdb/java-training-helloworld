@@ -5,7 +5,8 @@ package be.ictdynamic.helloworld.domain;
  */
 public interface Pig {
     void grunt();
-    public default void fly() {
+
+    default void fly() {
         System.out.println("Our pig is flying");
     }
 }

@@ -45,7 +45,7 @@ public class CustomerDNAFile {
         this.preference = preference;
     }
 
-    public static void exampleOfLocalInnnerClassMethod() {
+    public static void exampleOfLocalInnerClassMethod() {
         final int VAR1 = 1000;
         int var2 = 2000;
 //        var2 = 3000;

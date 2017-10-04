@@ -3,6 +3,8 @@ package be.ictdynamic.helloworld.domain;
 import be.ictdynamic.helloworld.exception.MyDomainException;
 import be.ictdynamic.helloworld.exception.MyDomainException2;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 
 /**
@@ -18,6 +20,7 @@ public abstract class Worker extends DatabaseEntity implements Workable {
     private Integer age;
     private Gender gender;
     private Date hireDate;
+    private Date birthDate;
     protected Department department;
     private Project[] projects;
     protected Remuneration[] remunerations;
@@ -145,6 +148,27 @@ public abstract class Worker extends DatabaseEntity implements Workable {
 
     public void setHireDate(Date hireDate) {
         this.hireDate = hireDate;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        if (birthDate == null) {
+            throw new IllegalArgumentException("birthDate is unknown");
+        }
+
+        this.birthDate = birthDate;
+
+        Date currentDate = new Date();
+        LocalDate localCurrentDate = currentDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        LocalDate localBirthDate = birthDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        if (localCurrentDate.minusYears(18).compareTo(localBirthDate) < 0) {
+            throw new IllegalArgumentException("birthDate should be at least 18 years in the past");
+        }
     }
 
     @Override

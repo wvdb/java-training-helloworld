@@ -14,7 +14,7 @@ public final class DateHelperWithConstructorPrivate {
     private DateHelperWithConstructorPrivate() {
     }
 
-    public static Date addNumberOfDays(Date date, int numberOfDays) {
+    public static Date addNumberOfDaysToDate(Date date, int numberOfDays) {
         LocalDateTime localDateTime = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
         localDateTime = localDateTime.plusDays(numberOfDays);
         return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());

@@ -3,7 +3,7 @@ package be.ictdynamic.helloworld.cursus_domain;
 /**
  * Created by admin on 9/09/2017.
  */
-public class Rectangle {
+public class Rectangle implements Drawable2 {
     private int height;
     public int width;
     private int[] coordinates;

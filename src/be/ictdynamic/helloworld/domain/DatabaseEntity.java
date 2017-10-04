@@ -8,9 +8,11 @@ import java.util.UUID;
  */
 public class DatabaseEntity implements Serializable{
     private UUID id;
+    private static int intId;
 
     public DatabaseEntity() {
         this.id = UUID.randomUUID();
+        intId++;
     }
 
     public DatabaseEntity(UUID id) {

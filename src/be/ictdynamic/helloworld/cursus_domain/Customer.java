@@ -39,7 +39,6 @@ public class Customer {
         if (firstName == null || firstName.length() == 0) {
             throw new MyCustomizedException();
         }
-        this.firstName = firstName;
     }
 
     public String getMiddleName() {

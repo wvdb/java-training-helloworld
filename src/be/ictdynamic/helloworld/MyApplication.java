@@ -1,10 +1,13 @@
 package be.ictdynamic.helloworld;
 
+import be.ictdynamic.helloworld.cursus_domain.Customer;
+import be.ictdynamic.helloworld.cursus_domain.Drawable2;
 import be.ictdynamic.helloworld.cursus_domain.Rectangle;
 import be.ictdynamic.helloworld.cursus_domain.Square;
 import be.ictdynamic.helloworld.domain.*;
 import be.ictdynamic.helloworld.enums.Coin;
 import be.ictdynamic.helloworld.enums.MonthEnumeration;
+import be.ictdynamic.helloworld.exception.MyCustomizedException;
 import be.ictdynamic.helloworld.oefening_inner_class_6.CustomerDNAFile;
 import be.ictdynamic.helloworld.oefening_inheritance_1.DateHelper;
 import be.ictdynamic.helloworld.oefening_inheritance_1.EuropeanDateHelper;
@@ -16,6 +19,7 @@ import be.ictdynamic.helloworld.oefening_interfaces_2.DummyInterfaceImpl2;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.Year;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -28,12 +32,26 @@ public class MyApplication {
     public static int numberOfEmployees = 0;
     public static int numberOfManagers = 0;
     public static int numberOfDirectors = 0;
+    private static int aantalKeerGeprobeerd  = 0;
 
-    public static void main(String[] args) {
-        Scanner reader = new Scanner(System.in);
+    public static void main(String[] args) throws MyCustomizedException {
 
-        System.out.println("Enter identifier of the exercise: ");
-        int oefeningInteger = reader.nextInt();
+        int oefeningInteger = 0;
+
+        while (oefeningInteger <= 0) {
+            System.out.println("Enter identifier of the exercise: ");
+            Scanner reader = new Scanner(System.in);
+            try {
+                oefeningInteger = reader.nextInt();
+            } catch (NullPointerException | NumberFormatException e) {
+                System.err.println("Ongeldige waarde. Probeer opnieuw" + e.getMessage());
+//                e.printStackTrace();
+            }
+            finally {
+//                reader.close();
+                aantalKeerGeprobeerd++;
+            }
+        }
 
         switch (oefeningInteger) {
             case 0:
@@ -43,8 +61,8 @@ public class MyApplication {
                 MyApplication.oefeningInheritance_1();
                 break;
             case 2:
-//                MyApplication.oefeningInterfaces_2A();
-                MyApplication.oefeningInterfaces_2B();
+                MyApplication.oefeningInterfaces_2A();
+//                MyApplication.oefeningInterfaces_2B();
                 break;
             case 3:
                 MyApplication.oefeningStaticMethodAndInstanceMethod_3();
@@ -61,12 +79,11 @@ public class MyApplication {
 //                MyApplication.exercisePassByValue5_3();
                 break;
             case 6:
-//                MyApplication.oefeningAbstractClass_6a();
+                MyApplication.oefeningAbstractClass_6a();
                 MyApplication.oefeningInnerClass_6b();
                 break;
             case 7:
-                Employee employee = new Employee(null, "wim van den brande", 49, null, null);
-                MyApplication.oefeningWithAssert_7(employee);
+                MyApplication.oefeningWithAssert_7();
                 break;
             case 8:
                 MyApplication.oefeningPrintPiramide_8();
@@ -78,14 +95,25 @@ public class MyApplication {
                 MyApplication.oefeningException_10();
                 break;
             case 11:
-                MyApplication.oefeningString_11A();
+//                MyApplication.oefeningString_11A();
 //                MyApplication.oefeningStringBuilder_11B();
+                MyApplication.oefeningLargeListWithCapacity_11D();
+//                MyApplication.oefeningLargeList_11C();
                 break;
             case 12:
                 MyApplication.oefeningDate_12();
                 break;
             case 13:
                 MyApplication.oefeningMap_13();
+                break;
+            case 14:
+                MyApplication.oefeningList_14();
+                break;
+            case 15:
+                MyApplication.oefeningHashSetAndLinkedHashSet_15();
+                break;
+            case 16:
+                MyApplication.oefeningMap_16();
                 break;
             case 99:
                 MyApplication.myCompany_99();
@@ -94,8 +122,7 @@ public class MyApplication {
                 System.err.println("!!!No exercise supported. ");
         }
 
-        reader.close();
-
+        System.out.println(String.format("we hebben %05d keer input gegeven", aantalKeerGeprobeerd));
         System.exit(0);
     }
 
@@ -122,19 +149,99 @@ public class MyApplication {
     private static void oefeningMap_13() {
         Map<Coin, Integer> myPurse1 = new HashMap<>();
         Map<Coin, Integer> myPurse2 = new LinkedHashMap<>();
+        SortedMap<Coin, Integer> myPurse3 = new TreeMap<>();
 
         createPurse(myPurse1);
+        System.out.println("Usage of HashMap");
         myPurse1.forEach((coin, numberOf) -> System.out.println("coin : " + coin + " #: " + numberOf));
 
         createPurse(myPurse2);
+        System.out.println("Usage of LinkedHashMap");
         myPurse2.forEach((coin, numberOf) -> System.out.println("coin : " + coin + " #: " + numberOf));
+
+        // TODO : sorting
+        createSortedPurse(myPurse3);
+        System.out.println("Usage of TreeMap");
+        myPurse3.forEach((coin, numberOf) -> System.out.println("coin : " + coin + " #: " + numberOf));
     }
 
-    private static void createPurse(Map<Coin, Integer> myPurse1) {
-        myPurse1.put(Coin.TEN_EURO_CENT, 3);
-        myPurse1.put(Coin.FIVE_EURO_CENT, 2);
-        myPurse1.put(Coin.TWENTY_EURO_CENT, 2);
-        myPurse1.put(Coin.ONE_EURO_CENT, 20);
+    private static void oefeningList_14() {
+        // name convention (employees and employee in iteration)
+        // list : no quick searching
+
+        // example of initial capacity
+
+//      List<Employee> employees = new ArrayList<>(1);
+        List<Employee> employees = new ArrayList<>(10);
+
+        Employee employee1 = new Employee();
+        Employee employee2 = new Employee();
+
+        // evilish and to be avoided
+//        employees.add(0, employee1);
+//        employees.add(2, employee2);
+
+        employees.add(employee1);
+        employees.add(employee2);
+
+        System.out.println("size = " + employees.size());
+
+        for (Employee employee : employees) {
+            System.out.println( employee );
+        }
+    }
+
+    private static void oefeningHashSetAndLinkedHashSet_15() {
+        List<Integer> integers0 = new ArrayList<>();
+        integers0 = Arrays.asList(10, 9, 8, 7, 6, 5, 4, 3, 2, 1);
+
+        Set<Integer> myHashSet = new HashSet<Integer>(integers0);
+
+        Set<Integer> myLinkedHashSet= new LinkedHashSet<Integer>(integers0);
+
+        for (Integer integer : myHashSet) {
+            System.out.println("HashSet : value = " + integer);
+        }
+
+        for (Integer integer : myLinkedHashSet) {
+            System.out.println("LinkedHashSet : value = " + integer);
+        }
+
+    }
+    private static void oefeningMap_16() {
+        Map<String, Map<String, Integer>> olympicMedalsPerYearPerCountry = new HashMap<>();
+
+        Map<String, Integer> mapOfMedals2016 = new HashMap<>();
+        mapOfMedals2016.put("NL", 12);
+        mapOfMedals2016.put("BE", 4);
+        mapOfMedals2016.put("US", 22);
+        mapOfMedals2016.put("RUS", 1);
+
+        olympicMedalsPerYearPerCountry.put("2016", mapOfMedals2016);
+
+        Map<String, Integer> mapOfMedals2020 = new HashMap<>();
+        mapOfMedals2020.put("NL", 6);
+        mapOfMedals2020.put("BE", 40);
+        mapOfMedals2020.put("US", 5);
+        mapOfMedals2020.put("RUS", 0);
+
+        olympicMedalsPerYearPerCountry.put("2020", mapOfMedals2020);
+    }
+
+    private static void createPurse(Map<Coin, Integer> myPurse) {
+        myPurse.put(Coin.TEN_EURO_CENT, 3);
+        myPurse.put(Coin.FIVE_EURO_CENT, 2);
+        myPurse.put(Coin.TWENTY_EURO_CENT, 2);
+        myPurse.put(Coin.ONE_EURO_CENT, 20);
+        myPurse.put(Coin.FIFTY_EURO_CENT, 0);
+    }
+
+    private static void createSortedPurse(SortedMap<Coin, Integer> myPurse) {
+        myPurse.put(Coin.TEN_EURO_CENT, 3);
+        myPurse.put(Coin.FIVE_EURO_CENT, 2);
+        myPurse.put(Coin.TWENTY_EURO_CENT, 2);
+        myPurse.put(Coin.ONE_EURO_CENT, 20);
+        myPurse.put(Coin.FIFTY_EURO_CENT, 0);
     }
 
     private static void oefeningInheritance_0() {
@@ -246,10 +353,6 @@ public class MyApplication {
         // concatenating 2 strings (using StringBuilder/StringBuffer)
         // go to impl and read https://stackoverflow.com/questions/42855964/how-to-prevent-notice-stringbuilder-sb-can-be-replaced-with-string-in-int
 
-        // IDE is actually very smart here,
-        // it suggests you to change it for better code readability since internally compiler
-        // will generate exactly the same bytecode and your code
-        // will have the same performance and the same memory usage, but it will be easier to read.
         dummyInterface = new DummyInterfaceImpl2();
         System.out.println("name = " + dummyInterface.getCompleteName("wim", "van den brande"));
 
@@ -291,12 +394,17 @@ public class MyApplication {
 
         // correct example :
         System.out.println("Result of  = " + dummyInterface.getCompleteName("wim", "van den brande"));
+
+        Drawable2 drawable2 = new Rectangle();
+//        drawable2.ge
     }
+
     public static void oefeningInterfaces_2B() {
         Pig pig = new MyPig();
         pig.grunt();
         pig.fly();
     }
+
     static private void oefeningConditionalOperatorAndShiftOperator_4A() {
         int i1 = 20;
         int i2 = 20;
@@ -549,7 +657,7 @@ public class MyApplication {
         // use breakpoint
         customerDnaSource = new CustomerDNAFile.CustomerDnaSource("Twitter", false);
 
-        CustomerDNAFile.exampleOfLocalInnnerClassMethod();
+        CustomerDNAFile.exampleOfLocalInnerClassMethod();
 
         // example of a static inner class when using the builder design pattern
 
@@ -592,14 +700,23 @@ public class MyApplication {
         worker.testInstanceMethod();
     }
 
-    private static void oefeningWithAssert_7(Employee employee) {
+    private static void oefeningWithAssert_7() {
         // assert facilitates the idea of validation / pre-condition
         // assert throws AssertionError (inherits from Error) !!!
 
         // assert ONLY works when running when passing JAVA the -ea (enable assert) option
 //        assert employee.getFirstName().length() > 0;
-        assert employee.getHireDate() != null : "Oepsie... hireDate is null";
-        assert employee.getMiddleName() != null && employee.getMiddleName().length() > 0 : "Oepsie... middleName is unknown";
+
+        Employee employee = new Employee(null, "wim van den brande", 49, null, null);
+
+        try {
+            assert employee.getHireDate() != null : "Oepsie... hireDate is null";
+            assert employee.getMiddleName() != null && employee.getMiddleName().length() > 0 : "Oepsie... middleName is unknown";
+        }
+//        catch (Exception e) {
+        catch (Throwable e) {
+            System.out.println("Foutje ....");
+        }
 
         // alternative is an IllegalArgumentException
         // be aware of the
@@ -639,12 +756,15 @@ public class MyApplication {
         }
     }
 
-    private static void oefeningException_10() {
+    private static void oefeningException_10() throws MyCustomizedException {
         Remuneration[] remunerations1 = {new MealVoucher("dag", 6), new Salary(1000.00)};
         Remuneration[] remunerations2 = {};
 
         Employee.calculateTotalIncentiveCost(remunerations1);
         Employee.calculateTotalIncentiveCost(remunerations2);
+
+        Customer customer = new Customer();
+        customer.setFirstName(null);
     }
 
     private static void oefeningString_11A() {
@@ -670,6 +790,32 @@ public class MyApplication {
                 System.out.println("INDEX HAS BECOME " + i);
             }
             StringBuilder dummy = initString.append(i.toString());
+        }
+        long timeEnd = System.currentTimeMillis();
+        System.out.println("method took " + (timeEnd - timeStart) + " milliseconds");
+    }
+
+    private static void oefeningLargeList_11C() {
+        long timeStart = System.currentTimeMillis();
+        List<Integer> integers = new ArrayList<>();
+        for (Integer i=1_000_001; i<=2_000_000; i++) {
+            if (i%1000 == 0) {
+//                System.out.println("INDEX HAS BECOME " + i);
+            }
+            integers.add(i);
+        }
+        long timeEnd = System.currentTimeMillis();
+        System.out.println("method took " + (timeEnd - timeStart) + " milliseconds");
+    }
+
+    private static void oefeningLargeListWithCapacity_11D() {
+        long timeStart = System.currentTimeMillis();
+        List<Integer> integers = new ArrayList<>(1_000_000);
+        for (Integer i=1; i<=1_000_000; i++) {
+            if (i%1000 == 0) {
+                System.out.println("INDEX HAS BECOME " + i);
+            }
+            integers.add(i);
         }
         long timeEnd = System.currentTimeMillis();
         System.out.println("method took " + (timeEnd - timeStart) + " milliseconds");
@@ -702,7 +848,9 @@ public class MyApplication {
 
         Employee employee1 = new Employee(null, "employee 1", 49, Worker.Gender.MALE, Date.from(Instant.now()));
         employee1.setRemunerations(getCorrectNumberOfRemunerationsForEmployee(1000));
-        System.out.println("Total cost of employee1 " +  employee1.calculateTotalIncentiveCost());
+        LocalDate myBirthDate = LocalDate.of(1967, 11, 02);
+        employee1.setBirthDate(Date.from(myBirthDate.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        System.out.println("Total cost of employee1 " + employee1.calculateTotalIncentiveCost());
         workers[index++] = employee1;
 
         Employee employee2 = new Employee(null, "employee 2", 49, Worker.Gender.MALE, Date.from(Instant.now()));
