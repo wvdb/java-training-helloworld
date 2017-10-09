@@ -5,27 +5,26 @@ import java.util.Arrays;
 /**
  * Created by admin on 9/09/2017.
  */
-public class Rectangle implements Drawable2 {
-    public static final int NUMBER_OF_ANGLES = 4;
-    public static int numberORectanglesConstructed;
+public class Rectangle2 implements Drawable2 {
+    private static final int NUMBER_OF_ANGLES = 4;
 
     private int height;
     public int width;
     private int[] coordinates;
 
-    public Rectangle(int height, int width, int[] coordinates) {
+    public Rectangle2(int height, int width) {
         this.height = height;
         this.width = width;
-        this.coordinates = coordinates;
-        numberORectanglesConstructed += 1;
     }
 
-    public Rectangle() {
-        this(0, 0, null);
+    public Rectangle2() {
+        this(0, 0);
     }
 
-    public Rectangle(Rectangle rectangle) {
-        this(rectangle.height, rectangle.width, rectangle.coordinates);
+    public Rectangle2(Rectangle2 rectangle) {
+        this.height = rectangle.height;
+        this.width = rectangle.width;
+        this.coordinates = rectangle.coordinates;
     }
 
     public int getHeight() {
@@ -52,20 +51,27 @@ public class Rectangle implements Drawable2 {
         this.coordinates = coordinates;
     }
 
-    public int getArea() {
-        return getHeight() * getWidth();
+    public Rectangle2 withHeight(int height) {
+        this.height = height;
+        return this;
     }
 
-    public int getPerimeter() {
-        return (getHeight() + getWidth()) * 2;
+    public Rectangle2 withWidth(int width) {
+        this.width = width;
+        return this;
+    }
+
+    public Rectangle2 withCoordinates(int[] coordinates) {
+        this.coordinates = coordinates;
+        return this;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Rectangle)) return false;
+        if (!(o instanceof Rectangle2)) return false;
 
-        Rectangle rectangle = (Rectangle) o;
+        Rectangle2 rectangle = (Rectangle2) o;
 
         if (getHeight() != rectangle.getHeight()) return false;
         if (getWidth() != rectangle.getWidth()) return false;

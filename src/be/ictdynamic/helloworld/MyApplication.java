@@ -33,18 +33,17 @@ public class MyApplication {
 
     public static void main(String[] args) throws MyCustomizedException {
 
-        int oefeningInteger = -10;
+        int oefeningInteger = Integer.MIN_VALUE;
 
-        while (oefeningInteger <= -10) {
+        while (oefeningInteger <= Integer.MIN_VALUE) {
             System.out.println("Enter identifier of the exercise: ");
             Scanner reader = new Scanner(System.in);
             try {
                 oefeningInteger = reader.nextInt();
-            } catch (NullPointerException | InputMismatchException | NumberFormatException e) {
+            } catch (InputMismatchException | NumberFormatException e) {
                 System.err.println("Invalid value. Try again. Exception message = " + e.getMessage());
             }
             finally {
-//                reader.close();
                 aantalKeerGeprobeerd++;
             }
         }
@@ -85,8 +84,8 @@ public class MyApplication {
                 MyApplication.oefeningWithAssert_7();
                 break;
             case 8:
+                MyApplication.oefeningPrintPiramide_8B();
                 MyApplication.oefeningParseStringWithBrackets_8A();
-//                MyApplication.oefeningPrintPiramide_8B();
                 break;
             case 9:
                 MyApplication.oefeningEnum_9();
@@ -276,13 +275,21 @@ public class MyApplication {
     }
 
     private static void oefeningInheritance_0() {
-        Rectangle rectangle = new Rectangle(10, 5);
-        System.out.println("Rectangle = " + rectangle);
+        Rectangle rectangle = new Rectangle(10, 5, null);
+        System.out.println("Rectangle = " + rectangle + " Area = " + rectangle.getArea() + ", Perimeter = " + rectangle.getPerimeter());
+
+        Rectangle rectangle2 = new Rectangle(rectangle);
+
+        // example of builder pattern when instantiating Rectangle2
+        Rectangle2 aDifferentRectangle = new Rectangle2()
+                .withCoordinates(new int[2])
+                .withHeight(50)
+                .withWidth(100);
 
         // The constructor of a square has only ONE argument (side)
 //        Square square = new Square(10, 5);
-        Square square = new Square(25);
-        System.out.println("Square = " + square);
+        Square square = new Square(25, null);
+        System.out.println("Square = " + square + ". A square has " + Square.NUMBER_OF_ANGLES + " angles. Number of rectangles constructed = " + Rectangle.numberORectanglesConstructed);
 
         // we make our square smaller
 //        square.setHeight(10);
@@ -302,8 +309,8 @@ public class MyApplication {
 
         System.out.println("Square = " + square);
 
-        System.out.println(square instanceof Rectangle);
-        System.out.println(rectangle instanceof Square);
+        System.out.println("A square is always an instance of a rectangle? " + (square instanceof Rectangle));
+        System.out.println("Is this rectangle an instance of a square?" + (rectangle instanceof Square));
     }
 
     private static void oefeningInheritance_1() {
@@ -801,10 +808,6 @@ public class MyApplication {
     private static void oefeningPrintPiramide_8B() {
         Scanner reader = new Scanner(System.in);
         int piramideMaxValue = 0;
-
-        System.out.println("Enter a date in dd/mm/yyyy format");
-        String myDate = reader.nextLine();
-
 
         while (piramideMaxValue <= 0 || piramideMaxValue > 99) {
             System.out.println("Enter maximal value of the pyramid:");
