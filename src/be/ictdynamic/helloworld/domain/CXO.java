@@ -1,6 +1,7 @@
 package be.ictdynamic.helloworld.domain;
 
 import java.util.Date;
+import java.util.Set;
 
 /**
  * Created by wvdbrand on 24/08/2017.
@@ -34,6 +35,6 @@ public class CXO extends Worker {
     }
 
     @Override
-    protected void setRemunerations(Remuneration[] remunerations) {
+    protected void setRemunerations(Set<Remuneration> remunerations) {
     }
 }

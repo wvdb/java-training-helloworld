@@ -1,9 +1,6 @@
 package be.ictdynamic.helloworld;
 
-import be.ictdynamic.helloworld.cursus_domain.Customer;
-import be.ictdynamic.helloworld.cursus_domain.Drawable2;
-import be.ictdynamic.helloworld.cursus_domain.Rectangle;
-import be.ictdynamic.helloworld.cursus_domain.Square;
+import be.ictdynamic.helloworld.cursus_domain.*;
 import be.ictdynamic.helloworld.domain.*;
 import be.ictdynamic.helloworld.enums.Coin;
 import be.ictdynamic.helloworld.enums.MonthEnumeration;
@@ -36,16 +33,15 @@ public class MyApplication {
 
     public static void main(String[] args) throws MyCustomizedException {
 
-        int oefeningInteger = 0;
+        int oefeningInteger = -10;
 
-        while (oefeningInteger <= 0) {
+        while (oefeningInteger <= -10) {
             System.out.println("Enter identifier of the exercise: ");
             Scanner reader = new Scanner(System.in);
             try {
                 oefeningInteger = reader.nextInt();
-            } catch (NullPointerException | NumberFormatException e) {
-                System.err.println("Ongeldige waarde. Probeer opnieuw" + e.getMessage());
-//                e.printStackTrace();
+            } catch (NullPointerException | InputMismatchException | NumberFormatException e) {
+                System.err.println("Invalid value. Try again. Exception message = " + e.getMessage());
             }
             finally {
 //                reader.close();
@@ -54,6 +50,9 @@ public class MyApplication {
         }
 
         switch (oefeningInteger) {
+            case -1:
+                MyApplication.oefeningPrimitives__1();
+                break;
             case 0:
                 MyApplication.oefeningInheritance_0();
                 break;
@@ -86,7 +85,8 @@ public class MyApplication {
                 MyApplication.oefeningWithAssert_7();
                 break;
             case 8:
-                MyApplication.oefeningPrintPiramide_8();
+                MyApplication.oefeningParseStringWithBrackets_8A();
+//                MyApplication.oefeningPrintPiramide_8B();
                 break;
             case 9:
                 MyApplication.oefeningEnum_9();
@@ -127,6 +127,7 @@ public class MyApplication {
     }
 
     private static void oefeningDate_12() {
+        //example of 2 identical Java 8 methods
         long long1 = System.currentTimeMillis();
         long long2 = Instant.now().toEpochMilli();
 
@@ -141,7 +142,6 @@ public class MyApplication {
         LocalDate localDate = LocalDate.parse(myDate, ddMMyyyyFormatter);
 
         System.out.println("My localDate = " + localDate);
-//        System.out.println("My localDate = " + (new Year(localDate.getYear())).isLeap());
         System.out.println("Leap Year? " + (Year.parse(myDate, ddMMyyyyFormatter)).isLeap());
         System.out.println("My localDate = " + localDate.format(oracleDateFormatter));
     }
@@ -242,6 +242,37 @@ public class MyApplication {
         myPurse.put(Coin.TWENTY_EURO_CENT, 2);
         myPurse.put(Coin.ONE_EURO_CENT, 20);
         myPurse.put(Coin.FIFTY_EURO_CENT, 0);
+    }
+
+    private static void oefeningPrimitives__1() {
+        float myFloat = Integer.MAX_VALUE * 1.0F;
+        System.out.format("Value float = %0,40.5f\n", myFloat);
+
+        myFloat = Float.MAX_VALUE;
+        System.out.format("Value float-max = %0,50.5f\n", myFloat);
+
+        myFloat = 10/3F;
+        System.out.format("Value float = %012.10f\n", myFloat);
+
+        double myDouble = 10/3D;
+        System.out.format("Value double = %012.10f\n", myDouble);
+
+        // Dutch alphabet
+        printRangeOfCharacters((short)97, (short)122);
+        System.out.println();
+
+        // Greek Capital Letter : https://en.wikipedia.org/wiki/List_of_Unicode_characters#Latin-1_Supplement
+        // Go to Settings -> Editor -> File Encodings -> Project Encoding and set it to "UTF-8".
+
+        printRangeOfCharacters((short)913, (short)937);
+        System.out.println();
+    }
+
+    private static void printRangeOfCharacters(short fromShort, short toShort) {
+        for (short s = fromShort; s <= toShort; s++) {
+            char c = (char) s;
+            System.out.print(c);
+        }
     }
 
     private static void oefeningInheritance_0() {
@@ -637,7 +668,7 @@ public class MyApplication {
             }
 
             @Override
-            protected void setRemunerations(Remuneration[] remunerations) {
+            protected void setRemunerations(Set<Remuneration> remunerations) {
             }
         };
     }
@@ -672,7 +703,11 @@ public class MyApplication {
 
         // example of a (normal) inner class : Addresses have been embedded within Employee
 
-        Employee employee = new Employee(null, "wim van den brande", 49, null, null);
+        Employee employee = new Employee(null, "wim van den brande", 49, null, null)
+                .withHireDate(Date.from(Instant.now()))
+                .withProjects(null)
+                .withSocialSecurityNumber("671102-001.01");
+
         Employee.Address address1 = employee.new Address("home", "street 1", "house no 1", "zip 1", "commune 1");
         Employee.Address address2 = employee.new Address("office", "street 2", "house no2", "zip 2", "commune 2");
         Employee.Address address3 = employee.new Address("office", "street 2", "house no2", "zip 2", "commune 2");
@@ -723,9 +758,53 @@ public class MyApplication {
         // InvalidArgumentException !!!
     }
 
-    private static void oefeningPrintPiramide_8() {
+    private static void oefeningParseStringWithBrackets_8A() {
+        Scanner reader = new Scanner(System.in);
+
+        System.out.println("Enter a string with a comibiination of []{}()");
+        String stringToParse = reader.nextLine();
+
+        char[] chars = stringToParse.toCharArray();
+        char[] charsToBeClosed = new char[20];
+
+        int indexOfCharsToBeClosed = -1;
+
+        for (char c: chars) {
+            // if opening char, we add it to array of chars to be closed
+            if (c == '{' || c == '(' || c == '[') {
+                indexOfCharsToBeClosed += 1;
+                charsToBeClosed[indexOfCharsToBeClosed] = c;
+            }
+            else {
+                // if closing char and closing char matches an opening char
+                // we remove it from the array
+                if ((c == '}' && indexOfCharsToBeClosed >= 0 && charsToBeClosed[indexOfCharsToBeClosed] == '{') ||
+                    (c == ')' && indexOfCharsToBeClosed >= 0 && charsToBeClosed[indexOfCharsToBeClosed] == '(') ||
+                    (c == ']' && indexOfCharsToBeClosed >= 0 &&  charsToBeClosed[indexOfCharsToBeClosed] == '[') )  {
+                    if (indexOfCharsToBeClosed >= 0) {
+                        charsToBeClosed[indexOfCharsToBeClosed--] = '\u0000';
+                    }
+                }
+            }
+        }
+
+        // if charsToBeClosed contains the initial value, everything went fine
+        if (charsToBeClosed[0] != '\u0000') {
+            System.err.println("invalid string");
+        }
+        else {
+            System.out.println("valid string");
+        }
+
+    }
+
+    private static void oefeningPrintPiramide_8B() {
         Scanner reader = new Scanner(System.in);
         int piramideMaxValue = 0;
+
+        System.out.println("Enter a date in dd/mm/yyyy format");
+        String myDate = reader.nextLine();
+
 
         while (piramideMaxValue <= 0 || piramideMaxValue > 99) {
             System.out.println("Enter maximal value of the pyramid:");
@@ -897,19 +976,21 @@ public class MyApplication {
         System.out.println("Number with gender unknown = " + workersWithGenderUnknown.size());
     }
 
-    private static Remuneration[] getCorrectNumberOfRemunerationsForEmployee(float salary) {
+    private static Set<Remuneration> getCorrectNumberOfRemunerationsForEmployee(float salary) {
         Remuneration[] remunerations = new Remuneration[2];
         remunerations[0] = new MealVoucher("dagelijkse maaltijdcheque", 7.00);
         remunerations[1] = new Salary(salary);
-        return remunerations;
+
+        return new HashSet<>(Arrays.asList(remunerations));
     }
 
-    private static Remuneration[] getInCorrectNumberOfRemunerationsForEmployee(float salary) {
+    private static Set<Remuneration> getInCorrectNumberOfRemunerationsForEmployee(float salary) {
         Remuneration[] remunerations = new Remuneration[3];
-        remunerations[0] = getCorrectNumberOfRemunerationsForEmployee(salary)[0];
-        remunerations[1] = getCorrectNumberOfRemunerationsForEmployee(salary)[1];
+        remunerations[0] = getCorrectNumberOfRemunerationsForEmployee(salary).stream().findFirst().get();
+        // TODO : second
+        remunerations[1] = getCorrectNumberOfRemunerationsForEmployee(salary).stream().findFirst().get();
         remunerations[2] = new Mobile("I-phone", "0485717182", 1000.00);
-        return remunerations;
+        return new HashSet<>(Arrays.asList(remunerations));
     }
 
     private static List<Worker> getListWithUniqueEmployees(Worker[] arrayOfWorkers) {
@@ -968,8 +1049,8 @@ public class MyApplication {
 
     }
 
-    private static boolean isEligibleForHRSystem(Remuneration[] remunerations, int maxNumberOfRemunerationsAllowed) {
-        return remunerations != null && remunerations.length <= maxNumberOfRemunerationsAllowed;
+    private static boolean isEligibleForHRSystem(Set<Remuneration> remunerations, int maxNumberOfRemunerationsAllowed) {
+        return remunerations != null && remunerations.size() <= maxNumberOfRemunerationsAllowed;
     }
 
 

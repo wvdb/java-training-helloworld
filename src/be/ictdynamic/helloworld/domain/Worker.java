@@ -6,6 +6,8 @@ import be.ictdynamic.helloworld.exception.MyDomainException2;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by wvdbrand on 24/08/2017.
@@ -22,8 +24,9 @@ public abstract class Worker extends DatabaseEntity implements Workable {
     private Date hireDate;
     private Date birthDate;
     protected Department department;
-    private Project[] projects;
-    protected Remuneration[] remunerations;
+    private Set<Project> projects;
+    protected Set<Remuneration> remunerations;
+    private String socialSecurityNumber;
 
     public Worker() {
     }
@@ -122,25 +125,25 @@ public abstract class Worker extends DatabaseEntity implements Workable {
         this.department = department;
     }
 
-    public Project[] getProjects() {
+    public Set<Project> getProjects() {
         if (projects == null) {
-            projects = new Project[5];
+            projects = new HashSet<>();
         }
         return projects;
     }
 
-    public void setProjects(Project[] projects) {
+    public void setProjects(Set<Project> projects) {
         this.projects = projects;
     }
 
-    public Remuneration[] getRemunerations() {
+    public Set<Remuneration> getRemunerations() {
         if (remunerations == null) {
-            remunerations = new Remuneration[4];
+            remunerations = new HashSet<>();
         }
         return remunerations;
     }
 
-    protected abstract void setRemunerations(Remuneration[] remunerations);
+    protected abstract void setRemunerations(Set<Remuneration> remunerations);
 
     public Date getHireDate() {
         return hireDate;
@@ -169,6 +172,14 @@ public abstract class Worker extends DatabaseEntity implements Workable {
         if (localCurrentDate.minusYears(18).compareTo(localBirthDate) < 0) {
             throw new IllegalArgumentException("birthDate should be at least 18 years in the past");
         }
+    }
+
+    public String getSocialSecurityNumber() {
+        return socialSecurityNumber;
+    }
+
+    public void setSocialSecurityNumber(String socialSecurityNumber) {
+        this.socialSecurityNumber = socialSecurityNumber;
     }
 
     @Override

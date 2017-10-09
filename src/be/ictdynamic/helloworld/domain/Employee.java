@@ -58,8 +58,8 @@ public class Employee extends Worker {
     }
 
     @Override
-    public void setRemunerations(Remuneration[] remunerations) {
-        if (remunerations.length <= MAX_NUMBER_OF_REMUNERATIONS_FOR_EMPLOYEE) {
+    public void setRemunerations(Set<Remuneration> remunerations) {
+        if (remunerations.size() <= MAX_NUMBER_OF_REMUNERATIONS_FOR_EMPLOYEE) {
             this.remunerations = remunerations;
         }
         else {
@@ -68,6 +68,22 @@ public class Employee extends Worker {
             this.validEmployee = false;
         }
     }
+
+    public Employee withHireDate(Date hireDate) {
+        super.setHireDate(hireDate);
+        return this;
+    }
+
+    public Employee withProjects(Set<Project> projects) {
+        super.setProjects(projects);
+        return this;
+    }
+
+    public Employee withSocialSecurityNumber(String socialSecurityNumber) {
+        super.setSocialSecurityNumber(socialSecurityNumber);
+        return this;
+    }
+
 
     // DOES COMPILE OR DOES NOT ???
     // a dummyMethod exists as well in Worker
@@ -87,7 +103,7 @@ public class Employee extends Worker {
 //            throw new IllegalArgumentException("An Employee cannot have more than one remuneration.");
 //        }
 
-        if (this.getRemunerations() == null || this.getRemunerations().length == 0) {
+        if (this.getRemunerations() == null || this.getRemunerations().size() == 0) {
             throw new MyDomainException("A worker should have at least one remuneration.", "Employee");
             // NO ADDITIONAL LOGGING
 //            throw new MyDomainException2("A worker should have at least one remuneration.", "Employee");

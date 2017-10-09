@@ -26,8 +26,8 @@ public class Manager extends Worker {
     }
 
     @Override
-    public void setRemunerations(Remuneration[] remunerations) {
-        if (remunerations.length < MAX_NUMBER_OF_REMUNERATIONS_FOR_MANAGER) {
+    public void setRemunerations(Set<Remuneration> remunerations) {
+        if (remunerations.size() < MAX_NUMBER_OF_REMUNERATIONS_FOR_MANAGER) {
             this.remunerations = remunerations;
         }
         else {

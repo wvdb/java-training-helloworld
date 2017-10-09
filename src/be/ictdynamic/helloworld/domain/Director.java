@@ -1,6 +1,7 @@
 package be.ictdynamic.helloworld.domain;
 
 import java.util.Date;
+import java.util.Set;
 
 /**
  * Created by wvdbrand on 24/08/2017.
@@ -13,8 +14,8 @@ public class Director extends Worker {
     }
 
     @Override
-    public void setRemunerations(Remuneration[] remunerations) {
-        if (remunerations.length < MAX_NUMBER_OF_REMUNERATIONS_FOR_DIRECTOR) {
+    public void setRemunerations(Set<Remuneration> remunerations) {
+        if (remunerations.size() < MAX_NUMBER_OF_REMUNERATIONS_FOR_DIRECTOR) {
             this.remunerations = remunerations;
         }
         else {
