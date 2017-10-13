@@ -12,6 +12,8 @@ import be.ictdynamic.helloworld.oefening_inheritance_1.IDateHelper;
 import be.ictdynamic.helloworld.oefening_interfaces_2.DummyInterface;
 import be.ictdynamic.helloworld.oefening_interfaces_2.DummyInterfaceImpl1;
 import be.ictdynamic.helloworld.oefening_interfaces_2.DummyInterfaceImpl2;
+import be.ictdynamic.helloworld.utilities.BmiUtility;
+import be.ictdynamic.helloworld.utilities.KeyboardUtility;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -29,7 +31,7 @@ public class MyApplication {
     public static int numberOfEmployees = 0;
     public static int numberOfManagers = 0;
     public static int numberOfDirectors = 0;
-    private static int aantalKeerGeprobeerd  = 0;
+    private static int numberOfTimesInputGiven = 0;
 
     public static void main(String[] args) throws MyCustomizedException {
 
@@ -44,7 +46,7 @@ public class MyApplication {
                 System.err.println("Invalid value. Try again. Exception message = " + e.getMessage());
             }
             finally {
-                aantalKeerGeprobeerd++;
+                numberOfTimesInputGiven++;
             }
         }
 
@@ -66,13 +68,13 @@ public class MyApplication {
                 MyApplication.oefeningStaticMethodAndInstanceMethod_3();
                 break;
             case 4:
-                MyApplication.oefeningConditionalOperatorAndShiftOperator_4A();
-//                MyApplication.oefeningEquals_4B();
+//                MyApplication.oefeningConditionalOperatorAndShiftOperator_4A();
+                MyApplication.oefeningEquals_4B();
                 break;
             case 5:
-                MyApplication.exercisePassByValue5_00();
+//                MyApplication.exercisePassByValue5_00();
 //                MyApplication.exercisePassByValue5_0();
-//                MyApplication.exercisePassByValue5_1();
+                MyApplication.exercisePassByValue5_1();
 //                MyApplication.exercisePassByValue5_2();
 //                MyApplication.exercisePassByValue5_3();
                 break;
@@ -94,9 +96,9 @@ public class MyApplication {
                 MyApplication.oefeningException_10();
                 break;
             case 11:
-//                MyApplication.oefeningString_11A();
+                MyApplication.oefeningString_11A();
 //                MyApplication.oefeningStringBuilder_11B();
-                MyApplication.oefeningLargeListWithCapacity_11D();
+//                MyApplication.oefeningLargeListWithCapacity_11D();
 //                MyApplication.oefeningLargeList_11C();
                 break;
             case 12:
@@ -114,6 +116,9 @@ public class MyApplication {
             case 16:
                 MyApplication.oefeningMap_16();
                 break;
+            case 18:
+                oefeningBmiUtility_18();
+                break;
             case 99:
                 MyApplication.myCompany_99();
                 break;
@@ -121,8 +126,18 @@ public class MyApplication {
                 System.err.println("!!!No exercise supported. ");
         }
 
-        System.out.println(String.format("we hebben %05d keer input gegeven", aantalKeerGeprobeerd));
+        System.out.println(String.format("we hebben %05d keer input gegeven", numberOfTimesInputGiven));
         System.exit(0);
+    }
+
+    private static void oefeningBmiUtility_18() {
+        System.out.println("Voer gewicht in");
+        int gewicht = KeyboardUtility.readInt();
+
+        System.out.println("Voer lengte in");
+        int lengte = KeyboardUtility.readInt();
+
+        System.out.println("Mijn bmi  = " + BmiUtility.calculateBmi((float) lengte / 100, gewicht));
     }
 
     private static void oefeningDate_12() {
@@ -493,12 +508,17 @@ public class MyApplication {
         // exercise op conditional operator
         int[] years = {2016, 2017, 2100, 2000};
 
-        double i = 5.0;
-        double j = Math.pow(i, 4.0);
+        int i = 5;
+        double resultAsDouble = Math.pow(i, 4);
+
+//        float  resultAsFloat1 = resultAsDouble;
+        float  resultAsFloat2 = 0F;
+        resultAsDouble = resultAsFloat2;
 
         for (int year : years) {
             System.out.println("year " + year + " is a leap year? " + (isLeapYear(year) ? "This is correct" : "This is not correct"));
         }
+
     }
 
     static private void oefeningEquals_4B() {
@@ -540,8 +560,6 @@ public class MyApplication {
         doSomething00(myInteger);
 
         // has myInteger changed ???
-
-        // do not try to LOG the actual reference since the JVM is free to move references over time
 
         System.out.println("value of myInteger in oefeningPassByValue5_0 = " + myInteger);
     }
@@ -590,14 +608,12 @@ public class MyApplication {
         // has employee changed ???
         // what will be the name of employee ???
 
-        // do not try to LOG the actual reference since the JVM is free to move references over time
-
         System.out.println("name of employee in exercisePassByValue5_1 = " + employee.getFirstName());
     }
 
     private static void doSomething1(final Employee employee) {
         // ho ho ho ... altering input parameters should be avoided!!!
-//        employee.setFirstName("wim van den brande - bis");
+        employee.setFirstName("wim van den brande - bis");
 
 //        employee = new Employee(1, "Donald Tttttt....", 71, null, null);
         System.out.println("name of employee in doSomething1 = " + employee.getFirstName());
@@ -852,12 +868,12 @@ public class MyApplication {
     private static void oefeningString_11A() {
         long timeStart = System.currentTimeMillis();
         String initString = new String("this is a test");
-//        for (Integer i=0; i<=Integer.MAX_VALUE; i++) {
         for (Integer i=0; i<=10_000_000; i++) {
             if (i%1000 == 0) {
-//                System.out.println("INDEX HAS BECOME " + i);
+                System.out.println("(string) INDEX HAS BECOME " + i);
             }
-            initString = initString.concat(i.toString());
+//            initString = initString.concat(i.toString());
+            initString = initString + i.toString();
         }
         long timeEnd = System.currentTimeMillis();
         System.out.println("method took " + (timeEnd - timeStart) + " milliseconds");
@@ -866,10 +882,9 @@ public class MyApplication {
     private static void oefeningStringBuilder_11B() {
         long timeStart = System.currentTimeMillis();
         StringBuilder initString = new StringBuilder("dit is een 2de test");
-//        for (Integer i=0; i<=Integer.MAX_VALUE; i++) {
         for (Integer i=0; i<=10_000_000; i++) {
             if (i%1000 == 0) {
-                System.out.println("INDEX HAS BECOME " + i);
+                System.out.println("(stringbuilder) INDEX HAS BECOME " + i);
             }
             StringBuilder dummy = initString.append(i.toString());
         }
@@ -906,13 +921,11 @@ public class MyApplication {
     private static void piramideImpl_8(int piramideMaxValue, int i) {
         // take care of printing spaces (if any)
         for (int j=1; j <= piramideMaxValue -i; j++ ) {
-            // TODO : 2 spaces should become a constant
             System.out.print((piramideMaxValue > 9) ? EMPTY_STRING_2_SPACES : EMPTY_STRING_1_SPACE);
         }
+
         // take care of printing actual digit
         for (int j=1; j <= i; j++ ) {
-            // TODO : to refactor validation method
-
             if (piramideMaxValue > 9) {
                 System.out.print(String.format("%02d", i) + EMPTY_STRING_2_SPACES);
             }
@@ -920,6 +933,7 @@ public class MyApplication {
                 System.out.print(String.format("%d", i) + EMPTY_STRING_1_SPACE);
             }
         }
+
         // take care of printing newline
         System.out.println();
     }
