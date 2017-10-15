@@ -13,12 +13,10 @@ import be.ictdynamic.helloworld.oefening_interfaces_2.DummyInterface;
 import be.ictdynamic.helloworld.oefening_interfaces_2.DummyInterfaceImpl1;
 import be.ictdynamic.helloworld.oefening_interfaces_2.DummyInterfaceImpl2;
 import be.ictdynamic.helloworld.utilities.BmiUtility;
+import be.ictdynamic.helloworld.utilities.DateUtility;
 import be.ictdynamic.helloworld.utilities.KeyboardUtility;
 
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.Year;
-import java.time.ZoneId;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -156,7 +154,10 @@ public class MyApplication {
         LocalDate localDate = LocalDate.parse(myDate, ddMMyyyyFormatter);
 
         System.out.println("My localDate = " + localDate);
-        System.out.println("Leap Year? " + (Year.parse(myDate, ddMMyyyyFormatter)).isLeap());
+        System.out.println("My localDateTime (string-date format) = " + DateUtility.localDateTimeToDateString(LocalDateTime.now()));
+        System.out.println("My localDateTime (string-date-time format) = " + DateUtility.localDateTimeToDateTimeString(LocalDateTime.now()));
+
+        System.out.println("Leap Year of the date you entered? " + (Year.parse(myDate, ddMMyyyyFormatter)).isLeap());
         System.out.println("My localDate = " + localDate.format(oracleDateFormatter));
     }
 
@@ -305,6 +306,7 @@ public class MyApplication {
 //        Square square = new Square(10, 5);
         Square square = new Square(25, null);
         System.out.println("Square = " + square + ". A square has " + Square.NUMBER_OF_ANGLES + " angles. Number of rectangles constructed = " + Rectangle.numberORectanglesConstructed);
+        System.out.println("Square = " + square + ". A square has " + Square.getNumberOfAngles() + " angles. Number of rectangles constructed = " + Rectangle.numberORectanglesConstructed);
 
         // we make our square smaller
 //        square.setHeight(10);

@@ -73,6 +73,10 @@ public class Rectangle implements Drawable2 {
 
     }
 
+    public static int getNumberOfAngles() {
+        return NUMBER_OF_ANGLES;
+    }
+
     @Override
     public int hashCode() {
         int result = getHeight();

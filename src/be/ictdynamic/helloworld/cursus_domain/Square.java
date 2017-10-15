@@ -34,5 +34,10 @@ public class Square extends Rectangle {
         super.setHeight(side);
     }
 
-
+    // NO GOOD : Why doesn't Java allow overriding of static methods?
+    // theoretical blah blah
+//    @Override
+    public static int getNumberOfAngles() {
+        return NUMBER_OF_ANGLES;
+    }
 }
