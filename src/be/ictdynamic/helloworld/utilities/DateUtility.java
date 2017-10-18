@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
  * Created by admin on 15/10/2017.
  */
 public final class DateUtility {
-    public DateUtility() {
+    private DateUtility() {
     }
 
     public static String localDateTimeToDateString(LocalDateTime localDateTime) {

@@ -5,7 +5,8 @@ import java.util.Arrays;
 /**
  * Created by admin on 22/09/2017.
  */
-public enum MonthEnumeration  {
+//public enum MonthEnumeration extends Enum {
+public enum MonthEnumeration {
     JANUARY(new String[]{"januari", "janvier", "January"}, 1, 31),
     FEBRUARY(new String[]{"februari", "février", "February"}, 2, 28),
     NOVEMBER(new String[]{"november", "novembre", "November"}, 11, 30),
@@ -15,7 +16,7 @@ public enum MonthEnumeration  {
     private int index;
     private int daysInMonth;
 
-    MonthEnumeration(String[] monthLanguages, int index, int daysInMonth) {
+    private MonthEnumeration(String[] monthLanguages, int index, int daysInMonth) {
         this.monthLanguages = monthLanguages;
         this.index = index;
         this.daysInMonth = daysInMonth;
@@ -34,8 +35,6 @@ public enum MonthEnumeration  {
     }
 
     // we don't support the mutator method
-
-
 
     @Override
     public String toString() {

@@ -4,40 +4,51 @@ package be.ictdynamic.helloworld.cursus_domain;
  * Created by admin on 9/09/2017.
  */
 public class Square extends Rectangle {
+    public static final int MINIMUM_AREA = 100;
+    public static final int MAXIMUM_AREA = 10000;
+
     public Square(int side, int[] coordinates) {
         super(side, side, coordinates);
     }
 
-    // down to earth solution : support changeFormat and make rectangle setHeight + rectangle setWidth protected
-    // problem : rectangle cannot be changed anymore
-    public void changeFormat(int side) {
+    public void setSide(int side) {
         super.setHeight(side);
         super.setWidth(side);
+//        setHeight(side);
+//        setWidth(side);
     }
 
-    @Override
-    public int getWidth() {
+    public long getWidthAsLong(int dummy) {
         return width;
     }
 
     @Override
-    public void setHeight(int side) {
-        super.setHeight(side);
-//        setWidth(side);
-        super.setWidth(side);
+    protected double getWidthAsDouble() {
+        return width;
     }
 
     @Override
-    public void setWidth(int side) {
-        super.setWidth(side);
-//        setHeight(side);
-        super.setHeight(side);
+    public void setHeight(int height) {
+        setSide(height);
+//        setWidth(height);
+//        super.setHeight(side);
+//        super.setWidth(side);
+    }
+
+    @Override
+    public void setWidth(int width) {
+        setSide(width);
+//        setHeight(widht);
+////        super.setWidth(side);
+//        super.setHeight(side);
     }
 
     // NO GOOD : Why doesn't Java allow overriding of static methods?
     // theoretical blah blah
+
+    // be carefull !!! Square.getNumberOfAngles() works (static method will be inherited))
 //    @Override
-    public static int getNumberOfAngles() {
-        return NUMBER_OF_ANGLES;
-    }
+//    public static int getNumberOfAngles() {
+//        return NUMBER_OF_ANGLES;
+//    }
 }

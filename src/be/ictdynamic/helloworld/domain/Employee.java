@@ -208,22 +208,22 @@ public class Employee extends Worker {
                     "} " + super.toString();
         }
 
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-
-            // BE AWARE !!!
-//            if (!super.equals(o)) return false;
-
-            Address address = (Address) o;
-
-            if (!getAddressType().equals(address.getAddressType())) return false;
-            if (!getStreet().equals(address.getStreet())) return false;
-            if (!getHouseNo().equals(address.getHouseNo())) return false;
-            if (!getZip().equals(address.getZip())) return false;
-            return getCity().equals(address.getCity());
-        }
+//        @Override
+//        public boolean equals(Object o) {
+//            if (this == o) return true;
+//            if (o == null || getClass() != o.getClass()) return false;
+//
+//            // BE AWARE !!!
+////            if (!super.equals(o)) return false;
+//
+//            Address address = (Address) o;
+//
+//            if (!getAddressType().equals(address.getAddressType())) return false;
+//            if (!getStreet().equals(address.getStreet())) return false;
+//            if (!getHouseNo().equals(address.getHouseNo())) return false;
+//            if (!getZip().equals(address.getZip())) return false;
+//            return getCity().equals(address.getCity());
+//        }
 
         @Override
         public int hashCode() {

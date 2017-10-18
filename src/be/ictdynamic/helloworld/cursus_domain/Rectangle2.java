@@ -71,19 +71,18 @@ public class Rectangle2 implements Drawable2 {
         if (this == o) return true;
         if (!(o instanceof Rectangle2)) return false;
 
-        Rectangle2 rectangle = (Rectangle2) o;
+        Rectangle2 that = (Rectangle2) o;
 
-        if (getHeight() != rectangle.getHeight()) return false;
-        if (getWidth() != rectangle.getWidth()) return false;
-        return Arrays.equals(getCoordinates(), rectangle.getCoordinates());
+        if (height != that.height) return false;
+        if (width != that.width) return false;
 
+        return true;
     }
 
     @Override
     public int hashCode() {
-        int result = getHeight();
-        result = 31 * result + getWidth();
-        result = 31 * result + (getCoordinates() != null ? Arrays.hashCode(getCoordinates()) : 0);
+        int result = height;
+        result = 31 * result + width;
         return result;
     }
 

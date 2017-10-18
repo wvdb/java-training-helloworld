@@ -5,18 +5,21 @@ import java.util.Arrays;
 /**
  * Created by admin on 9/09/2017.
  */
-public class Rectangle implements Drawable2 {
+public class Rectangle extends Shape implements Drawable2 {
     public static final int NUMBER_OF_ANGLES = 4;
+    public static final int MINIMUM_AREA = 16;
     public static int numberORectanglesConstructed;
+
+    public String nameOfRectangle;
 
     private int height;
     public int width;
-    private int[] coordinates;
 
     public Rectangle(int height, int width, int[] coordinates) {
+        // TO EXPLAIN : super() should be first statement
+        super(coordinates);
         this.height = height;
         this.width = width;
-        this.coordinates = coordinates;
         numberORectanglesConstructed += 1;
     }
 
@@ -25,7 +28,7 @@ public class Rectangle implements Drawable2 {
     }
 
     public Rectangle(Rectangle rectangle) {
-        this(rectangle.height, rectangle.width, rectangle.coordinates);
+        this(rectangle.height, rectangle.width, rectangle.getCoordinates());
     }
 
     public int getHeight() {
@@ -36,20 +39,20 @@ public class Rectangle implements Drawable2 {
         this.height = height;
     }
 
-    public  int getWidth() {
+    public int getWidth() {
+        return width;
+    }
+
+    public long getWidthAsLong() {
+        return width;
+    }
+
+    double getWidthAsDouble() {
         return width;
     }
 
     protected void setWidth(int width) {
         this.width = width;
-    }
-
-    public int[] getCoordinates() {
-        return coordinates;
-    }
-
-    public void setCoordinates(int[] coordinates) {
-        this.coordinates = coordinates;
     }
 
     public int getArea() {
@@ -60,28 +63,29 @@ public class Rectangle implements Drawable2 {
         return (getHeight() + getWidth()) * 2;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Rectangle)) return false;
-
-        Rectangle rectangle = (Rectangle) o;
-
-        if (getHeight() != rectangle.getHeight()) return false;
-        if (getWidth() != rectangle.getWidth()) return false;
-        return Arrays.equals(getCoordinates(), rectangle.getCoordinates());
-
-    }
-
     public static int getNumberOfAngles() {
         return NUMBER_OF_ANGLES;
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Rectangle)) return false;
+        if (!super.equals(o)) return false;
+
+        Rectangle rectangle = (Rectangle) o;
+
+        if (height != rectangle.height) return false;
+        if (width != rectangle.width) return false;
+
+        return true;
+    }
+
+    @Override
     public int hashCode() {
-        int result = getHeight();
-        result = 31 * result + getWidth();
-        result = 31 * result + (getCoordinates() != null ? Arrays.hashCode(getCoordinates()) : 0);
+        int result = super.hashCode();
+        result = 31 * result + height;
+        result = 31 * result + width;
         return result;
     }
 
@@ -90,7 +94,7 @@ public class Rectangle implements Drawable2 {
         return "Rectangle{" +
                 "height=" + height +
                 ", width=" + width +
-                ", coordinates=" + Arrays.toString(coordinates) +
+                ", coordinates=" + Arrays.toString(super.getCoordinates()) +
                 '}';
     }
 }

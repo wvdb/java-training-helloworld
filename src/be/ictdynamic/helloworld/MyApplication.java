@@ -15,6 +15,7 @@ import be.ictdynamic.helloworld.oefening_interfaces_2.DummyInterfaceImpl2;
 import be.ictdynamic.helloworld.utilities.BmiUtility;
 import be.ictdynamic.helloworld.utilities.DateUtility;
 import be.ictdynamic.helloworld.utilities.KeyboardUtility;
+import com.sun.org.apache.xpath.internal.SourceTree;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
@@ -77,7 +78,8 @@ public class MyApplication {
 //                MyApplication.exercisePassByValue5_3();
                 break;
             case 6:
-                MyApplication.oefeningAbstractClass_6a();
+                MyApplication myApplication = new MyApplication();
+                myApplication.oefeningAbstractClass_6a();
                 MyApplication.oefeningInnerClass_6b();
                 break;
             case 7:
@@ -279,7 +281,7 @@ public class MyApplication {
         // Greek Capital Letter : https://en.wikipedia.org/wiki/List_of_Unicode_characters#Latin-1_Supplement
         // Go to Settings -> Editor -> File Encodings -> Project Encoding and set it to "UTF-8".
 
-        printRangeOfCharacters((short)913, (short)937);
+        printRangeOfCharacters((short) 913, (short) 937);
         System.out.println();
     }
 
@@ -291,10 +293,40 @@ public class MyApplication {
     }
 
     private static void oefeningInheritance_0() {
+        Object o = new Square(10, null);
+
+        Square s = new Square(10, null);
+        System.out.println("Minimum area = " + Square.MINIMUM_AREA);
+        System.out.println("Aantal: " + s.getNumberOfAngles());
+        s.setWidth(50);
+
+        Rectangle r = new Rectangle();
+
+        // generic method
+        outputObjectWithPrefixAndSuffix(o);
+        outputObjectWithPrefixAndSuffix(s);
+
+        // specific method (accepts only squares)
+        outputSquareWithPrefixAndSuffix(s);
+
+        // specific method (accepts only squares)
+//        outputSquareWithPrefixAndSuffix(r);
+
         Rectangle rectangle = new Rectangle(10, 5, null);
+
+        // constructors worden niet overgeërfd
+//        Square square = new Square(10, 5, null);
+
         System.out.println("Rectangle = " + rectangle + " Area = " + rectangle.getArea() + ", Perimeter = " + rectangle.getPerimeter());
 
-        Rectangle rectangle2 = new Rectangle(rectangle);
+        Rectangle rectangle2 = new Rectangle(10, 5, null);
+
+        if (rectangle.equals(rectangle2)) {
+            System.out.println("mijn vierkanten zijn gelijk");
+        }
+        else {
+            System.out.println("mijn vierkanten zijn niet gelijk");
+        }
 
         // example of builder pattern when instantiating Rectangle2
         Rectangle2 aDifferentRectangle = new Rectangle2()
@@ -305,12 +337,11 @@ public class MyApplication {
         // The constructor of a square has only ONE argument (side)
 //        Square square = new Square(10, 5);
         Square square = new Square(25, null);
+
+        square.getNumberOfAngles();
+
         System.out.println("Square = " + square + ". A square has " + Square.NUMBER_OF_ANGLES + " angles. Number of rectangles constructed = " + Rectangle.numberORectanglesConstructed);
         System.out.println("Square = " + square + ". A square has " + Square.getNumberOfAngles() + " angles. Number of rectangles constructed = " + Rectangle.numberORectanglesConstructed);
-
-        // we make our square smaller
-//        square.setHeight(10);
-        System.out.println("Square = " + square);
 
         // we make our square larger
 //        square.setWidth(50);
@@ -319,7 +350,7 @@ public class MyApplication {
         // TODO : change impl of Square -> stackoverflow
 
         // we use change format
-        square.changeFormat(50);
+        square.setSide(50);
 
 //        square.setHeight(10);
 //        square.setWidth(10);
@@ -328,6 +359,14 @@ public class MyApplication {
 
         System.out.println("A square is always an instance of a rectangle? " + (square instanceof Rectangle));
         System.out.println("Is this rectangle an instance of a square?" + (rectangle instanceof Square));
+    }
+
+    private static void outputObjectWithPrefixAndSuffix(Object o) {
+        System.out.println(">>>" + o + "<<<");
+    }
+
+    private static void outputSquareWithPrefixAndSuffix(Square s) {
+        System.out.println(">>>" + s + "<<<");
     }
 
     private static void oefeningInheritance_1() {
@@ -458,6 +497,11 @@ public class MyApplication {
         Pig pig = new MyPig();
         pig.grunt();
         pig.fly();
+
+        // MyPig get access to the default interface method as well !!!
+        MyPig mypig = new MyPig();
+        mypig.grunt();
+        mypig.fly();
     }
 
     static private void oefeningConditionalOperatorAndShiftOperator_4A() {
@@ -683,19 +727,45 @@ public class MyApplication {
         }
     }
 
-    private static void oefeningAbstractClass_6a() {
+    private void oefeningAbstractClass_6a() {
 //        Worker worker1 = new Worker();
 
-        Worker worker2 = new Worker() {
+        Worker ceo = new Worker() {
             @Override
             public Float calculateTotalIncentiveCost() {
                 return null;
             }
 
             @Override
-            protected void setRemunerations(Set<Remuneration> remunerations) {
+            public void setRemunerations(Set<Remuneration> remunerations) {
+                for (Remuneration remuneration : remunerations) {
+                    if (remuneration instanceof Salary) {
+                        System.err.println("A CEO cannot have a salary.");
+                    }
+                }
             }
         };
+
+        ceo.calculateTotalIncentiveCost();
+
+        // or alternative
+        Ceo ceo1 = new Ceo();
+        ceo1.calculateTotalIncentiveCost();
+        ceo1.setRemunerations(null);
+
+        Remuneration companyCar = new Remuneration(25000D) {
+            @Override
+            public double getCost() {
+                return super.getCost();
+            }
+
+            @Override
+            public void setCost(double cost) {
+                super.setCost(cost);
+            }
+        };
+
+        System.out.println("cost of a company-car = " + companyCar.getCost() + " €.");
     }
 
     private static void oefeningInnerClass_6b() {
@@ -848,6 +918,14 @@ public class MyApplication {
     }
 
     private static void oefeningEnum_9() {
+        MonthEnumeration[] months = MonthEnumeration.values();
+        for (MonthEnumeration month : months) {
+            System.out.println("month " + month + " has an index of " + month.getIndex() + ". The ordinal value = " + month.ordinal() + ", numDays = " + month.getDaysInMonth());
+            for (String monthAsString : month.getMonthLanguages()) {
+                System.out.println("month " + month + " is written as " + monthAsString);
+            }
+        }
+
         for (MonthEnumeration monthEnumeration : MonthEnumeration.values()) {
             System.out.println("month " + monthEnumeration + " has an index of " + monthEnumeration.getIndex() + ". The ordinal value = " + monthEnumeration.ordinal() + ", numDays = " + monthEnumeration.getDaysInMonth());
             for (String monthAsString : monthEnumeration.getMonthLanguages()) {
@@ -1072,5 +1150,16 @@ public class MyApplication {
         return remunerations != null && remunerations.size() <= maxNumberOfRemunerationsAllowed;
     }
 
+    public class Ceo extends Worker {
 
+        @Override
+        public Float calculateTotalIncentiveCost() {
+            return null;
+        }
+
+        @Override
+        protected void setRemunerations(Set<Remuneration> remunerations) {
+
+        }
+    }
 }
