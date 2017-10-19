@@ -1,5 +1,7 @@
 package be.ictdynamic.helloworld.oefening_inheritance_1;
 
+import be.ictdynamic.helloworld.utilities.DateUtility;
+
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -17,9 +19,7 @@ public class EuropeanDateHelper extends DateHelper{
 
     @Override
     public Date addNumberOfDays(Date date, int numberOfDays) {
-        LocalDateTime localDateTime = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-        localDateTime = localDateTime.plusDays(numberOfDays);
-        return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+        return DateUtility.addNumberOfDaysToDate(date, numberOfDays);
     }
 
 }

@@ -1,7 +1,6 @@
 package be.ictdynamic.helloworld.domain;
 
-import be.ictdynamic.helloworld.exception.MyDomainException;
-import be.ictdynamic.helloworld.exception.MyDomainException2;
+import be.ictdynamic.helloworld.enums.Country;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -27,6 +26,7 @@ public abstract class Worker extends DatabaseEntity implements Workable {
     private Set<Project> projects;
     protected Set<Remuneration> remunerations;
     private String socialSecurityNumber;
+    private Country country;
 
     public Worker() {
     }
@@ -180,6 +180,14 @@ public abstract class Worker extends DatabaseEntity implements Workable {
 
     public void setSocialSecurityNumber(String socialSecurityNumber) {
         this.socialSecurityNumber = socialSecurityNumber;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
     }
 
     @Override

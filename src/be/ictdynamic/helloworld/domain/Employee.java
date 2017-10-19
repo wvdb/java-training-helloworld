@@ -1,8 +1,11 @@
 package be.ictdynamic.helloworld.domain;
 
+import be.ictdynamic.helloworld.enums.AddressType;
+import be.ictdynamic.helloworld.enums.Country;
 import be.ictdynamic.helloworld.exception.MyDomainException;
 
 import java.util.Date;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -13,7 +16,7 @@ public class Employee extends Worker {
     private static int numberOfEmployees;
     private static int numberOfFemaleEmployees;
 
-//    private Set<Address> addresses;
+    private Map<AddressType, Address> addresses;
     private Manager manager;
     private boolean validEmployee = true;
 
@@ -76,6 +79,11 @@ public class Employee extends Worker {
 
     public Employee withProjects(Set<Project> projects) {
         super.setProjects(projects);
+        return this;
+    }
+
+    public Employee withCountry(Country country) {
+        super.setCountry(country);
         return this;
     }
 
@@ -143,27 +151,17 @@ public class Employee extends Worker {
     }
 
     public class Address extends DatabaseEntity {
-        // should be an enum
-        private String addressType;
         private String street;
         private String houseNo;
         private String zip;
         private String city;
 
-        public Address(String addressType, String street, String houseNo, String zip, String city) {
-            this.addressType = addressType;
+        public Address(String street, String houseNo, String zip, String city) {
             this.street = street;
             this.houseNo = houseNo;
-            this.zip = zip;
+            // to invoke the setter of ZIP
+            this.setZip(zip);
             this.city = city;
-        }
-
-        public String getAddressType() {
-            return addressType;
-        }
-
-        public void setAddressType(String addressType) {
-            this.addressType = addressType;
         }
 
         public String getStreet() {
@@ -188,6 +186,14 @@ public class Employee extends Worker {
 
         public void setZip(String zip) {
             this.zip = zip;
+            if (Employee.this.getCountry() != null && zip != null) {
+                // TODO : to exaplain syntax of OuterClass.this
+                if (   Employee.this.getCountry() == Country.BELGIUM && zip.length() != 4
+                    || Employee.this.getCountry() == Country.NETHERLANDS && zip.length() != 6) {
+                    System.err.println("ZIP code has an invalid length. Expected length = "
+                            + (Employee.this.getCountry() == Country.BELGIUM ? 4 : 6));
+                }
+            }
         }
 
         public String getCity() {
@@ -208,33 +214,43 @@ public class Employee extends Worker {
                     "} " + super.toString();
         }
 
-//        @Override
-//        public boolean equals(Object o) {
-//            if (this == o) return true;
-//            if (o == null || getClass() != o.getClass()) return false;
-//
-//            // BE AWARE !!!
-////            if (!super.equals(o)) return false;
-//
-//            Address address = (Address) o;
-//
-//            if (!getAddressType().equals(address.getAddressType())) return false;
-//            if (!getStreet().equals(address.getStreet())) return false;
-//            if (!getHouseNo().equals(address.getHouseNo())) return false;
-//            if (!getZip().equals(address.getZip())) return false;
-//            return getCity().equals(address.getCity());
-//        }
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) {
+                return true;
+            }
+            if (!(o instanceof Address)) {
+                return false;
+            }
+            if (!super.equals(o)) {
+                return false;
+            }
+
+            Address address = (Address) o;
+
+            if (!city.equals(address.city)) {
+                return false;
+            }
+            if (!houseNo.equals(address.houseNo)) {
+                return false;
+            }
+            if (!street.equals(address.street)) {
+                return false;
+            }
+            if (!zip.equals(address.zip)) {
+                return false;
+            }
+
+            return true;
+        }
 
         @Override
         public int hashCode() {
-            // BE AWARE !!!
-//            int result = super.hashCode();
-//            result = 31 * result + getAddressType().hashCode();
-            int result = 31 * getAddressType().hashCode();
-            result = 31 * result + getStreet().hashCode();
-            result = 31 * result + getHouseNo().hashCode();
-            result = 31 * result + getZip().hashCode();
-            result = 31 * result + getCity().hashCode();
+            int result = super.hashCode();
+            result = 31 * result + street.hashCode();
+            result = 31 * result + houseNo.hashCode();
+            result = 31 * result + zip.hashCode();
+            result = 31 * result + city.hashCode();
             return result;
         }
     }

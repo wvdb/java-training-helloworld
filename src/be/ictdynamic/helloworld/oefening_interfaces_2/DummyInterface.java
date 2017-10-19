@@ -27,9 +27,4 @@ public interface DummyInterface extends DummyInterface1, DummyInterface2, DummyI
         System.out.println("I am moving");
     }
 
-    static Date addNumberOfDays(Date date, int numberOfDays) {
-        LocalDateTime localDateTime = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-        localDateTime = localDateTime.plusDays(numberOfDays);
-        return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
-    }
 }

@@ -3,6 +3,7 @@ package be.ictdynamic.helloworld;
 import be.ictdynamic.helloworld.cursus_domain.*;
 import be.ictdynamic.helloworld.domain.*;
 import be.ictdynamic.helloworld.enums.Coin;
+import be.ictdynamic.helloworld.enums.Country;
 import be.ictdynamic.helloworld.enums.MonthEnumeration;
 import be.ictdynamic.helloworld.exception.MyCustomizedException;
 import be.ictdynamic.helloworld.oefening_inner_class_6.CustomerDNAFile;
@@ -15,7 +16,6 @@ import be.ictdynamic.helloworld.oefening_interfaces_2.DummyInterfaceImpl2;
 import be.ictdynamic.helloworld.utilities.BmiUtility;
 import be.ictdynamic.helloworld.utilities.DateUtility;
 import be.ictdynamic.helloworld.utilities.KeyboardUtility;
-import com.sun.org.apache.xpath.internal.SourceTree;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
@@ -79,14 +79,14 @@ public class MyApplication {
                 break;
             case 6:
                 MyApplication myApplication = new MyApplication();
-                myApplication.oefeningAbstractClass_6a();
+//                myApplication.oefeningAbstractClass_6a();
                 MyApplication.oefeningInnerClass_6b();
                 break;
             case 7:
                 MyApplication.oefeningWithAssert_7();
                 break;
             case 8:
-                MyApplication.oefeningPrintPiramide_8B();
+//                MyApplication.oefeningPrintPiramide_8B();
                 MyApplication.oefeningParseStringWithBrackets_8A();
                 break;
             case 9:
@@ -156,8 +156,8 @@ public class MyApplication {
         LocalDate localDate = LocalDate.parse(myDate, ddMMyyyyFormatter);
 
         System.out.println("My localDate = " + localDate);
-        System.out.println("My localDateTime (string-date format) = " + DateUtility.localDateTimeToDateString(LocalDateTime.now()));
-        System.out.println("My localDateTime (string-date-time format) = " + DateUtility.localDateTimeToDateTimeString(LocalDateTime.now()));
+        System.out.println("My localDateTime (string-date format) = " + DateUtility.convertLocalDateTimeToDateAsString(LocalDateTime.now()));
+        System.out.println("My localDateTime (string-date-time format) = " + DateUtility.convertLocalDateTimeToDateTimeAsString(LocalDateTime.now()));
 
         System.out.println("Leap Year of the date you entered? " + (Year.parse(myDate, ddMMyyyyFormatter)).isLeap());
         System.out.println("My localDate = " + localDate.format(oracleDateFormatter));
@@ -374,15 +374,17 @@ public class MyApplication {
 
         EuropeanDateHelper europeanDateHelper = new EuropeanDateHelper();
 
-        // nog een voorbeeld van design by interface
+        // another example of design by interface
         IDateHelper dateHelper2 = new EuropeanDateHelper();
 
+        // this interface is an instance of particular Class
         if (dateHelper2 instanceof EuropeanDateHelper) {
             System.out.println("dateHelper2 is an instance of EuropeanDateHelper");
         } else {
             System.out.println("Houston we have a problem.");
         }
 
+        // this interface is an instance of particular super Class
         if (dateHelper2 instanceof DateHelper) {
             System.out.println("dateHelper2 is an instance of DateHelper");
         } else {
@@ -391,11 +393,16 @@ public class MyApplication {
 
         EuropeanDateHelper dateHelper4 = new EuropeanDateHelper();
 
-        oefeningInheritanceHelper(dateHelper1, europeanDateHelper, dateHelper2, dateHelper4);
+//        oefeningInheritanceHelper_1A(dateHelper1, europeanDateHelper, dateHelper2, dateHelper4);
+
+        oefeningInheritanceHelperWithBirthDate_1B();
     }
 
     // IntelliJ geeft aan dat 4de argument niet wordt gebruikt
-    private static void oefeningInheritanceHelper(IDateHelper dateHelper1, IDateHelper dateHelper2, IDateHelper dateHelper3, IDateHelper dateHelper4) {
+    private static void oefeningInheritanceHelper_1A(IDateHelper dateHelper1,
+                                                    IDateHelper dateHelper2,
+                                                    IDateHelper dateHelper3,
+                                                    IDateHelper dateHelper4) {
         System.out.println("date = " + dateHelper1.getCurrentDateAsString());
         System.out.println("date = " + dateHelper2.getCurrentDateAsString());
         System.out.println("date = " + dateHelper3.getCurrentDateAsString());
@@ -421,6 +428,28 @@ public class MyApplication {
 
         // Employee inherits the static properties as well
         System.out.println("An employee is eligible for remuneration? : " + Employee.isEligibleForRemuneration);
+    }
+
+    static private void oefeningInheritanceHelperWithBirthDate_1B() {
+        // BE CAREFUL BECAUSE OF OCTAL NOTATION !!!
+        LocalDate localDate = LocalDate.of(1967, 11, 011);
+        System.out.println("localDate = " + localDate);
+
+        localDate = LocalDate.of(0x7AF, 0XB, 0xB);
+        System.out.println("localDate = " + localDate);
+
+        System.out.println("localDate dayOfYear = " + localDate.getDayOfYear());
+        System.out.println("localDate dayOfWeek = " + localDate.getDayOfWeek());
+        System.out.println("localDate epoch = " + DateUtility.convertLocalDateToEpoch(localDate));
+
+        LocalDateTime localDateTime1 = LocalDateTime.of(2017, 11, 02, 11, 11, 11);
+        LocalDateTime localDateTime2 = LocalDateTime.of(2017, 12, 31, 23, 59, 59);
+        Period period = Period.between(localDateTime1.toLocalDate(), localDateTime2.toLocalDate());
+
+        System.out.println("Period (in days) " + period.getDays());
+        System.out.println("Period (in months) " + period.getMonths());
+        // question asked - certificate
+        System.out.println("Period " + period);
     }
 
     private static void doSomethingWithWorker(Worker worker) {
@@ -494,14 +523,15 @@ public class MyApplication {
     }
 
     public static void oefeningInterfaces_2B() {
-        Pig pig = new MyPig();
-        pig.grunt();
-        pig.fly();
+        Pig pigAsAnInterface = new MyPig();
+        pigAsAnInterface.grunt();
+        pigAsAnInterface.fly();
 
+        MyPig myPig = new MyPig();
+        // our class MyPig has only one method!!!
+        myPig.grunt();
         // MyPig get access to the default interface method as well !!!
-        MyPig mypig = new MyPig();
-        mypig.grunt();
-        mypig.fly();
+        myPig.fly();
     }
 
     static private void oefeningConditionalOperatorAndShiftOperator_4A() {
@@ -728,8 +758,7 @@ public class MyApplication {
     }
 
     private void oefeningAbstractClass_6a() {
-//        Worker worker1 = new Worker();
-
+        // example of anonieme geneste klasse
         Worker ceo = new Worker() {
             @Override
             public Float calculateTotalIncentiveCost() {
@@ -769,20 +798,21 @@ public class MyApplication {
     }
 
     private static void oefeningInnerClass_6b() {
-        CustomerDNAFile customerDNAFile = new CustomerDNAFile();
+//        CustomerDNAFile customerDNAFile = new CustomerDNAFile();
 
         // Preference is (normal) inner class
         // CustomerDnaSource is static inner class
 
-        CustomerDNAFile.Preference preference = customerDNAFile.new Preference(Date.from(Instant.now()));
-        // use breakpoint
-        preference = customerDNAFile.new Preference(Date.from(Instant.now()));
+//        CustomerDNAFile.Preference preference = customerDNAFile.new Preference(Date.from(Instant.now()));
+//        // use breakpoint
+//        preference = customerDNAFile.new Preference(Date.from(Instant.now()));
 
 //        CustomerDNAFile.CustomerDnaSource attribute = customerDNAFile.new CustomerDnaSource();
-        CustomerDNAFile.CustomerDnaSource customerDnaSource = new CustomerDNAFile.CustomerDnaSource("Facebook", false);
+//        CustomerDNAFile.CustomerDnaSource customerDnaSource = new CustomerDNAFile.CustomerDnaSource("Facebook", false);
         // use breakpoint
-        customerDnaSource = new CustomerDNAFile.CustomerDnaSource("Twitter", false);
+//        customerDnaSource = new CustomerDNAFile.CustomerDnaSource("Twitter", false);
 
+        // example of Local inner classes
         CustomerDNAFile.exampleOfLocalInnerClassMethod();
 
         // example of a static inner class when using the builder design pattern
@@ -801,11 +831,12 @@ public class MyApplication {
         Employee employee = new Employee(null, "wim van den brande", 49, null, null)
                 .withHireDate(Date.from(Instant.now()))
                 .withProjects(null)
+                .withCountry(Country.BELGIUM)
                 .withSocialSecurityNumber("671102-001.01");
 
-        Employee.Address address1 = employee.new Address("home", "street 1", "house no 1", "zip 1", "commune 1");
-        Employee.Address address2 = employee.new Address("office", "street 2", "house no2", "zip 2", "commune 2");
-        Employee.Address address3 = employee.new Address("office", "street 2", "house no2", "zip 2", "commune 2");
+        Employee.Address address1 = employee.new Address("street 1", "house no 1", "zip 1", "commune 1");
+        Employee.Address address2 = employee.new Address("street 2", "house no 2", "2650", "Edegem");
+        Employee.Address address3 = employee.new Address("street 2", "house no 2", "2650", "Edegem");
 
         Set<Employee.Address> addresses = new HashSet<>();
         addresses.add(address1);
@@ -813,6 +844,7 @@ public class MyApplication {
         addresses.add(address3);
 
         // use breakpoint
+        // TODO : to ask how many entries my list will contain
         System.out.println("Number of addresses in set = " + addresses.size());
     }
 
@@ -856,13 +888,14 @@ public class MyApplication {
     private static void oefeningParseStringWithBrackets_8A() {
         Scanner reader = new Scanner(System.in);
 
-        System.out.println("Enter a string with a comibiination of []{}()");
+        System.out.println("Enter a string with a combination of []{}()");
         String stringToParse = reader.nextLine();
 
         char[] chars = stringToParse.toCharArray();
         char[] charsToBeClosed = new char[20];
 
         int indexOfCharsToBeClosed = -1;
+        boolean validString = true;
 
         for (char c: chars) {
             // if opening char, we add it to array of chars to be closed
@@ -880,11 +913,15 @@ public class MyApplication {
                         charsToBeClosed[indexOfCharsToBeClosed--] = '\u0000';
                     }
                 }
+                else {
+                    // closing tag does not match so we have an error
+                    validString = false;
+                }
             }
         }
 
         // if charsToBeClosed contains the initial value, everything went fine
-        if (charsToBeClosed[0] != '\u0000') {
+        if (charsToBeClosed[0] != '\u0000' || !validString) {
             System.err.println("invalid string");
         }
         else {
