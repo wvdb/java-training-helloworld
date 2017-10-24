@@ -9,22 +9,23 @@ import java.util.Date;
  * Created by admin on 15/10/2017.
  */
 public final class DateUtility {
-    // this is a utility class with class-methods only, we don't want this class to be instantiated
+    // this is a utility class with class-methods only,
+    // we don't want this class to be instantiated
     private DateUtility() {
     }
 
-    public final static String convertLocalDateTimeToDateAsString(LocalDateTime localDateTime) {
+    public final static String convertLocalDateTimeToEuropeanDateAsString(LocalDateTime localDateTime) {
         return String.format("%td/%tm/%tY", localDateTime, localDateTime, localDateTime);
     }
 
-    public final static String convertLocalDateTimeToDateTimeAsString(LocalDateTime localDateTime) {
+    public final static String convertLocalDateTimeToEuropeanDateTimeAsString(LocalDateTime localDateTime) {
         return String.format("%td/%tm/%tY %tH:%tM:%tS", localDateTime, localDateTime, localDateTime, localDateTime, localDateTime, localDateTime);
     }
 
     public final static Date addNumberOfDaysToDate(Date date, int numberOfDays) {
-        LocalDateTime localDateTime = convertDateToLocalDateTime(date);
-        localDateTime = localDateTime.plusDays(numberOfDays);
-        return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+        LocalDate localDate = convertDateToLocalDate(date);
+        localDate = localDate.plusDays(numberOfDays);
+        return convertLocalDateToDate(localDate);
     }
 
     public final static LocalDateTime convertDateToLocalDateTime(Date date) {
@@ -32,12 +33,17 @@ public final class DateUtility {
     }
 
     public final static LocalDate convertDateToLocalDate(Date date) {
-        return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        return new java.sql.Date(date.getTime()).toLocalDate();
+//        return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
     }
 
-    public final static long convertLocalDateToEpoch(LocalDate date) {
+    public final static long convertLocalDateToEpoch(LocalDate localDate) {
         ZoneId zoneId = ZoneId.systemDefault(); // or: ZoneId.of("Europe/Oslo");
-        return date.atStartOfDay(zoneId).toEpochSecond();
+        return localDate.atStartOfDay(zoneId).toEpochSecond();
+    }
+
+    public final static Date convertLocalDateToDate(LocalDate localDate) {
+        return java.sql.Date.valueOf(localDate);
     }
 
 }

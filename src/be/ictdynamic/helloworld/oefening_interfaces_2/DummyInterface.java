@@ -1,9 +1,5 @@
 package be.ictdynamic.helloworld.oefening_interfaces_2;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
-
 /**
  * Created by wvdbrand on 24/08/2017.
  */

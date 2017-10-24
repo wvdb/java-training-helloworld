@@ -4,12 +4,13 @@ import be.ictdynamic.helloworld.cursus_domain.*;
 import be.ictdynamic.helloworld.domain.*;
 import be.ictdynamic.helloworld.enums.Coin;
 import be.ictdynamic.helloworld.enums.Country;
+import be.ictdynamic.helloworld.enums.IPhoneType;
 import be.ictdynamic.helloworld.enums.MonthEnumeration;
 import be.ictdynamic.helloworld.exception.MyCustomizedException;
-import be.ictdynamic.helloworld.oefening_inner_class_6.CustomerDNAFile;
 import be.ictdynamic.helloworld.oefening_inheritance_1.DateHelper;
 import be.ictdynamic.helloworld.oefening_inheritance_1.EuropeanDateHelper;
 import be.ictdynamic.helloworld.oefening_inheritance_1.IDateHelper;
+import be.ictdynamic.helloworld.oefening_inner_class_6.CustomerDNAFile;
 import be.ictdynamic.helloworld.oefening_interfaces_2.DummyInterface;
 import be.ictdynamic.helloworld.oefening_interfaces_2.DummyInterfaceImpl1;
 import be.ictdynamic.helloworld.oefening_interfaces_2.DummyInterfaceImpl2;
@@ -19,6 +20,7 @@ import be.ictdynamic.helloworld.utilities.KeyboardUtility;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -60,8 +62,8 @@ public class MyApplication {
                 MyApplication.oefeningInheritance_1();
                 break;
             case 2:
-                MyApplication.oefeningInterfaces_2A();
-//                MyApplication.oefeningInterfaces_2B();
+//                MyApplication.oefeningInterfaces_2A();
+                MyApplication.oefeningInterfaces_2B();
                 break;
             case 3:
                 MyApplication.oefeningStaticMethodAndInstanceMethod_3();
@@ -87,7 +89,8 @@ public class MyApplication {
                 break;
             case 8:
 //                MyApplication.oefeningPrintPiramide_8B();
-                MyApplication.oefeningParseStringWithBrackets_8A();
+//                MyApplication.oefeningParseStringWithBrackets_8A_V1();
+                MyApplication.oefeningParseStringWithBracketsAndUsingAList_8A_V2();
                 break;
             case 9:
                 MyApplication.oefeningEnum_9();
@@ -105,16 +108,15 @@ public class MyApplication {
                 MyApplication.oefeningDate_12();
                 break;
             case 13:
-                MyApplication.oefeningMap_13();
+                // TODO : sorting of a MAP ???
+                MyApplication.oefeningMap_13A();
+                MyApplication.oefeningMap_13B();
                 break;
             case 14:
                 MyApplication.oefeningList_14();
                 break;
             case 15:
                 MyApplication.oefeningHashSetAndLinkedHashSet_15();
-                break;
-            case 16:
-                MyApplication.oefeningMap_16();
                 break;
             case 18:
                 oefeningBmiUtility_18();
@@ -156,14 +158,14 @@ public class MyApplication {
         LocalDate localDate = LocalDate.parse(myDate, ddMMyyyyFormatter);
 
         System.out.println("My localDate = " + localDate);
-        System.out.println("My localDateTime (string-date format) = " + DateUtility.convertLocalDateTimeToDateAsString(LocalDateTime.now()));
-        System.out.println("My localDateTime (string-date-time format) = " + DateUtility.convertLocalDateTimeToDateTimeAsString(LocalDateTime.now()));
+        System.out.println("My localDateTime (string-date format) = " + DateUtility.convertLocalDateTimeToEuropeanDateAsString(LocalDateTime.now()));
+        System.out.println("My localDateTime (string-date-time format) = " + DateUtility.convertLocalDateTimeToEuropeanDateTimeAsString(LocalDateTime.now()));
 
         System.out.println("Leap Year of the date you entered? " + (Year.parse(myDate, ddMMyyyyFormatter)).isLeap());
         System.out.println("My localDate = " + localDate.format(oracleDateFormatter));
     }
 
-    private static void oefeningMap_13() {
+    private static void oefeningMap_13A() {
         Map<Coin, Integer> myPurse1 = new HashMap<>();
         Map<Coin, Integer> myPurse2 = new LinkedHashMap<>();
         SortedMap<Coin, Integer> myPurse3 = new TreeMap<>();
@@ -180,6 +182,26 @@ public class MyApplication {
         createSortedPurse(myPurse3);
         System.out.println("Usage of TreeMap");
         myPurse3.forEach((coin, numberOf) -> System.out.println("coin : " + coin + " #: " + numberOf));
+    }
+
+    private static void oefeningMap_13B() {
+        Map<String, Map<String, Integer>> olympicMedalsPerYearPerCountry = new HashMap<>();
+
+        Map<String, Integer> mapOfMedals2016 = new HashMap<>();
+        mapOfMedals2016.put("NL", 12);
+        mapOfMedals2016.put("BE", 4);
+        mapOfMedals2016.put("US", 22);
+        mapOfMedals2016.put("RUS", 1);
+
+        olympicMedalsPerYearPerCountry.put("2016", mapOfMedals2016);
+
+        Map<String, Integer> mapOfMedals2020 = new HashMap<>();
+        mapOfMedals2020.put("NL", 6);
+        mapOfMedals2020.put("BE", 40);
+        mapOfMedals2020.put("US", 5);
+        mapOfMedals2020.put("RUS", 0);
+
+        olympicMedalsPerYearPerCountry.put("2020", mapOfMedals2020);
     }
 
     private static void oefeningList_14() {
@@ -224,25 +246,6 @@ public class MyApplication {
             System.out.println("LinkedHashSet : value = " + integer);
         }
 
-    }
-    private static void oefeningMap_16() {
-        Map<String, Map<String, Integer>> olympicMedalsPerYearPerCountry = new HashMap<>();
-
-        Map<String, Integer> mapOfMedals2016 = new HashMap<>();
-        mapOfMedals2016.put("NL", 12);
-        mapOfMedals2016.put("BE", 4);
-        mapOfMedals2016.put("US", 22);
-        mapOfMedals2016.put("RUS", 1);
-
-        olympicMedalsPerYearPerCountry.put("2016", mapOfMedals2016);
-
-        Map<String, Integer> mapOfMedals2020 = new HashMap<>();
-        mapOfMedals2020.put("NL", 6);
-        mapOfMedals2020.put("BE", 40);
-        mapOfMedals2020.put("US", 5);
-        mapOfMedals2020.put("RUS", 0);
-
-        olympicMedalsPerYearPerCountry.put("2020", mapOfMedals2020);
     }
 
     private static void createPurse(Map<Coin, Integer> myPurse) {
@@ -431,25 +434,43 @@ public class MyApplication {
     }
 
     static private void oefeningInheritanceHelperWithBirthDate_1B() {
-        // BE CAREFUL BECAUSE OF OCTAL NOTATION !!!
+        // BE CAREFUL BECAUSE OF NOTATION !!!
         LocalDate localDate = LocalDate.of(1967, 11, 011);
         System.out.println("localDate = " + localDate);
 
         localDate = LocalDate.of(0x7AF, 0XB, 0xB);
         System.out.println("localDate = " + localDate);
 
+        LocalDateTime localDateTime = LocalDateTime.now();
+        System.out.println("localDateTime = " + localDateTime);
+
+        ZonedDateTime zonedDateTime = ZonedDateTime.now();
+        System.out.println("localDateTime = " + zonedDateTime);
+        System.out.println("localDateTime zone = " + zonedDateTime.getZone());
+
         System.out.println("localDate dayOfYear = " + localDate.getDayOfYear());
         System.out.println("localDate dayOfWeek = " + localDate.getDayOfWeek());
+        System.out.println("localDate is leap year? = " + localDate.isLeapYear());
+        System.out.println("2000 is leap year? = " + Year.isLeap(2000));
         System.out.println("localDate epoch = " + DateUtility.convertLocalDateToEpoch(localDate));
 
-        LocalDateTime localDateTime1 = LocalDateTime.of(2017, 11, 02, 11, 11, 11);
+        for (DayOfWeek dayOfWeek : DayOfWeek.values()) {
+            System.out.println(String.format("Dag van de week = %s, ordinal = %02d", dayOfWeek.name(), dayOfWeek.ordinal()));
+//            Locale locale = new Locale("bg-BG");
+//            System.out.println(String.format("Dag van de week = %s, ordinal = %02d", dayOfWeek.getDisplayName(TextStyle.FULL_STANDALONE, Locale.ITALIAN), dayOfWeek.ordinal()));
+//            System.out.println(String.format("Dag van de week = %s, ordinal = %02d", dayOfWeek.getDisplayName(TextStyle.FULL_STANDALONE, locale), dayOfWeek.ordinal()));
+        }
+
+        LocalDateTime localDateTime1 = LocalDateTime.of(2017, 10, 20, 13, 33, 11);
         LocalDateTime localDateTime2 = LocalDateTime.of(2017, 12, 31, 23, 59, 59);
         Period period = Period.between(localDateTime1.toLocalDate(), localDateTime2.toLocalDate());
 
-        System.out.println("Period (in days) " + period.getDays());
-        System.out.println("Period (in months) " + period.getMonths());
         // question asked - certificate
+        System.out.println(String.format("Period %s (days), %s (months)", + period.getDays(), period.getMonths()));
         System.out.println("Period " + period);
+
+        System.out.println("Periode (in days) " + ChronoUnit.DAYS.between(localDateTime1, localDateTime2));
+        System.out.println("Periode (in minutes) " + ChronoUnit.MINUTES.between(localDateTime1, localDateTime2));
     }
 
     private static void doSomethingWithWorker(Worker worker) {
@@ -496,6 +517,8 @@ public class MyApplication {
 
         // example of a default method
         dummyInterface.move();
+        DummyInterfaceImpl2 dummyInterfaceImpl2 = new DummyInterfaceImpl2();
+        dummyInterfaceImpl2.move();
 
         // example of interfaces (HP)
         // remark 1: duplication (interface and impl)
@@ -517,12 +540,10 @@ public class MyApplication {
 
         // correct example :
         System.out.println("Result of  = " + dummyInterface.getCompleteName("wim", "van den brande"));
-
-        Drawable2 drawable2 = new Rectangle();
-//        drawable2.ge
     }
 
     public static void oefeningInterfaces_2B() {
+        // design by interface
         Pig pigAsAnInterface = new MyPig();
         pigAsAnInterface.grunt();
         pigAsAnInterface.fly();
@@ -759,9 +780,20 @@ public class MyApplication {
 
     private void oefeningAbstractClass_6a() {
         // example of anonieme geneste klasse
-        Worker ceo = new Worker() {
+        // we don't instantiate a worker but we instantiate an anonymous class !!!
+        // useful since we can have CEOs and many more EmployeeTypes with each time a different setRemunerations()
+        Worker ceo = new Worker("Elon Musk", 50, Worker.Gender.MALE, null) {
+            // property is not available outside the inner class !!!
+            public Date fireDateOfTheCeo;
+
             @Override
             public Float calculateTotalIncentiveCost() {
+                if (fireDateOfTheCeo != null) {
+                    // dosomething
+                }
+                else {
+                    // dosomethingelse
+                }
                 return null;
             }
 
@@ -775,13 +807,44 @@ public class MyApplication {
             }
         };
 
+        // we can get access to the overridden method
         ceo.calculateTotalIncentiveCost();
 
-        // or alternative
+        // we cannot get access to the added field (compiler error)
+//        ceo.fireDateOfTheCeo;
+
+        // or alternative 1
         Ceo ceo1 = new Ceo();
         ceo1.calculateTotalIncentiveCost();
         ceo1.setRemunerations(null);
 
+        // or alternative 2
+        class Ceo extends Worker {
+            public Date fireDateOfTheCeo;
+
+            public Ceo(String firstName, Integer age, Gender gender, Date hireDate, Date fireDateOfTheCeo) {
+                super(firstName, age, gender, hireDate);
+                this.fireDateOfTheCeo = fireDateOfTheCeo;
+            }
+
+            @Override
+            public Float calculateTotalIncentiveCost() {
+                return null;
+            }
+
+            @Override
+            protected void setRemunerations(Set<Remuneration> remunerations) {
+            }
+
+            public Date getFireDateOfTheCeo() {
+                return fireDateOfTheCeo;
+            }
+        }
+
+        Ceo ceo2 = new Ceo("Elon Musk", 50, Worker.Gender.MALE, null, null);
+        System.out.println("The fireDate of this CEO = " + ceo2.getFireDateOfTheCeo());
+
+        // example 2
         Remuneration companyCar = new Remuneration(25000D) {
             @Override
             public double getCost() {
@@ -795,6 +858,14 @@ public class MyApplication {
         };
 
         System.out.println("cost of a company-car = " + companyCar.getCost() + " €.");
+
+        // example 3 - inner class in local method
+        MobilePhone iPhone = new MobilePhone("private", "", 1000D) {
+            public IPhoneType iPhoneType = IPhoneType.IPHONE_10;
+        };
+
+//      not available
+//        System.out.println("My type of my Iphone = " + iPhone.);
     }
 
     private static void oefeningInnerClass_6b() {
@@ -885,7 +956,7 @@ public class MyApplication {
         // InvalidArgumentException !!!
     }
 
-    private static void oefeningParseStringWithBrackets_8A() {
+    private static void oefeningParseStringWithBrackets_8A_V1() {
         Scanner reader = new Scanner(System.in);
 
         System.out.println("Enter a string with a combination of []{}()");
@@ -922,6 +993,50 @@ public class MyApplication {
 
         // if charsToBeClosed contains the initial value, everything went fine
         if (charsToBeClosed[0] != '\u0000' || !validString) {
+            System.err.println("invalid string");
+        }
+        else {
+            System.out.println("valid string");
+        }
+
+    }
+
+    private static void oefeningParseStringWithBracketsAndUsingAList_8A_V2() {
+        Scanner reader = new Scanner(System.in);
+
+        System.out.println("Enter a string with a combination of []{}()");
+        String stringToParse = reader.nextLine();
+
+        char[] chars = stringToParse.toCharArray();
+        List<Character> charactersToBeClosed = new ArrayList<>();
+
+        boolean validString = true;
+
+        for (char c: chars) {
+            // if opening char, we add it to array of chars to be closed
+            if (c == '{' || c == '(' || c == '[') {
+                charactersToBeClosed.add(c);
+            }
+            else {
+                // if closing char and closing char matches an opening char
+                // we remove it from the array
+                if ((c == '}' && charactersToBeClosed.size() > 0 && charactersToBeClosed.get(charactersToBeClosed.size() -1) == '{') ||
+                        (c == ')' && charactersToBeClosed.size() > 0 && charactersToBeClosed.get(charactersToBeClosed.size() -1) == '(') ||
+                        (c == ']' && charactersToBeClosed.size() > 0 && charactersToBeClosed.get(charactersToBeClosed.size() -1) == '[') )  {
+                    // closing tag matches, let's remove it from the list
+                    if (charactersToBeClosed.size() > 0) {
+                        charactersToBeClosed.remove(charactersToBeClosed.size() - 1);
+                    }
+                }
+                else {
+                    // closing tag does not match so we have an error
+                    validString = false;
+                }
+            }
+        }
+
+        // if charsToBeClosed contains the initial value, everything went fine
+        if (charactersToBeClosed.size() > 0 || !validString) {
             System.err.println("invalid string");
         }
         else {
@@ -1123,7 +1238,7 @@ public class MyApplication {
         remunerations[0] = getCorrectNumberOfRemunerationsForEmployee(salary).stream().findFirst().get();
         // TODO : second
         remunerations[1] = getCorrectNumberOfRemunerationsForEmployee(salary).stream().findFirst().get();
-        remunerations[2] = new Mobile("I-phone", "0485717182", 1000.00);
+        remunerations[2] = new MobilePhone("I-phone", "0485717182", 1000.00);
         return new HashSet<>(Arrays.asList(remunerations));
     }
 
