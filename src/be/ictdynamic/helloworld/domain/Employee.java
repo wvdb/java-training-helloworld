@@ -18,6 +18,7 @@ public class Employee extends Worker {
 
     private Map<AddressType, Address> addresses;
     private Manager manager;
+    private Address address;
     private boolean validEmployee = true;
 
     public Employee(Manager manager, String name, Integer age, Gender gender, Date hireDate) {
@@ -31,6 +32,9 @@ public class Employee extends Worker {
            System.err.println("We are getting too many male employees. Employee " + this + " should be rejected.");
            this.validEmployee = false;
         }
+
+        this.address = this.new Address("street 1", "house no 1", "zip 1", "commune 1");
+
     }
 
     public Employee() {

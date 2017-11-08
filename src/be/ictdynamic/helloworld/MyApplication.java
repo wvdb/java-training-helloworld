@@ -43,12 +43,16 @@ public class MyApplication {
             Scanner reader = new Scanner(System.in);
             try {
                 oefeningInteger = reader.nextInt();
+//            } catch (InputMismatchException | NumberFormatException | IOException e) {
             } catch (InputMismatchException | NumberFormatException e) {
                 System.err.println("Invalid value. Try again. Exception message = " + e.getMessage());
+                return;
             }
             finally {
+                System.out.println("Executing the finally block");
                 numberOfTimesInputGiven++;
             }
+
         }
 
         switch (oefeningInteger) {
@@ -108,9 +112,8 @@ public class MyApplication {
                 MyApplication.oefeningDate_12();
                 break;
             case 13:
-                // TODO : sorting of a MAP ???
                 MyApplication.oefeningMap_13A();
-                MyApplication.oefeningMap_13B();
+//                MyApplication.oefeningMap_13B();
                 break;
             case 14:
                 MyApplication.oefeningList_14();
@@ -168,7 +171,6 @@ public class MyApplication {
     private static void oefeningMap_13A() {
         Map<Coin, Integer> myPurse1 = new HashMap<>();
         Map<Coin, Integer> myPurse2 = new LinkedHashMap<>();
-        SortedMap<Coin, Integer> myPurse3 = new TreeMap<>();
 
         createPurse(myPurse1);
         System.out.println("Usage of HashMap");
@@ -178,7 +180,7 @@ public class MyApplication {
         System.out.println("Usage of LinkedHashMap");
         myPurse2.forEach((coin, numberOf) -> System.out.println("coin : " + coin + " #: " + numberOf));
 
-        // TODO : sorting
+        SortedMap<String, Integer> myPurse3 = new TreeMap<>();
         createSortedPurse(myPurse3);
         System.out.println("Usage of TreeMap");
         myPurse3.forEach((coin, numberOf) -> System.out.println("coin : " + coin + " #: " + numberOf));
@@ -217,8 +219,8 @@ public class MyApplication {
         Employee employee2 = new Employee();
 
         // evilish and to be avoided
-//        employees.add(0, employee1);
-//        employees.add(2, employee2);
+        employees.add(0, employee1);
+        employees.add(2, employee2);
 
         employees.add(employee1);
         employees.add(employee2);
@@ -256,12 +258,12 @@ public class MyApplication {
         myPurse.put(Coin.FIFTY_EURO_CENT, 0);
     }
 
-    private static void createSortedPurse(SortedMap<Coin, Integer> myPurse) {
-        myPurse.put(Coin.TEN_EURO_CENT, 3);
-        myPurse.put(Coin.FIVE_EURO_CENT, 2);
-        myPurse.put(Coin.TWENTY_EURO_CENT, 2);
-        myPurse.put(Coin.ONE_EURO_CENT, 20);
-        myPurse.put(Coin.FIFTY_EURO_CENT, 0);
+    private static void createSortedPurse(SortedMap<String, Integer> myPurse) {
+        myPurse.put("TEN_EURO_CENT", 3);
+        myPurse.put("FIVE_EURO_CENT", 2);
+        myPurse.put("TWENTY_EURO_CENT", 2);
+        myPurse.put("ONE_EURO_CENT", 20);
+        myPurse.put("FIFTY_EURO_CENT", 0);
     }
 
     private static void oefeningPrimitives__1() {
@@ -783,27 +785,18 @@ public class MyApplication {
         // we don't instantiate a worker but we instantiate an anonymous class !!!
         // useful since we can have CEOs and many more EmployeeTypes with each time a different setRemunerations()
         Worker ceo = new Worker("Elon Musk", 50, Worker.Gender.MALE, null) {
-            // property is not available outside the inner class !!!
-            public Date fireDateOfTheCeo;
-
-            @Override
-            public Float calculateTotalIncentiveCost() {
-                if (fireDateOfTheCeo != null) {
-                    // dosomething
-                }
-                else {
-                    // dosomethingelse
-                }
-                return null;
+            public boolean isAllowedToBeFired() {
+                return false;
             }
 
             @Override
-            public void setRemunerations(Set<Remuneration> remunerations) {
-                for (Remuneration remuneration : remunerations) {
-                    if (remuneration instanceof Salary) {
-                        System.err.println("A CEO cannot have a salary.");
-                    }
-                }
+            public Float calculateTotalIncentiveCost() {
+                return 10000F;
+            }
+
+            @Override
+            protected void setRemunerations(Set<Remuneration> remunerations) {
+
             }
         };
 
@@ -950,6 +943,8 @@ public class MyApplication {
         catch (Throwable e) {
             System.out.println("Foutje ....");
         }
+
+        System.out.println("oefening 7 completed");
 
         // alternative is an IllegalArgumentException
         // be aware of the
