@@ -186,25 +186,6 @@ public class MyApplication {
         myPurse3.forEach((coin, numberOf) -> System.out.println("coin : " + coin + " #: " + numberOf));
     }
 
-    private static void oefeningMap_13B() {
-        Map<String, Map<String, Integer>> olympicMedalsPerYearPerCountry = new HashMap<>();
-
-        Map<String, Integer> mapOfMedals2016 = new HashMap<>();
-        mapOfMedals2016.put("NL", 12);
-        mapOfMedals2016.put("BE", 4);
-        mapOfMedals2016.put("US", 22);
-        mapOfMedals2016.put("RUS", 1);
-
-        olympicMedalsPerYearPerCountry.put("2016", mapOfMedals2016);
-
-        Map<String, Integer> mapOfMedals2020 = new HashMap<>();
-        mapOfMedals2020.put("NL", 6);
-        mapOfMedals2020.put("BE", 40);
-        mapOfMedals2020.put("US", 5);
-        mapOfMedals2020.put("RUS", 0);
-
-        olympicMedalsPerYearPerCountry.put("2020", mapOfMedals2020);
-    }
 
     private static void oefeningList_14() {
         // name convention (employees and employee in iteration)
