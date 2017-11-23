@@ -11,6 +11,9 @@ public class Square extends Rectangle {
         super(side, side, coordinates);
     }
 
+    public Square() {
+    }
+
     public void setSide(int side) {
         super.setHeight(side);
         super.setWidth(side);

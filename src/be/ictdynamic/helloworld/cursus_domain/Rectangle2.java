@@ -5,7 +5,7 @@ import java.util.Arrays;
 /**
  * Created by admin on 9/09/2017.
  */
-public class Rectangle2 implements Drawable2 {
+public class Rectangle2 extends Square implements Drawable2 {
     private static final int NUMBER_OF_ANGLES = 4;
 
     private int height;
@@ -31,7 +31,7 @@ public class Rectangle2 implements Drawable2 {
         return height;
     }
 
-    protected void setHeight(int height) {
+    public void setHeight(int height) {
         this.height = height;
     }
 
@@ -39,7 +39,7 @@ public class Rectangle2 implements Drawable2 {
         return width;
     }
 
-    protected void setWidth(int width) {
+    public void setWidth(int width) {
         this.width = width;
     }
 

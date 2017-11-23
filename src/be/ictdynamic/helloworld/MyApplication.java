@@ -1,6 +1,7 @@
 package be.ictdynamic.helloworld;
 
 import be.ictdynamic.helloworld.cursus_domain.*;
+import be.ictdynamic.helloworld.cursus_domain.Square;
 import be.ictdynamic.helloworld.domain.*;
 import be.ictdynamic.helloworld.enums.Coin;
 import be.ictdynamic.helloworld.enums.Country;
@@ -314,11 +315,13 @@ public class MyApplication {
             System.out.println("mijn vierkanten zijn niet gelijk");
         }
 
-        // example of builder pattern when instantiating Rectangle2
-        Rectangle2 aDifferentRectangle = new Rectangle2()
-                .withCoordinates(new int[2])
+        // example of builder pattern when instantiating Rectangle2 (with downcast)
+        Square aDifferentRectangle = new Rectangle2()
+//                .withCoordinates(new int[2])
                 .withHeight(50)
                 .withWidth(100);
+
+        aDifferentRectangle.getWidth();
 
         // The constructor of a square has only ONE argument (side)
 //        Square square = new Square(10, 5);

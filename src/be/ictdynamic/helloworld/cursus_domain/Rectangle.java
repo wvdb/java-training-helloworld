@@ -20,7 +20,7 @@ public class Rectangle extends Shape implements Drawable2 {
         super(coordinates);
         this.height = height;
         this.width = width;
-        numberORectanglesConstructed += 1;
+       numberORectanglesConstructed += 1;
     }
 
     public Rectangle() {
