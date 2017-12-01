@@ -122,6 +122,10 @@ public class MyApplication {
             case 15:
                 MyApplication.oefeningHashSetAndLinkedHashSet_15();
                 break;
+            case 16:
+                MyApplication.feedingSchedule_16_A();
+//                MyApplication.feedingSchedule_16_B();
+                break;
             case 18:
                 oefeningBmiUtility_18();
                 break;
@@ -230,6 +234,37 @@ public class MyApplication {
             System.out.println("LinkedHashSet : value = " + integer);
         }
 
+    }
+
+    private static void feedingSchedule_16_A() {
+        String myString = "helloWorld";
+        switch (myString) {
+            default:
+            case "value1":
+                System.out.println("Value1");
+                break;
+            case "value2":
+                System.out.println("Value2");
+                break;
+        }
+   }
+
+    private static void feedingSchedule_16_B() {
+        boolean keepGoing = true;
+        int count = 0;
+        int x = 3;
+        while (count++ < 3) {
+            int y = (1 + 2 * count) % 3;
+            switch (y) {
+                default:
+                case 0:
+                    x -= 1;
+                    break;
+                case 1:
+                    x += 5;
+            }
+        }
+        System.out.println(x);
     }
 
     private static void createPurse(Map<Coin, Integer> myPurse) {
