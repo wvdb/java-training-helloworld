@@ -350,6 +350,8 @@ public class MyApplication {
             System.out.println("mijn vierkanten zijn niet gelijk");
         }
 
+        Drawable2 drawable2 = new Rectangle2();
+
         // example of builder pattern when instantiating Rectangle2 (with downcast)
         Square aDifferentRectangle = new Rectangle2()
 //                .withCoordinates(new int[2])
@@ -1106,9 +1108,6 @@ public class MyApplication {
 
         Employee.calculateTotalIncentiveCost(remunerations1);
         Employee.calculateTotalIncentiveCost(remunerations2);
-
-        Customer customer = new Customer();
-        customer.setFirstName(null);
     }
 
     private static void oefeningString_11A() {
