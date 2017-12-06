@@ -45,7 +45,8 @@ public class MyApplication {
             try {
                 oefeningInteger = reader.nextInt();
 //            } catch (InputMismatchException | NumberFormatException | IOException e) {
-            } catch (InputMismatchException | NumberFormatException e) {
+            }
+            catch (InputMismatchException | NumberFormatException e) {
                 System.err.println("Invalid value. Try again. Exception message = " + e.getMessage());
                 return;
             }
@@ -53,7 +54,6 @@ public class MyApplication {
                 System.out.println("Executing the finally block");
                 numberOfTimesInputGiven++;
             }
-
         }
 
         switch (oefeningInteger) {

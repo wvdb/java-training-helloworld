@@ -15,6 +15,7 @@ public class CustomerBis extends Customer {
 
     // example of a hidden method
     // a private method cannot be overridden
+//    @Override
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
