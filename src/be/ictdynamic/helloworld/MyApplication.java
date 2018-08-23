@@ -19,6 +19,8 @@ import be.ictdynamic.helloworld.utilities.BmiUtility;
 import be.ictdynamic.helloworld.utilities.DateUtility;
 import be.ictdynamic.helloworld.utilities.KeyboardUtility;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -294,7 +296,10 @@ public class MyApplication {
         System.out.format("Value float = %012.10f\n", myFloat);
 
         double myDouble = 10/3D;
-        System.out.format("Value double = %012.10f\n", myDouble);
+        System.out.format("Value double = %030.28f\n", myDouble);
+
+        BigDecimal myBigDecimal = new BigDecimal(10).divide(new BigDecimal(3), 50, RoundingMode.DOWN);
+        System.out.format("Value myBigDecimal = %050.48f\n", myBigDecimal);
 
         // Dutch alphabet
         printRangeOfCharacters((short)97, (short)122);

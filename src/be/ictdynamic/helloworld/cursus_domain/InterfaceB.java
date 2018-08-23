@@ -1,8 +1,8 @@
 package be.ictdynamic.helloworld.cursus_domain;
 
 public interface InterfaceB {
-    static final String dummy = "HelloWorld";
+    public static final String dummy = "HelloWorld";
 
-    abstract public void dummy2a();
-    abstract public void dummy2b();
+    public abstract void dummy2a();
+    public abstract void dummy2b();
 }
