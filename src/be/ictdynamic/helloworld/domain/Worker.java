@@ -69,8 +69,7 @@ public abstract class Worker extends DatabaseEntity implements Workable {
         return firstName + " " + middleName + " " + lastName;
     }
 
-    @Override
-    public String getFullName(String... partOfNames) {
+    private String getFullName(String... partOfNames) {
         StringBuilder stringBuilder = new StringBuilder();
         for (String partOfName : partOfNames) {
             stringBuilder.append(partOfName);

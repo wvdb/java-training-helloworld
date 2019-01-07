@@ -1,7 +1,6 @@
 package be.ictdynamic.helloworld;
 
 import be.ictdynamic.helloworld.cursus_domain.*;
-import be.ictdynamic.helloworld.cursus_domain.Square;
 import be.ictdynamic.helloworld.domain.*;
 import be.ictdynamic.helloworld.enums.Coin;
 import be.ictdynamic.helloworld.enums.Country;
@@ -32,6 +31,9 @@ public class MyApplication {
     public static final String EMPTY_STRING_2_SPACES = "  ";
     public static final String EMPTY_STRING_1_SPACE = " ";
 
+    // no getter and setter : hence this is a field
+    private String Dummy;
+
     public static int numberOfEmployees = 0;
     public static int numberOfManagers = 0;
     public static int numberOfDirectors = 0;
@@ -47,12 +49,10 @@ public class MyApplication {
             try {
                 oefeningInteger = reader.nextInt();
 //            } catch (InputMismatchException | NumberFormatException | IOException e) {
-            }
-            catch (InputMismatchException | NumberFormatException e) {
+            } catch (InputMismatchException | NumberFormatException e) {
                 System.err.println("Invalid value. Try again. Exception message = " + e.getMessage());
                 return;
-            }
-            finally {
+            } finally {
                 System.out.println("Executing the finally block");
                 numberOfTimesInputGiven++;
             }
@@ -134,7 +134,7 @@ public class MyApplication {
             case 99:
                 MyApplication.myCompany_99();
                 break;
-            default :
+            default:
                 System.err.println("!!!No exercise supported. ");
         }
 
@@ -216,7 +216,7 @@ public class MyApplication {
         System.out.println("size = " + employees.size());
 
         for (Employee employee : employees) {
-            System.out.println( employee );
+            System.out.println(employee);
         }
     }
 
@@ -226,7 +226,7 @@ public class MyApplication {
 
         Set<Integer> myHashSet = new HashSet<Integer>(integers0);
 
-        Set<Integer> myLinkedHashSet= new LinkedHashSet<Integer>(integers0);
+        Set<Integer> myLinkedHashSet = new LinkedHashSet<Integer>(integers0);
 
         for (Integer integer : myHashSet) {
             System.out.println("HashSet : value = " + integer);
@@ -249,7 +249,7 @@ public class MyApplication {
                 System.out.println("Value2");
                 break;
         }
-   }
+    }
 
     private static void feedingSchedule_16_B() {
         boolean keepGoing = true;
@@ -292,17 +292,21 @@ public class MyApplication {
         myFloat = Float.MAX_VALUE;
         System.out.format("Value float-max = %0,50.5f\n", myFloat);
 
-        myFloat = 10/3F;
+        myFloat = 10 / 3F;
         System.out.format("Value float = %012.10f\n", myFloat);
 
-        double myDouble = 10/3D;
+        double myDouble = 10 / 3D;
         System.out.format("Value double = %030.28f\n", myDouble);
+
+        BigDecimal myBigDecimal1 = new BigDecimal("123");
+        BigDecimal myBigDecimal2 = new BigDecimal("123");
+//        myBigDecimal1 / myBigDecimal2;
 
         BigDecimal myBigDecimal = new BigDecimal(10).divide(new BigDecimal(3), 50, RoundingMode.DOWN);
         System.out.format("Value myBigDecimal = %050.48f\n", myBigDecimal);
 
         // Dutch alphabet
-        printRangeOfCharacters((short)97, (short)122);
+        printRangeOfCharacters((short) 97, (short) 122);
         System.out.println();
 
         // Greek Capital Letter : https://en.wikipedia.org/wiki/List_of_Unicode_characters#Latin-1_Supplement
@@ -360,8 +364,7 @@ public class MyApplication {
         // example of builder pattern when instantiating Rectangle2 (with downcast)
         Square aDifferentRectangle = new Rectangle2()
 //                .withCoordinates(new int[2])
-                .withHeight(50)
-                .withWidth(100);
+                .withHeight(50).withWidth(100);
 
         aDifferentRectangle.getWidth();
 
@@ -411,35 +414,31 @@ public class MyApplication {
         // this interface is an instance of particular Class
         if (dateHelper2 instanceof EuropeanDateHelper) {
             System.out.println("dateHelper2 is an instance of EuropeanDateHelper");
-        } else {
+        }
+        else {
             System.out.println("Houston we have a problem.");
         }
 
         // this interface is an instance of particular super Class
         if (dateHelper2 instanceof DateHelper) {
             System.out.println("dateHelper2 is an instance of DateHelper");
-        } else {
+        }
+        else {
             System.out.println("Houston we have a problem.");
         }
 
-        EuropeanDateHelper dateHelper4 = new EuropeanDateHelper();
-
-//        oefeningInheritanceHelper_1A(dateHelper1, europeanDateHelper, dateHelper2, dateHelper4);
+        oefeningInheritanceHelper_1A();
 
         oefeningInheritanceHelperWithBirthDate_1B();
     }
 
-    // IntelliJ geeft aan dat 4de argument niet wordt gebruikt
-    private static void oefeningInheritanceHelper_1A(IDateHelper dateHelper1,
-                                                    IDateHelper dateHelper2,
-                                                    IDateHelper dateHelper3,
-                                                    IDateHelper dateHelper4) {
-        System.out.println("date = " + dateHelper1.getCurrentDateAsString());
-        System.out.println("date = " + dateHelper2.getCurrentDateAsString());
-        System.out.println("date = " + dateHelper3.getCurrentDateAsString());
+    private static void oefeningInheritanceHelper_1A() {
 
-        System.out.println("date increased with 10 days (EuropeanDateHelper)= " + dateHelper2.addNumberOfDays(new Date(System.currentTimeMillis()), 10));
-        System.out.println("date increased with 10 days (DangerousUSDateHelper)= " + dateHelper1.addNumberOfDays(new Date(System.currentTimeMillis()), 10));
+        DateHelper dateHelper = new DateHelper();
+        EuropeanDateHelper europeanDateHelper = new EuropeanDateHelper();
+
+//        System.out.println("date = " + dateHelper.getCurrentDateAsString());
+//        System.out.println("date = " + europeanDateHelper.getCurrentDateAsString());
 
         Employee employee = new Employee(null, "wim van den brande", 15, null, null);
 
@@ -453,9 +452,6 @@ public class MyApplication {
 
         // but we can cast to an Employee
         Employee workerCastedToEmployee = (Employee) worker;
-
-        // now we cannot retrieve the hire date anymore (compilation error)
-//        workerCastedToEmployee.getHireDate();
 
         // Employee inherits the static properties as well
         System.out.println("An employee is eligible for remuneration? : " + Employee.isEligibleForRemuneration);
@@ -494,7 +490,7 @@ public class MyApplication {
         Period period = Period.between(localDateTime1.toLocalDate(), localDateTime2.toLocalDate());
 
         // question asked - certificate
-        System.out.println(String.format("Period %s (days), %s (months)", + period.getDays(), period.getMonths()));
+        System.out.println(String.format("Period %s (days), %s (months)", +period.getDays(), period.getMonths()));
         System.out.println("Period " + period);
 
         System.out.println("Periode (in days) " + ChronoUnit.DAYS.between(localDateTime1, localDateTime2));
@@ -504,11 +500,14 @@ public class MyApplication {
     private static void doSomethingWithWorker(Worker worker) {
         if (worker instanceof Employee) {
             System.out.println("we've got an Employee");
-        } else if (worker instanceof Manager) {
+        }
+        else if (worker instanceof Manager) {
             System.out.println("we've got a Manager");
-        } else if (worker instanceof Director) {
+        }
+        else if (worker instanceof Director) {
             System.out.println("we've got a Director");
-        } else {
+        }
+        else {
             System.out.println("we've got a problem");
         }
     }
@@ -562,7 +561,8 @@ public class MyApplication {
         // REMARK : this should be avoided - loose coupling
         if (dummyInterface instanceof DummyInterfaceImpl2) {
             System.out.println("We use the DummyInterfaceImpl2");
-        } else {
+        }
+        else {
             System.out.println("We use the DummyInterfaceImpl1");
         }
 
@@ -607,25 +607,25 @@ public class MyApplication {
         // exercise op Signed left shift
         int val3 = 16;
         // prints ???
-        for (byte b = 1; b<=3; b ++) {
+        for (byte b = 1; b <= 3; b++) {
             System.out.println("Signed left shift: value has become: " + (val3 << b));
         }
 
         // prints ???
-        for (byte b = 1; b<=5; b ++) {
+        for (byte b = 1; b <= 5; b++) {
             System.out.println("Signed right shift: value has become: " + (val3 >> b));
         }
 
         // exercise playDays
-        int[] playDays = {20, 31, 3} ;
+        int[] playDays = {20, 31, 3};
         String[] days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
-        int[] playDaysx = {1, 2, 4, 8, 16, 32, 64} ;
+        int[] playDaysx = {1, 2, 4, 8, 16, 32, 64};
 
-        for (int playDay: playDays) {
+        for (int playDay : playDays) {
 
             int index = 0;
-            for (String day: days) {
-                System.out.println("Player with playDay " + playDay + ", day " + day + ": " + ((playDay & playDaysx[index]) > 0 ? "plays" : "does not play") );
+            for (String day : days) {
+                System.out.println("Player with playDay " + playDay + ", day " + day + ": " + ((playDay & playDaysx[index]) > 0 ? "plays" : "does not play"));
                 index += 1;
             }
         }
@@ -637,7 +637,7 @@ public class MyApplication {
         double resultAsDouble = Math.pow(i, 4);
 
 //        float  resultAsFloat1 = resultAsDouble;
-        float  resultAsFloat2 = 0F;
+        float resultAsFloat2 = 0F;
         resultAsDouble = resultAsFloat2;
 
         for (int year : years) {
@@ -649,6 +649,9 @@ public class MyApplication {
     static private void oefeningEquals_4B() {
         String canonicalString1 = "wim van den brande";
         String canonicalString2 = "wim van den brande";
+
+        // works for string - doesn't work for stringbuilder
+        // StringBuilder stringBuilder = "";
 
         if (canonicalString1 == canonicalString2) {
             System.out.println("The references are identical. All hail to the string constant pool.");
@@ -669,7 +672,7 @@ public class MyApplication {
         }
 
         // Maak gebruik van debug in String equals
-        if (string1.equals(string2))  {
+        if (string1.equals(string2)) {
             System.out.println("Everything fine ...");
         }
     }
@@ -728,6 +731,8 @@ public class MyApplication {
     static private void exercisePassByValue5_1() {
         Employee employee = new Employee(null, "wim van den brande", 49, null, null);
 
+        System.out.println("inital name of employee in exercisePassByValue5_1 = " + employee.getFirstName());
+
         doSomething1(employee);
 
         // has employee changed ???
@@ -776,7 +781,7 @@ public class MyApplication {
         Integer[] myIntegersBis2 = myIntegersBis1;
 
         // breakpoint
-        int i=0;
+        int i = 0;
     }
 
     static private void exercisePassByValue5_3() {
@@ -801,7 +806,7 @@ public class MyApplication {
 
         System.arraycopy(myInputIntegers, 0, myOutputIntegers, 0, myInputIntegers.length);
 
-        for (int i=0; i<myOutputIntegers.length; i++) {
+        for (int i = 0; i < myOutputIntegers.length; i++) {
             myOutputIntegers[i] = myInputIntegers[i] / 10;
         }
     }
@@ -907,22 +912,13 @@ public class MyApplication {
 
         // example of a static inner class when using the builder design pattern
 
-        Department department1 = new Department.DepartmentBuilder()
-                .departmentAddress("example of an address")
-                .departmentName("example of a department")
-                .build();
+        Department department1 = new Department.DepartmentBuilder().departmentAddress("example of an address").departmentName("example of a department").build();
 
-        Department department2 = new Department.DepartmentBuilder()
-                .departmentAddress("example of an address")
-                .build();
+        Department department2 = new Department.DepartmentBuilder().departmentAddress("example of an address").build();
 
         // example of a (normal) inner class : Addresses have been embedded within Employee
 
-        Employee employee = new Employee(null, "wim van den brande", 49, null, null)
-                .withHireDate(Date.from(Instant.now()))
-                .withProjects(null)
-                .withCountry(Country.BELGIUM)
-                .withSocialSecurityNumber("671102-001.01");
+        Employee employee = new Employee(null, "wim van den brande", 49, null, null).withHireDate(Date.from(Instant.now())).withProjects(null).withCountry(Country.BELGIUM).withSocialSecurityNumber("671102-001.01");
 
         Employee.Address address1 = employee.new Address("street 1", "house no 1", "zip 1", "commune 1");
         Employee.Address address2 = employee.new Address("street 2", "house no 2", "2650", "Edegem");
@@ -989,7 +985,7 @@ public class MyApplication {
         int indexOfCharsToBeClosed = -1;
         boolean validString = true;
 
-        for (char c: chars) {
+        for (char c : chars) {
             // if opening char, we add it to array of chars to be closed
             if (c == '{' || c == '(' || c == '[') {
                 indexOfCharsToBeClosed += 1;
@@ -998,9 +994,7 @@ public class MyApplication {
             else {
                 // if closing char and closing char matches an opening char
                 // we remove it from the array
-                if ((c == '}' && indexOfCharsToBeClosed >= 0 && charsToBeClosed[indexOfCharsToBeClosed] == '{') ||
-                    (c == ')' && indexOfCharsToBeClosed >= 0 && charsToBeClosed[indexOfCharsToBeClosed] == '(') ||
-                    (c == ']' && indexOfCharsToBeClosed >= 0 &&  charsToBeClosed[indexOfCharsToBeClosed] == '[') )  {
+                if ((c == '}' && indexOfCharsToBeClosed >= 0 && charsToBeClosed[indexOfCharsToBeClosed] == '{') || (c == ')' && indexOfCharsToBeClosed >= 0 && charsToBeClosed[indexOfCharsToBeClosed] == '(') || (c == ']' && indexOfCharsToBeClosed >= 0 && charsToBeClosed[indexOfCharsToBeClosed] == '[')) {
                     if (indexOfCharsToBeClosed >= 0) {
                         charsToBeClosed[indexOfCharsToBeClosed--] = '\u0000';
                     }
@@ -1033,7 +1027,7 @@ public class MyApplication {
 
         boolean validString = true;
 
-        for (char c: chars) {
+        for (char c : chars) {
             // if opening char, we add it to array of chars to be closed
             if (c == '{' || c == '(' || c == '[') {
                 charactersToBeClosed.add(c);
@@ -1041,9 +1035,7 @@ public class MyApplication {
             else {
                 // if closing char and closing char matches an opening char
                 // we remove it from the array
-                if ((c == '}' && charactersToBeClosed.size() > 0 && charactersToBeClosed.get(charactersToBeClosed.size() -1) == '{') ||
-                        (c == ')' && charactersToBeClosed.size() > 0 && charactersToBeClosed.get(charactersToBeClosed.size() -1) == '(') ||
-                        (c == ']' && charactersToBeClosed.size() > 0 && charactersToBeClosed.get(charactersToBeClosed.size() -1) == '[') )  {
+                if ((c == '}' && charactersToBeClosed.size() > 0 && charactersToBeClosed.get(charactersToBeClosed.size() - 1) == '{') || (c == ')' && charactersToBeClosed.size() > 0 && charactersToBeClosed.get(charactersToBeClosed.size() - 1) == '(') || (c == ']' && charactersToBeClosed.size() > 0 && charactersToBeClosed.get(charactersToBeClosed.size() - 1) == '[')) {
                     // closing tag matches, let's remove it from the list
                     if (charactersToBeClosed.size() > 0) {
                         charactersToBeClosed.remove(charactersToBeClosed.size() - 1);
@@ -1077,14 +1069,14 @@ public class MyApplication {
 
         System.out.println("\nCreating a pyramid as we know it.\n");
 
-        for (int i=1; i<=piramideMaxValue; i++) {
+        for (int i = 1; i <= piramideMaxValue; i++) {
             piramideImpl_8(piramideMaxValue, i);
 
         }
 
         System.out.println("\nCreating a company with too much overhead.\n");
 
-        for (int i=piramideMaxValue; i>=1; i--) {
+        for (int i = piramideMaxValue; i >= 1; i--) {
             piramideImpl_8(piramideMaxValue, i);
         }
 
@@ -1118,8 +1110,8 @@ public class MyApplication {
     private static void oefeningString_11A() {
         long timeStart = System.currentTimeMillis();
         String initString = new String("this is a test");
-        for (Integer i=0; i<=10_000_000; i++) {
-            if (i%1000 == 0) {
+        for (Integer i = 0; i <= 10_000_000; i++) {
+            if (i % 1000 == 0) {
                 System.out.println("(string) INDEX HAS BECOME " + i);
             }
 //            initString = initString.concat(i.toString());
@@ -1132,8 +1124,8 @@ public class MyApplication {
     private static void oefeningStringBuilder_11B() {
         long timeStart = System.currentTimeMillis();
         StringBuilder initString = new StringBuilder("dit is een 2de test");
-        for (Integer i=0; i<=10_000_000; i++) {
-            if (i%1000 == 0) {
+        for (Integer i = 0; i <= 10_000_000; i++) {
+            if (i % 1000 == 0) {
                 System.out.println("(stringbuilder) INDEX HAS BECOME " + i);
             }
             StringBuilder dummy = initString.append(i.toString());
@@ -1145,8 +1137,8 @@ public class MyApplication {
     private static void oefeningLargeList_11C() {
         long timeStart = System.currentTimeMillis();
         List<Integer> integers = new ArrayList<>();
-        for (Integer i=1_000_001; i<=2_000_000; i++) {
-            if (i%1000 == 0) {
+        for (Integer i = 1_000_001; i <= 2_000_000; i++) {
+            if (i % 1000 == 0) {
 //                System.out.println("INDEX HAS BECOME " + i);
             }
             integers.add(i);
@@ -1158,8 +1150,8 @@ public class MyApplication {
     private static void oefeningLargeListWithCapacity_11D() {
         long timeStart = System.currentTimeMillis();
         List<Integer> integers = new ArrayList<>(1_000_000);
-        for (Integer i=1; i<=1_000_000; i++) {
-            if (i%1000 == 0) {
+        for (Integer i = 1; i <= 1_000_000; i++) {
+            if (i % 1000 == 0) {
                 System.out.println("INDEX HAS BECOME " + i);
             }
             integers.add(i);
@@ -1170,12 +1162,12 @@ public class MyApplication {
 
     private static void piramideImpl_8(int piramideMaxValue, int i) {
         // take care of printing spaces (if any)
-        for (int j=1; j <= piramideMaxValue -i; j++ ) {
+        for (int j = 1; j <= piramideMaxValue - i; j++) {
             System.out.print((piramideMaxValue > 9) ? EMPTY_STRING_2_SPACES : EMPTY_STRING_1_SPACE);
         }
 
         // take care of printing actual digit
-        for (int j=1; j <= i; j++ ) {
+        for (int j = 1; j <= i; j++) {
             if (piramideMaxValue > 9) {
                 System.out.print(String.format("%02d", i) + EMPTY_STRING_2_SPACES);
             }
@@ -1231,7 +1223,7 @@ public class MyApplication {
         System.out.println("Number of valid Employees = " + numberOfEmployees);
         System.out.println("Number of valid Managers = " + numberOfManagers);
         System.out.println("Number of valid Director = " + numberOfDirectors);
-        
+
         exampleOfStreams1(workers);
 
         System.out.println("Number of unique workers = " + getListWithUniqueEmployees(workers).size());
@@ -1266,10 +1258,8 @@ public class MyApplication {
         for (int i = 0; i < arrayOfWorkers.length && arrayOfWorkers[i] != null; i++) {
             boolean workerIsUnique = true;
 
-            for(int j = i+1; j < arrayOfWorkers.length && arrayOfWorkers[j] != null; j++) {
-                if (arrayOfWorkers[i].getFirstName().equals(arrayOfWorkers[j].getFirstName()) &&
-                    arrayOfWorkers[i].getMiddleName().equals(arrayOfWorkers[j].getMiddleName()) &&
-                    arrayOfWorkers[i].getLastName().equals(arrayOfWorkers[j].getLastName())) {
+            for (int j = i + 1; j < arrayOfWorkers.length && arrayOfWorkers[j] != null; j++) {
+                if (arrayOfWorkers[i].getFirstName().equals(arrayOfWorkers[j].getFirstName()) && arrayOfWorkers[i].getMiddleName().equals(arrayOfWorkers[j].getMiddleName()) && arrayOfWorkers[i].getLastName().equals(arrayOfWorkers[j].getLastName())) {
                     // worker is not unique -- we ignore this worker
                     workerIsUnique = false;
                 }
@@ -1285,7 +1275,7 @@ public class MyApplication {
     }
 
     private static void countWorkerTypes(Worker[] workers) {
-        for(Worker worker: workers) {
+        for (Worker worker : workers) {
             if (worker instanceof Employee) {
                 Employee employee = (Employee) worker;
                 // option 1
@@ -1299,13 +1289,15 @@ public class MyApplication {
                 if (employee.isValidEmployee()) {
                     numberOfEmployees++;
                 }
-            } else if (worker instanceof  Manager) {
+            }
+            else if (worker instanceof Manager) {
                 Manager manager = (Manager) worker;
                 if (isEligibleForHRSystem(manager.getRemunerations(), Manager.MAX_NUMBER_OF_REMUNERATIONS_FOR_MANAGER)) {
                     numberOfManagers++;
                 }
-            } else {
-                if (worker != null ) {
+            }
+            else {
+                if (worker != null) {
                     Director director = (Director) worker;
                     if (isEligibleForHRSystem(director.getRemunerations(), Director.MAX_NUMBER_OF_REMUNERATIONS_FOR_DIRECTOR)) {
                         numberOfDirectors++;

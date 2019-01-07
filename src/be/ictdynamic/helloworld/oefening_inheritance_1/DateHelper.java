@@ -13,8 +13,7 @@ public class DateHelper implements IDateHelper {
         return currentDate;
     }
 
-    @Override
-    public String getCurrentDateAsString() {
+    private String getCurrentDateAsString() {
         return currentDate.toString();
     }
 

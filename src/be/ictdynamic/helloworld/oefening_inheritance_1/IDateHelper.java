@@ -8,7 +8,5 @@ import java.util.Date;
 public interface IDateHelper {
     Date getCurrentDate();
 
-    String getCurrentDateAsString();
-
     Date addNumberOfDays(Date date, int numberOfDays);
 }

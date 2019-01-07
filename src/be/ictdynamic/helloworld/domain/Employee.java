@@ -96,6 +96,17 @@ public class Employee extends Worker {
         return this;
     }
 
+//    @Override
+    private String getFullName(String... partOfNames) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Mr/Mrs ");
+        for (String partOfName : partOfNames) {
+            stringBuilder.append(partOfName);
+            stringBuilder.append(" ");
+        }
+        return stringBuilder.toString();
+    }
+
 
     // DOES COMPILE OR DOES NOT ???
     // a dummyMethod exists as well in Worker

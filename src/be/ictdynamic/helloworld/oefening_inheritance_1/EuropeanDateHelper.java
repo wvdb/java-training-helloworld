@@ -3,16 +3,14 @@ package be.ictdynamic.helloworld.oefening_inheritance_1;
 import be.ictdynamic.helloworld.utilities.DateUtility;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.Date;
 
 /**
  * Created by wvdbrand on 24/08/2017.
  */
 public class EuropeanDateHelper extends DateHelper{
-    @Override
-    public String getCurrentDateAsString() {
+//    @Override
+    private String getCurrentDateAsString() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         return simpleDateFormat.format(getCurrentDate());
     }
