@@ -20,13 +20,24 @@ public abstract class Worker extends DatabaseEntity implements Workable {
 
     private Integer age;
     private Gender gender;
-    private Date hireDate;
+    protected Date hireDate;
     private Date birthDate;
     protected Department department;
     private Set<Project> projects;
     protected Set<Remuneration> remunerations;
     private String socialSecurityNumber;
     private Country country;
+
+    private Integer accienityInYears;
+    Integer accienityInYears2;
+
+    private Integer getAccienityInYears() {
+        return accienityInYears;
+    }
+
+    private void setAccienityInYears(Integer accienityInYears) {
+        this.accienityInYears = accienityInYears;
+    }
 
     public Worker() {
     }

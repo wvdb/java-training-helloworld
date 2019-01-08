@@ -7,6 +7,15 @@ public class Department extends DatabaseEntity {
     private String departmentName;
     private String departmentAddress;
     private Manager departmentManager;
+    private boolean enabled;
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 
     private Department(DepartmentBuilder builder) {
         this.departmentName = builder.nestedDepartmentName;

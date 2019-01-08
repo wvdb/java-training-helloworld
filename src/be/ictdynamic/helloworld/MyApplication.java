@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 
 public class MyApplication {
 
-    public static final String EMPTY_STRING_2_SPACES = "  ";
+    public final static String EMPTY_STRING_2_SPACES = "  ";
     public static final String EMPTY_STRING_1_SPACE = " ";
 
     // no getter and setter : hence this is a field
@@ -106,8 +106,9 @@ public class MyApplication {
                 MyApplication.oefeningException_10();
                 break;
             case 11:
-                MyApplication.oefeningString_11A();
+//                MyApplication.oefeningString_11A();
 //                MyApplication.oefeningStringBuilder_11B();
+                MyApplication.oefeningStringBuilder_11_OCA();
 //                MyApplication.oefeningLargeListWithCapacity_11D();
 //                MyApplication.oefeningLargeList_11C();
                 break;
@@ -331,18 +332,6 @@ public class MyApplication {
         System.out.println("Aantal: " + s.getNumberOfAngles());
         s.setWidth(50);
 
-        Rectangle r = new Rectangle();
-
-        // generic method
-        outputObjectWithPrefixAndSuffix(o);
-        outputObjectWithPrefixAndSuffix(s);
-
-        // specific method (accepts only squares)
-        outputSquareWithPrefixAndSuffix(s);
-
-        // specific method (accepts only squares)
-//        outputSquareWithPrefixAndSuffix(r);
-
         Rectangle rectangle = new Rectangle(10, 5, null);
 
         // constructors worden niet overgeërfd
@@ -393,14 +382,6 @@ public class MyApplication {
 
         System.out.println("A square is always an instance of a rectangle? " + (square instanceof Rectangle));
         System.out.println("Is this rectangle an instance of a square?" + (rectangle instanceof Square));
-    }
-
-    private static void outputObjectWithPrefixAndSuffix(Object o) {
-        System.out.println(">>>" + o + "<<<");
-    }
-
-    private static void outputSquareWithPrefixAndSuffix(Square s) {
-        System.out.println(">>>" + s + "<<<");
     }
 
     private static void oefeningInheritance_1() {
@@ -1121,7 +1102,19 @@ public class MyApplication {
         System.out.println("method took " + (timeEnd - timeStart) + " milliseconds");
     }
 
-    private static void oefeningStringBuilder_11B() {
+    private static void oefeningStringBuilder_11_OCA() {
+        String s1 = "Java";
+        String s2 = "Java";
+        StringBuilder sb1 = new StringBuilder();
+        sb1.append("Ja").append("va");
+
+        System.out.println(s1==s2);
+        System.out.println(s1.equals(s2));
+        System.out.println(sb1.toString() == s1);
+        System.out.println(sb1.toString().equals(s1));
+    }
+
+        private static void oefeningStringBuilder_11B() {
         long timeStart = System.currentTimeMillis();
         StringBuilder initString = new StringBuilder("dit is een 2de test");
         for (Integer i = 0; i <= 10_000_000; i++) {

@@ -67,27 +67,27 @@ public class Rectangle extends Shape implements Drawable2 {
         return NUMBER_OF_ANGLES;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Rectangle)) return false;
-        if (!super.equals(o)) return false;
-
-        Rectangle rectangle = (Rectangle) o;
-
-        if (height != rectangle.height) return false;
-        if (width != rectangle.width) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + height;
-        result = 31 * result + width;
-        return result;
-    }
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (!(o instanceof Rectangle)) return false;
+//        if (!super.equals(o)) return false;
+//
+//        Rectangle rectangle = (Rectangle) o;
+//
+//        if (height != rectangle.height) return false;
+//        if (width != rectangle.width) return false;
+//
+//        return true;
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        int result = super.hashCode();
+//        result = 31 * result + height;
+//        result = 31 * result + width;
+//        return result;
+//    }
 
     @Override
     public String toString() {

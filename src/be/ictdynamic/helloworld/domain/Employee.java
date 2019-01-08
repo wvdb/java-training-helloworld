@@ -12,7 +12,7 @@ import java.util.Set;
  * Created by wvdbrand on 24/08/2017.
  */
 public class Employee extends Worker {
-    public final static int MAX_NUMBER_OF_REMUNERATIONS_FOR_EMPLOYEE = 2;
+    public final static int MAX_NUMBER_OF_REMUNERATIONS_FOR_EMPLOYEE = 12;
     private static int numberOfEmployees;
     private static int numberOfFemaleEmployees;
 
@@ -61,6 +61,8 @@ public class Employee extends Worker {
                 ", remunerations=" + getRemunerations() +
                 ", projects=" + getProjects() +
                 ", department=" + department +
+//                ", accienityInYears=" + getAccienityInYears() +
+                ", accienityInYears2=" + accienityInYears2 +
                 '}';
     }
 

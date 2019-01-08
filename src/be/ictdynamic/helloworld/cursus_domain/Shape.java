@@ -1,7 +1,5 @@
 package be.ictdynamic.helloworld.cursus_domain;
 
-import java.util.Arrays;
-
 /**
  * Created by admin on 17/10/2017.
  */
@@ -24,20 +22,20 @@ public class Shape {
         this.coordinates = coordinates;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Shape)) return false;
-
-        Shape shape = (Shape) o;
-
-        if (!Arrays.equals(coordinates, shape.coordinates)) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        return coordinates != null ? Arrays.hashCode(coordinates) : 0;
-    }
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (!(o instanceof Shape)) return false;
+//
+//        Shape shape = (Shape) o;
+//
+//        if (!Arrays.equals(coordinates, shape.coordinates)) return false;
+//
+//        return true;
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return coordinates != null ? Arrays.hashCode(coordinates) : 0;
+//    }
 }

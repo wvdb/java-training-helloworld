@@ -9,7 +9,7 @@ import java.util.Date;
 /**
  * Created by admin on 29/09/2017.
  */
-public class EmployeeServiceImpl implements EmployeeService {
+public class EmployeeServiceImpl extends WorkerServiceImpl implements EmployeeService {
     // hier zouden we bvb typisch een JSON of XML request als parameter hebben
     @Override
     public Employee createEmployee(Manager manager, String name, Integer age, Worker.Gender gender, Date hireDate) {
@@ -31,6 +31,22 @@ public class EmployeeServiceImpl implements EmployeeService {
 //            this.validEmployee = false;
 //        }
         return false;
+    }
+
+    private void myPrivateMethod1() {
+
+    }
+
+    private void myPrivateMethod2() {
+
+    }
+
+    private void myPrivateMethod3() {
+
+    }
+
+    @Override
+    public void dummyMethod1() {
     }
 
 }
