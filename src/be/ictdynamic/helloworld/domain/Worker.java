@@ -192,6 +192,12 @@ public abstract class Worker extends DatabaseEntity implements Workable {
         this.socialSecurityNumber = socialSecurityNumber;
     }
 
+    public static void getCountries() {
+        for (Country country : Country.values()) {
+            System.out.println(country);
+        }
+    }
+
     public Country getCountry() {
         return country;
     }

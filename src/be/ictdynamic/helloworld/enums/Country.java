@@ -4,9 +4,9 @@ package be.ictdynamic.helloworld.enums;
  * Created by admin on 19/10/2017.
  */
 public enum Country {
-    BELGIUM(1, "Belg"),
-    NETHERLANDS(2, "Nederlander"),
-    GERMANY(3, "Germany");
+    BELGIUM(1, "België"),
+    NETHERLANDS(2, "Nederland"),
+    GERMANY(3, "Duitsland");
 
     private final int countryIndex;
     private final String nationality;

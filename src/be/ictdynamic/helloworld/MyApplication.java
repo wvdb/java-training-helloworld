@@ -102,6 +102,9 @@ public class MyApplication {
             case 9:
                 MyApplication.oefeningEnum_9();
                 break;
+            case 999:
+                MyApplication.oefeningPeriodDuration();
+                break;
             case 10:
                 MyApplication.oefeningException_10();
                 break;
@@ -1078,6 +1081,24 @@ public class MyApplication {
                 System.out.println("month " + monthEnumeration + " is written as " + monthAsString);
             }
         }
+    }
+
+    private static void oefeningPeriodDuration() {
+        Duration duration1 = Duration.between(Instant.now(), Instant.now().plusSeconds(3610));
+        System.out.println("duration1 = " + duration1);
+
+        Duration duration2 = Duration.between(Instant.now(), Instant.now().plusSeconds(3600 * 24 + 3600));
+        System.out.println("duration2 = " + duration2);
+
+        Period period = Period.between(LocalDate.now(), LocalDate.of(2019, 1, 10));
+        System.out.println("period = " + period);
+
+        Duration duration3 = Duration.parse("PT72H10S");
+        System.out.println("duration3 = " + duration3.get(ChronoUnit.SECONDS));
+
+        Period period1 = Period.parse("P4D");
+
+        System.out.println("nu = " + ZonedDateTime.now());
     }
 
     private static void oefeningException_10() throws MyCustomizedException {
