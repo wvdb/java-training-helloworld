@@ -5,12 +5,14 @@ import java.util.Arrays;
 /**
  * Created by admin on 17/10/2017.
  */
-public class Shape {
+public abstract class Shape {
     public static int count;
     private int[] coordinates;
 
     public Shape() {
     }
+
+    public abstract void dummy();
 
     public Shape(int[] coordinates) {
         this.coordinates = coordinates;

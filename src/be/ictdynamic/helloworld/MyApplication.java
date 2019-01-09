@@ -565,6 +565,8 @@ public class MyApplication {
         myPig.grunt();
         // MyPig get access to the default interface method as well !!!
         myPig.fly();
+
+        myPig.dy();
     }
 
     static private void oefeningConditionalOperatorAndShiftOperator_4A() {

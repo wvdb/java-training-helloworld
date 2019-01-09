@@ -9,4 +9,8 @@ public interface Pig {
     default void fly() {
         System.out.println("Our pig is flying");
     }
+
+    default void dy() {
+        System.out.println("Psssssssssssssssss...");
+    }
 }

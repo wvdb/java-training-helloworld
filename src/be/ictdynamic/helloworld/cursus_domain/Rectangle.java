@@ -1,5 +1,6 @@
 package be.ictdynamic.helloworld.cursus_domain;
 
+import java.awt.*;
 import java.util.Arrays;
 
 /**
@@ -27,12 +28,22 @@ public class Rectangle extends Shape implements Drawable2 {
         this(0, 0, null);
     }
 
+    @Override
+    public void dummy() {
+
+    }
+
     public Rectangle(Rectangle rectangle) {
         this(rectangle.height, rectangle.width, rectangle.getCoordinates());
     }
 
     public int getHeight() {
         return height;
+    }
+
+    @Override
+    public void setDefaultColor(Graphics graphics) {
+
     }
 
     protected void setHeight(int height) {
