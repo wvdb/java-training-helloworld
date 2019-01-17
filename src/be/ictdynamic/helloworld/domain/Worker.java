@@ -206,6 +206,9 @@ public abstract class Worker extends DatabaseEntity implements Workable {
         this.country = country;
     }
 
+    public static void myDummyStaticMethod() {
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

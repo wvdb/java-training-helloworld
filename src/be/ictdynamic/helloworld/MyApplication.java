@@ -7,9 +7,6 @@ import be.ictdynamic.helloworld.enums.Country;
 import be.ictdynamic.helloworld.enums.IPhoneType;
 import be.ictdynamic.helloworld.enums.MonthEnumeration;
 import be.ictdynamic.helloworld.exception.MyCustomizedException;
-import be.ictdynamic.helloworld.oefening_inheritance_1.DateHelper;
-import be.ictdynamic.helloworld.oefening_inheritance_1.EuropeanDateHelper;
-import be.ictdynamic.helloworld.oefening_inheritance_1.IDateHelper;
 import be.ictdynamic.helloworld.oefening_inner_class_6.CustomerDNAFile;
 import be.ictdynamic.helloworld.oefening_interfaces_2.DummyInterface;
 import be.ictdynamic.helloworld.oefening_interfaces_2.DummyInterfaceImpl1;
@@ -64,9 +61,7 @@ public class MyApplication {
                 break;
             case 0:
                 MyApplication.oefeningInheritance_0();
-                break;
-            case 1:
-                MyApplication.oefeningInheritance_1();
+                MyApplication.oefeningInheritanceHelper_1A();
                 break;
             case 2:
 //                MyApplication.oefeningInterfaces_2A();
@@ -330,12 +325,13 @@ public class MyApplication {
     private static void oefeningInheritance_0() {
         Object o = new Square(10, null);
 
-        Square s = new Square(10, null);
-        System.out.println("Minimum area = " + Square.MINIMUM_AREA);
-        System.out.println("Aantal: " + s.getNumberOfAngles());
-        s.setWidth(50);
-
+        Square mySquare = new Square(10, null);
+        mySquare.setWidth(50);
         Rectangle rectangle = new Rectangle(10, 5, null);
+
+        System.out.println("Minimum area = " + Square.MINIMUM_AREA);
+        System.out.println("Number of rectangles: " + mySquare.getNumberOfAngles());
+        System.out.println("Number of rectangles: " + Rectangle.NUMBER_OF_ANGLES);
 
         // constructors worden niet overgeërfd
 //        Square square = new Square(10, 5, null);
@@ -353,9 +349,9 @@ public class MyApplication {
 
         Drawable2 drawable2 = new Rectangle2();
 
-        // example of builder pattern when instantiating Rectangle2 (with downcast)
+        // example of builder pattern when instantiating Rectangle2 (with UP CAST)
         Square aDifferentRectangle = new Rectangle2()
-//                .withCoordinates(new int[2])
+                .withCoordinates(new int[2])
                 .withHeight(50).withWidth(100);
 
         aDifferentRectangle.getWidth();
@@ -387,57 +383,20 @@ public class MyApplication {
         System.out.println("Is this rectangle an instance of a square?" + (rectangle instanceof Square));
     }
 
-    private static void oefeningInheritance_1() {
-        IDateHelper dateHelper1 = new DateHelper();
-
-        EuropeanDateHelper europeanDateHelper = new EuropeanDateHelper();
-
-        // another example of design by interface
-        IDateHelper dateHelper2 = new EuropeanDateHelper();
-
-        // this interface is an instance of particular Class
-        if (dateHelper2 instanceof EuropeanDateHelper) {
-            System.out.println("dateHelper2 is an instance of EuropeanDateHelper");
-        }
-        else {
-            System.out.println("Houston we have a problem.");
-        }
-
-        // this interface is an instance of particular super Class
-        if (dateHelper2 instanceof DateHelper) {
-            System.out.println("dateHelper2 is an instance of DateHelper");
-        }
-        else {
-            System.out.println("Houston we have a problem.");
-        }
-
-        oefeningInheritanceHelper_1A();
-
-        oefeningInheritanceHelperWithBirthDate_1B();
-    }
-
     private static void oefeningInheritanceHelper_1A() {
-
-        DateHelper dateHelper = new DateHelper();
-        EuropeanDateHelper europeanDateHelper = new EuropeanDateHelper();
-
-//        System.out.println("date = " + dateHelper.getCurrentDateAsString());
-//        System.out.println("date = " + europeanDateHelper.getCurrentDateAsString());
-
         Employee employee = new Employee(null, "wim van den brande", 15, null, null);
 
-        // every employee is a worker
+        // every employee is a worker (upcasting doesn't require an explicit cast)
         Worker worker = employee;
 
         doSomethingWithWorker(worker);
 
-        // we cannot make a worker an employee
+        // we cannot make a worker an employee (downcasting requires an explicit cast)
 //        employee = worker;
 
         // but we can cast to an Employee
         Employee workerCastedToEmployee = (Employee) worker;
 
-        // Employee inherits the static properties as well
         System.out.println("An employee is eligible for remuneration? : " + Employee.isEligibleForRemuneration);
     }
 
@@ -932,6 +891,10 @@ public class MyApplication {
 
         // refer to late
         worker.testInstanceMethod();
+
+        Employee.Address address1 = new Employee().new Address();
+        Employee.Address address2A = employee.new Address();
+        Employee.Address address2B = employee.new Address();
     }
 
     private static void oefeningWithAssert_7() {

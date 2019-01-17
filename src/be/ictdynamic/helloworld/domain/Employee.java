@@ -41,8 +41,15 @@ public class Employee extends Worker {
         super();
     }
 
-//    Does not compile !!!
-//    @Override
+    // Does not compile !!!
+    // @Override
+    // the old static method is just hidden, not overridden!!!
+    public static void myDummyStaticMethod() {
+    }
+
+    // Does not compile !!!
+    // @Override
+    // the old static method is just hidden, not overridden!!!
     public static void testClassMethod() {
         System.out.println("The static method in Employee");
     }
@@ -172,6 +179,9 @@ public class Employee extends Worker {
         private String houseNo;
         private String zip;
         private String city;
+
+        public Address() {
+        }
 
         public Address(String street, String houseNo, String zip, String city) {
             this.street = street;

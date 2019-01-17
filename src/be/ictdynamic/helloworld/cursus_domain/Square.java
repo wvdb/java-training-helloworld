@@ -6,6 +6,7 @@ package be.ictdynamic.helloworld.cursus_domain;
 public class Square extends Rectangle {
     public static final int MINIMUM_AREA = 100;
     public static final int MAXIMUM_AREA = 10000;
+    public static final int NUMBER_OF_ANGLES = 8;
 
     public Square(int side, int[] coordinates) {
         super(side, side, coordinates);
