@@ -330,8 +330,9 @@ public class MyApplication {
         Rectangle rectangle = new Rectangle(10, 5, null);
 
         System.out.println("Minimum area = " + Square.MINIMUM_AREA);
-        System.out.println("Number of rectangles: " + mySquare.getNumberOfAngles());
-        System.out.println("Number of rectangles: " + Rectangle.NUMBER_OF_ANGLES);
+        // an example of an inherited static method and an inherited static static property
+        System.out.println("Number of rectangles: " + Square.getNumberOfAngles());
+        System.out.println("Number of rectangles: " + Square.NUMBER_OF_ANGLES);
 
         // constructors worden niet overgeërfd
 //        Square square = new Square(10, 5, null);
