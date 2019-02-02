@@ -13,4 +13,8 @@ public interface Pig {
     default void dy() {
         System.out.println("Psssssssssssssssss...");
     }
+
+    default void dummyMethod() {
+        System.out.println("Pig -> dummyMethod");
+    }
 }
