@@ -4,7 +4,7 @@ package be.ictdynamic.helloworld.cursus_domain;
  * Created by admin on 9/09/2017.
  */
 public class Square extends Rectangle {
-    public static final int MINIMUM_AREA = 100;
+    public int MINIMUM_AREA = 100;
     public static final int MAXIMUM_AREA = 10000;
 
     public Square(int side, int[] coordinates) {
@@ -40,7 +40,10 @@ public class Square extends Rectangle {
 
     @Override
     public void setWidth(int width) {
-        setSide(width);
+        System.out.println("invoking the setWidth method of Square");
+        this.height = width;
+        this.width = width;
+//        setSide(width);
 //        setHeight(widht);
 ////        super.setWidth(side);
 //        super.setHeight(side);

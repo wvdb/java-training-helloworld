@@ -11,7 +11,7 @@ import java.util.Set;
 /**
  * Created by wvdbrand on 24/08/2017.
  */
-public abstract class Worker extends DatabaseEntity implements Workable {
+public abstract class Worker extends DatabaseEntity implements Workable, Hireable, Fireable, Retireable {
     static public boolean isEligibleForRemuneration = Boolean.TRUE;
 
     private String firstName;

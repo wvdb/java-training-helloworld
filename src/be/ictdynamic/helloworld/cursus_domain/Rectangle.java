@@ -7,14 +7,14 @@ import java.util.Arrays;
  * Created by admin on 9/09/2017.
  */
 public class Rectangle extends Shape implements Drawable2 {
-    public static final int NUMBER_OF_ANGLES = 4;
-    public static final int MINIMUM_AREA = 16;
+    public static int NUMBER_OF_ANGLES = 4;
+    public int MINIMUM_AREA = 16;
     public static int numberORectanglesConstructed;
 
     public String nameOfRectangle;
 
-    private int height;
-    public int width;
+    protected int height;
+    protected int width;
 
     public Rectangle(int height, int width, int[] coordinates) {
         // TO EXPLAIN : super() should be first statement
@@ -62,7 +62,8 @@ public class Rectangle extends Shape implements Drawable2 {
         return width;
     }
 
-    protected void setWidth(int width) {
+    public void setWidth(int width) {
+        System.out.println("invoking the setWidth method of Rectangle");
         this.width = width;
     }
 

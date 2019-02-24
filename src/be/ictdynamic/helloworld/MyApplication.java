@@ -60,12 +60,14 @@ public class MyApplication {
                 MyApplication.oefeningPrimitives__1();
                 break;
             case 0:
-                MyApplication.oefeningInheritance_0();
-                MyApplication.oefeningInheritanceHelper_1A();
+//                MyApplication.oefeningInheritance_0();
+//                MyApplication.oefeningInheritanceHelper_0A();
+                MyApplication.oefeningInheritanceHelperWithSquareAndRectangle_0B();
                 break;
             case 2:
 //                MyApplication.oefeningInterfaces_2A();
-                MyApplication.oefeningInterfaces_2B();
+//                MyApplication.oefeningInterfaces_2B();
+                MyApplication.oefeningInterfaces_2C();
                 break;
             case 3:
                 MyApplication.oefeningStaticMethodAndInstanceMethod_3();
@@ -326,10 +328,14 @@ public class MyApplication {
         Object o = new Square(10, null);
 
         Square mySquare = new Square(10, null);
+        Rectangle myRectangle = new Square(10, null);
+
         mySquare.setWidth(50);
         Rectangle rectangle = new Rectangle(10, 5, null);
 
-        System.out.println("Minimum area = " + Square.MINIMUM_AREA);
+        System.out.println("Minimum area of mySquare = " + mySquare.MINIMUM_AREA);
+        System.out.println("Minimum area of myRectangle = " + myRectangle.MINIMUM_AREA);
+
         // an example of an inherited static method and an inherited static static property
         System.out.println("Number of rectangles: " + Square.getNumberOfAngles());
         System.out.println("Number of rectangles: " + Square.NUMBER_OF_ANGLES);
@@ -353,7 +359,8 @@ public class MyApplication {
         // example of builder pattern when instantiating Rectangle2 (with UP CAST)
         Square aDifferentRectangle = new Rectangle2()
                 .withCoordinates(new int[2])
-                .withHeight(50).withWidth(100);
+                .withHeight(50)
+                .withWidth(100);
 
         aDifferentRectangle.getWidth();
 
@@ -384,7 +391,7 @@ public class MyApplication {
         System.out.println("Is this rectangle an instance of a square?" + (rectangle instanceof Square));
     }
 
-    private static void oefeningInheritanceHelper_1A() {
+    private static void oefeningInheritanceHelper_0A() {
         Employee employee = new Employee(null, "wim van den brande", 15, null, null);
 
         // every employee is a worker (upcasting doesn't require an explicit cast)
@@ -399,6 +406,11 @@ public class MyApplication {
         Employee workerCastedToEmployee = (Employee) worker;
 
         System.out.println("An employee is eligible for remuneration? : " + Employee.isEligibleForRemuneration);
+    }
+
+    private static void oefeningInheritanceHelperWithSquareAndRectangle_0B() {
+        Rectangle rectangle = new Square();
+        rectangle.setWidth(100);
     }
 
     static private void oefeningInheritanceHelperWithBirthDate_1B() {
@@ -442,6 +454,10 @@ public class MyApplication {
     }
 
     private static void doSomethingWithWorker(Worker worker) {
+        Employee employee = new Employee();
+        Worker w = employee;
+        Object o = employee;
+
         if (worker instanceof Employee) {
             System.out.println("we've got an Employee");
         }
@@ -527,6 +543,12 @@ public class MyApplication {
         myPig.fly();
 
         myPig.dy();
+    }
+
+    public static void oefeningInterfaces_2C() {
+        Son son = new Son();
+        son.canMakeNiceDinners();
+        son.enjoysPlayingTennis();
     }
 
     static private void oefeningConditionalOperatorAndShiftOperator_4A() {
