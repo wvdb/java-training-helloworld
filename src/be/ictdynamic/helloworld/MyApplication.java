@@ -17,6 +17,9 @@ import be.ictdynamic.helloworld.utilities.KeyboardUtility;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -113,7 +116,10 @@ public class MyApplication {
 //                MyApplication.oefeningLargeList_11C();
                 break;
             case 12:
-                MyApplication.oefeningDate_12();
+//                MyApplication.oefeningDate_12();
+//                MyApplication.oefeningDate_instantVsDate_12();
+//                MyApplication.oefeningDate_preJava8_12();
+                MyApplication.oefeningDate_TimeZone_12();
                 break;
             case 13:
                 MyApplication.oefeningMap_13A();
@@ -174,6 +180,37 @@ public class MyApplication {
 
         System.out.println("Leap Year of the date you entered? " + (Year.parse(myDate, ddMMyyyyFormatter)).isLeap());
         System.out.println("My localDate = " + localDate.format(oracleDateFormatter));
+    }
+
+    private static void oefeningDate_instantVsDate_12() {
+        Date now = new Date();
+        Instant myInstant = now.toInstant();
+        now = Date.from(myInstant);
+    }
+
+    private static void oefeningDate_preJava8_12() {
+        Date myDeprecatedDate = new Date(118, 4, 31, 13, 20, 0);
+        System.out.println("My date value = " + myDeprecatedDate);
+
+        Instant myInstantBeforeTheEpoch = Instant.parse("1967-11-02T00:00:00.00Z");
+        System.out.println("My date value = " + myInstantBeforeTheEpoch.toEpochMilli());
+
+        DateFormat df1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+        String string1 = "2001-07-04T12:08:56.235-0700";
+        try {
+            Date result1 = df1.parse(string1);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void oefeningDate_TimeZone_12() {
+        LocalDateTime now = LocalDateTime.now();
+        ZonedDateTime nowInLondon = ZonedDateTime.of(now, ZoneId.of("Europe/London"));
+        ZonedDateTime nowInBrussels = ZonedDateTime.of(now, ZoneId.of("Europe/Brussels"));
+        System.out.println("nowInLondon = " + nowInLondon);
+        System.out.println("nowInBrussels = " + nowInBrussels);
+        System.out.println("equals = " + nowInLondon.toLocalDateTime().equals(nowInBrussels.toLocalDateTime()));
     }
 
     private static void oefeningMap_13A() {
