@@ -116,7 +116,6 @@ public class Employee extends Worker {
         return stringBuilder.toString();
     }
 
-
     // DOES COMPILE OR DOES NOT ???
     // a dummyMethod exists as well in Worker
     // verify access level

@@ -7,6 +7,9 @@ import be.ictdynamic.helloworld.enums.Country;
 import be.ictdynamic.helloworld.enums.IPhoneType;
 import be.ictdynamic.helloworld.enums.MonthEnumeration;
 import be.ictdynamic.helloworld.exception.MyCustomizedException;
+import be.ictdynamic.helloworld.oca.Programmer;
+import be.ictdynamic.helloworld.oca.SubClass;
+import be.ictdynamic.helloworld.oca.Writer;
 import be.ictdynamic.helloworld.oefening_inner_class_6.CustomerDNAFile;
 import be.ictdynamic.helloworld.oefening_interfaces_2.DummyInterface;
 import be.ictdynamic.helloworld.oefening_interfaces_2.DummyInterfaceImpl1;
@@ -89,7 +92,10 @@ public class MyApplication {
             case 6:
                 MyApplication myApplication = new MyApplication();
 //                myApplication.oefeningAbstractClass_6a();
-                MyApplication.oefeningInnerClass_6b();
+//                myApplication.oefeningAbstractClass_OCA_A_6();
+//                myApplication.oefeningAbstractClass_OCA_B_6();
+                myApplication.oefeningConstructor_OCA_6();
+//                MyApplication.oefeningInnerClass_6b();
                 break;
             case 7:
                 MyApplication.oefeningWithAssert_7();
@@ -895,6 +901,35 @@ public class MyApplication {
 
 //      not available
 //        System.out.println("My type of my Iphone = " + iPhone.);
+    }
+
+    private static void oefeningAbstractClass_OCA_A_6() {
+        abstract class Writer {
+            public void write() {
+                System.out.println("writing");
+            }
+        }
+        class Author extends Writer {
+            public void write() {
+                System.out.println("writing book");
+            }
+        }
+        class Programmer extends Writer {
+            public void write() {
+                System.out.println("writing code");
+            }
+        }
+        Writer w = new Programmer();
+        w.write();
+    }
+
+    private static void oefeningAbstractClass_OCA_B_6() {
+        Writer w = new Programmer();
+        w.write();
+    }
+
+    private static void oefeningConstructor_OCA_6() {
+        SubClass subClass = new SubClass();
     }
 
     private static void oefeningInnerClass_6b() {
