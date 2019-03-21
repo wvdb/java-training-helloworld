@@ -1,7 +1,5 @@
 package be.ictdynamic.helloworld.domain;
 
-import be.ictdynamic.helloworld.exception.MyDomainException;
-
 import java.util.Date;
 import java.util.Set;
 

@@ -10,6 +10,12 @@ public class Project extends DatabaseEntity {
     private Date projectStartDate;
     private Date projectEndDate;
 
+    public Project(String name, Date projectStartDate, Date projectEndDate) {
+        this.name = name;
+        this.projectStartDate = projectStartDate;
+        this.projectEndDate = projectEndDate;
+    }
+
     public String getName() {
         return name;
     }

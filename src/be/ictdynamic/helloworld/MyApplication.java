@@ -63,12 +63,13 @@ public class MyApplication {
 
         switch (oefeningInteger) {
             case -1:
-                MyApplication.oefeningPrimitives__1();
+//                MyApplication.oefeningPrimitives__1();
+                MyApplication.oefeningInheritanceHelperWithBirthDate_1B();
                 break;
             case 0:
-//                MyApplication.oefeningInheritance_0();
+                MyApplication.oefeningInheritance_0();
 //                MyApplication.oefeningInheritanceHelper_0A();
-                MyApplication.oefeningInheritanceHelperWithSquareAndRectangle_0B();
+//                MyApplication.oefeningInheritanceHelperWithSquareAndRectangle_0B();
                 break;
             case 2:
 //                MyApplication.oefeningInterfaces_2A();
@@ -98,7 +99,8 @@ public class MyApplication {
 //                MyApplication.oefeningInnerClass_6b();
                 break;
             case 7:
-                MyApplication.oefeningWithAssert_7();
+//                MyApplication.oefeningWithAssert_7();
+                MyApplication.oefeningWithVarArgList1_7();
                 break;
             case 8:
 //                MyApplication.oefeningPrintPiramide_8B();
@@ -106,7 +108,8 @@ public class MyApplication {
                 MyApplication.oefeningParseStringWithBracketsAndUsingAList_8A_V2();
                 break;
             case 9:
-                MyApplication.oefeningEnum_9();
+//                MyApplication.oefeningEnum_9();
+                MyApplication.oefeningInitializationBlock_9();
                 break;
             case 999:
                 MyApplication.oefeningPeriodDuration();
@@ -432,6 +435,16 @@ public class MyApplication {
 
         System.out.println("A square is always an instance of a rectangle? " + (square instanceof Rectangle));
         System.out.println("Is this rectangle an instance of a square?" + (rectangle instanceof Square));
+
+//        Worker worker = new Employee();
+        Worker worker;
+
+        Manager  manager = new Manager("my manager", 50, Worker.Gender.MALE, null);
+        worker = manager;
+
+        if (worker instanceof  Employee) {
+            Employee employee = (Employee) worker;
+        }
     }
 
     private static void oefeningInheritanceHelper_0A() {
@@ -590,6 +603,7 @@ public class MyApplication {
 
     public static void oefeningInterfaces_2C() {
         Son son = new Son();
+        Rectangle rectangle = new Rectangle();
         son.canMakeNiceDinners();
         son.enjoysPlayingTennis();
     }
@@ -1017,6 +1031,24 @@ public class MyApplication {
         // InvalidArgumentException !!!
     }
 
+    private static void oefeningWithVarArgList1_7() {
+//        howMany_7();
+        howMany_7(true);
+        howMany_7(true, true);
+        howMany_7(true, true, true);
+//        howMany_7(true, {true});
+
+//        howMany_7(true, {true, true});
+        boolean[] booleans = {true, true};
+        howMany_7(true, booleans);
+
+        howMany_7(true, new boolean[2]);
+    }
+
+    private static int howMany_7(boolean b1, boolean... booleans) {
+        return booleans.length;
+    }
+
     private static void oefeningParseStringWithBrackets_8A_V1() {
         Scanner reader = new Scanner(System.in);
 
@@ -1128,6 +1160,7 @@ public class MyApplication {
 
     private static void oefeningEnum_9() {
         MonthEnumeration[] months = MonthEnumeration.values();
+
         for (MonthEnumeration month : months) {
             System.out.println("month " + month + " has an index of " + month.getIndex() + ". The ordinal value = " + month.ordinal() + ", numDays = " + month.getDaysInMonth());
             for (String monthAsString : month.getMonthLanguages()) {
@@ -1141,6 +1174,12 @@ public class MyApplication {
                 System.out.println("month " + monthEnumeration + " is written as " + monthAsString);
             }
         }
+    }
+
+    public static void oefeningInitializationBlock_9() {
+        TestClassWithInitializationBlock testClassWithInitializationBlock = new TestClassWithInitializationBlock();
+        System.out.println(TestClassWithInitializationBlock.i);
+        System.out.println(TestClassWithInitializationBlock.i);
     }
 
     private static void oefeningPeriodDuration() {
@@ -1366,9 +1405,6 @@ public class MyApplication {
             }
             else if (worker instanceof Manager) {
                 Manager manager = (Manager) worker;
-                if (isEligibleForHRSystem(manager.getRemunerations(), Manager.MAX_NUMBER_OF_REMUNERATIONS_FOR_MANAGER)) {
-                    numberOfManagers++;
-                }
             }
             else {
                 if (worker != null) {

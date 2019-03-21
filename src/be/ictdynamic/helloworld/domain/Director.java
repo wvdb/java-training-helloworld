@@ -13,6 +13,16 @@ public class Director extends Worker {
         super(name, age, gender, hireDate);
     }
 
+    private class Bonus {
+        private float bonusAmount;
+        private Date bonusReceivedDated;
+
+        public Bonus(float bonusAmount, Date bonusReceivedDated) {
+            this.bonusAmount = bonusAmount;
+            this.bonusReceivedDated = bonusReceivedDated;
+        }
+    }
+
     @Override
     public void setRemunerations(Set<Remuneration> remunerations) {
         if (remunerations.size() < MAX_NUMBER_OF_REMUNERATIONS_FOR_DIRECTOR) {
